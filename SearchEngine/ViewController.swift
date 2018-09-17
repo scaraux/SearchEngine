@@ -22,11 +22,17 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
     
     var queryResults: [Posting] = [Posting]()
     
+    var queryParser = BooleanQueryParser()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        var q = queryParser.parseQuery(query: "this + is + my + query")
+
+        print("done")
     }
 
     override var representedObject: Any? {
@@ -42,7 +48,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
         
         self.queryResults = []
         
-        if let results = index.getPostings(term: queryString) {
+        if let results = index.getPostingsFor(term: queryString) {
             self.queryResults = results
         }
         

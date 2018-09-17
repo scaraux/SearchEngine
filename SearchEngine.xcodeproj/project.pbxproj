@@ -27,6 +27,13 @@
 		D040E693214CA93400A487F5 /* FileDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E692214CA93400A487F5 /* FileDocument.swift */; };
 		D040E695214CBC7700A487F5 /* DocumentFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E694214CBC7700A487F5 /* DocumentFactoryProtocol.swift */; };
 		D0957DC5214DC4740096EFA4 /* String+alphanumeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0957DC4214DC4740096EFA4 /* String+alphanumeric.swift */; };
+		D0FEDE42214F35DE0064B3D5 /* QueryComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEDE41214F35DE0064B3D5 /* QueryComponent.swift */; };
+		D0FEDE44214F36140064B3D5 /* TermLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEDE43214F36140064B3D5 /* TermLiteral.swift */; };
+		D0FEDE46214F373E0064B3D5 /* OrQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEDE45214F373E0064B3D5 /* OrQuery.swift */; };
+		D0FEDE48214F38740064B3D5 /* PhraseLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEDE47214F38740064B3D5 /* PhraseLiteral.swift */; };
+		D0FEDE4A214F3A020064B3D5 /* AndQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEDE49214F3A020064B3D5 /* AndQuery.swift */; };
+		D0FEDE4E214F3ABB0064B3D5 /* BooleanQueryParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEDE4D214F3ABB0064B3D5 /* BooleanQueryParser.swift */; };
+		D0FEDE50214F3DBF0064B3D5 /* String+substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEDE4F214F3DBF0064B3D5 /* String+substring.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +72,13 @@
 		D040E692214CA93400A487F5 /* FileDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDocument.swift; sourceTree = "<group>"; };
 		D040E694214CBC7700A487F5 /* DocumentFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentFactoryProtocol.swift; sourceTree = "<group>"; };
 		D0957DC4214DC4740096EFA4 /* String+alphanumeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+alphanumeric.swift"; sourceTree = "<group>"; };
+		D0FEDE41214F35DE0064B3D5 /* QueryComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryComponent.swift; sourceTree = "<group>"; };
+		D0FEDE43214F36140064B3D5 /* TermLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermLiteral.swift; sourceTree = "<group>"; };
+		D0FEDE45214F373E0064B3D5 /* OrQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrQuery.swift; sourceTree = "<group>"; };
+		D0FEDE47214F38740064B3D5 /* PhraseLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseLiteral.swift; sourceTree = "<group>"; };
+		D0FEDE49214F3A020064B3D5 /* AndQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AndQuery.swift; sourceTree = "<group>"; };
+		D0FEDE4D214F3ABB0064B3D5 /* BooleanQueryParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooleanQueryParser.swift; sourceTree = "<group>"; };
+		D0FEDE4F214F3DBF0064B3D5 /* String+substring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+substring.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +120,7 @@
 		D040E654214C99C900A487F5 /* SearchEngine */ = {
 			isa = PBXGroup;
 			children = (
+				D0FEDE40214F35B60064B3D5 /* Query */,
 				D0957DC3214DC4600096EFA4 /* Extensions */,
 				D040E68D214CA6B100A487F5 /* DocumentCorpus */,
 				D040E688214CA54500A487F5 /* TokenStream */,
@@ -208,8 +223,38 @@
 			isa = PBXGroup;
 			children = (
 				D0957DC4214DC4740096EFA4 /* String+alphanumeric.swift */,
+				D0FEDE4F214F3DBF0064B3D5 /* String+substring.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D0FEDE40214F35B60064B3D5 /* Query */ = {
+			isa = PBXGroup;
+			children = (
+				D0FEDE4C214F3AAD0064B3D5 /* Parser */,
+				D0FEDE4B214F3A720064B3D5 /* Subqueries */,
+				D0FEDE41214F35DE0064B3D5 /* QueryComponent.swift */,
+				D0FEDE43214F36140064B3D5 /* TermLiteral.swift */,
+				D0FEDE47214F38740064B3D5 /* PhraseLiteral.swift */,
+			);
+			path = Query;
+			sourceTree = "<group>";
+		};
+		D0FEDE4B214F3A720064B3D5 /* Subqueries */ = {
+			isa = PBXGroup;
+			children = (
+				D0FEDE49214F3A020064B3D5 /* AndQuery.swift */,
+				D0FEDE45214F373E0064B3D5 /* OrQuery.swift */,
+			);
+			path = Subqueries;
+			sourceTree = "<group>";
+		};
+		D0FEDE4C214F3AAD0064B3D5 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				D0FEDE4D214F3ABB0064B3D5 /* BooleanQueryParser.swift */,
+			);
+			path = Parser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -312,6 +357,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0FEDE42214F35DE0064B3D5 /* QueryComponent.swift in Sources */,
+				D0FEDE4E214F3ABB0064B3D5 /* BooleanQueryParser.swift in Sources */,
 				D0957DC5214DC4740096EFA4 /* String+alphanumeric.swift in Sources */,
 				D040E68F214CA6C300A487F5 /* DocumentCorpusProtocol.swift in Sources */,
 				D040E658214C99C900A487F5 /* ViewController.swift in Sources */,
@@ -321,13 +368,18 @@
 				D040E685214CA1FB00A487F5 /* StreamReader.swift in Sources */,
 				D040E67D214C9BAA00A487F5 /* Index.swift in Sources */,
 				D040E695214CBC7700A487F5 /* DocumentFactoryProtocol.swift in Sources */,
+				D0FEDE44214F36140064B3D5 /* TermLiteral.swift in Sources */,
+				D0FEDE48214F38740064B3D5 /* PhraseLiteral.swift in Sources */,
+				D0FEDE46214F373E0064B3D5 /* OrQuery.swift in Sources */,
 				D040E67F214C9D1100A487F5 /* InvertedIndex.swift in Sources */,
 				D040E656214C99C900A487F5 /* AppDelegate.swift in Sources */,
 				D040E691214CA72500A487F5 /* DirectoryCorpus.swift in Sources */,
 				D040E678214C9B1000A487F5 /* TokenProcessorProtocol.swift in Sources */,
 				D040E693214CA93400A487F5 /* FileDocument.swift in Sources */,
 				D040E68A214CA55900A487F5 /* TokenStreamProtocol.swift in Sources */,
+				D0FEDE50214F3DBF0064B3D5 /* String+substring.swift in Sources */,
 				D040E68C214CA5CA00A487F5 /* EnglishTokenStream.swift in Sources */,
+				D0FEDE4A214F3A020064B3D5 /* AndQuery.swift in Sources */,
 				D040E674214C9A0100A487F5 /* Posting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

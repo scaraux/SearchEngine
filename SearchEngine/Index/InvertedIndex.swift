@@ -16,7 +16,7 @@ class InvertedIndex : Index {
         self.map = [String: [Posting]]()
     }
     
-    func getPostings(term: String) -> [Posting]? {
+    func getPostingsFor(term: String) -> [Posting]? {
         return self.map[term]
     }
     

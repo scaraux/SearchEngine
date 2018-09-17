@@ -10,7 +10,7 @@ import Foundation
 
 protocol Index {
     
-    func getPostings(term: String) -> [Posting]?
+    func getPostingsFor(term: String) -> [Posting]?
     
     func getVocabulary() -> [String]
     
