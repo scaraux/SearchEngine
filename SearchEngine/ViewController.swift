@@ -30,7 +30,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        var q = queryParser.parseQuery(query: "this + is + my + query")
+        var q = queryParser.parseQuery(query: "\"toto\" this is + \"my query\" final")
 
         print("done")
     }

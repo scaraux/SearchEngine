@@ -23,13 +23,14 @@ class BooleanQueryParser {
     
     class Literal {
         
-        var stringBounds: StringBounds
+        let stringBounds: StringBounds
+        let literalComponent: QueryComponent
+        let isPhrase: Bool
         
-        var literalComponent: QueryComponent
-        
-        init(bounds: StringBounds, literal: QueryComponent) {
+        init(bounds: StringBounds, literal: QueryComponent, isPhrase: Bool = false) {
             self.stringBounds = bounds
             self.literalComponent = literal
+            self.isPhrase = isPhrase
         }
     }
     
@@ -37,13 +38,11 @@ class BooleanQueryParser {
         
         var start: Int = 0
         var allSubqueries = [QueryComponent]()
-        
         // General routine: scan the query to identify a literal, and put that literal into a list.
         // Repeat until a + or the end of the query is encountered; build an AND query with each
         // of the literals found. Repeat the scan-and-build-AND-query phase for each segment of the
         // query separated by + signs. In the end, build a single OR query that composes all of the built
         // AND subqueries.
-
         repeat {
             // Identify the next subquery: a portion of the query up to the next + sign.
             let nextSubquery: StringBounds = findNextSubquery(query, startIndex: start)
@@ -55,7 +54,6 @@ class BooleanQueryParser {
             if subQuery == nil {
                 fatalError("Cannot parse message")
             }
-            
             // Store all the individual components of this subquery.
             var subqueryLiterals = [QueryComponent]()
             
@@ -66,12 +64,10 @@ class BooleanQueryParser {
                 subqueryLiterals.append(lit.literalComponent)
                 // Set the next index to start searching for a literal.
                 subStart = lit.stringBounds.start + lit.stringBounds.length
-                
             } while subStart < subQuery!.count
             
             // After processing all literals, we are left with a list of query components that we are
             // ANDing together, and must fold that list into the final OR list of components.
-            
             // If there was only one literal in the subquery, we don't need to AND it with anything --
             // its component can go straight into the list.
             if subqueryLiterals.count == 1 {
@@ -81,11 +77,9 @@ class BooleanQueryParser {
             else {
                 allSubqueries.append(AndQuery(components: subqueryLiterals))
             }
-            
             start = nextSubquery.start + nextSubquery.length
             
         } while start < query.count
-        
         // After processing all subqueries, we either have a single component or multiple components
         // that must be combined with an OrQuery.
         if allSubqueries.count == 1 {
@@ -127,42 +121,48 @@ class BooleanQueryParser {
     }
     
     func findNextLiteral(subquery: String, startIndex: Int) -> Literal {
+        let nextDelimiter: Int
         let subLength: Int = subquery.count
+        var isPhrase: Bool = false
+        var startIndex = startIndex
         var lengthOut: Int
-        var startPosition: Int = startIndex
         
-        // Skip past white space.
-        while subquery[startPosition] == " " {
-            startPosition += 1
+        // Skip past white spaces
+        while subquery[startIndex] == " " {
+            startIndex += 1
+        }
+        // If subquery starts by a " character, its a phrase literal
+        // Locate the next closing " to find the end of this phrase
+        if subquery[startIndex] == "\"" {
+            isPhrase = true
+            nextDelimiter = subquery.nextIndexAfter(of: "\"", from: startIndex + 1) + 1
         }
         // Locate the next space to find the end of this literal.
-        let nextSpace = subquery.nextIndexAfter(of: " ", from: startPosition)
+        else {
+            nextDelimiter = subquery.nextIndexAfter(of: " ", from: startIndex)
+        }
         // No more literals in this subquery.
-        if nextSpace < 0 {
-            lengthOut = subLength - startPosition
+        if nextDelimiter < 0 {
+            // No end delimiter for phrase literal
+            if isPhrase {
+                fatalError("Cannot parse query, phrase literal needs to end with a \"")
+            }
+            lengthOut = subLength - startIndex
         }
         else {
-            lengthOut = nextSpace - startPosition
+            lengthOut = nextDelimiter - startIndex
         }
-        
-        let finalBounds = StringBounds(start: startPosition, length: lengthOut)
-        let sub = subquery.substring(startPosition, lengthOut)
-        
-        if sub == nil {
+        // Final bounds for term
+        let finalBounds = StringBounds(start: startIndex, length: lengthOut)
+        // String representation of the term
+        guard let term = subquery.substring(startIndex, lengthOut) else {
             fatalError("Cannot find next literal for string \(subquery) at position \(startIndex)")
         }
-        let termLiteral = TermLiteral(term: sub!)
-        
+        // If term is a phrase, add is as PhraseLiteral
+        if isPhrase {
+            return Literal(bounds: finalBounds, literal: PhraseLiteral(terms: term), isPhrase: false)
+        }
         // This is a term literal containing a single term.
-        return Literal(bounds: finalBounds, literal: termLiteral)
-
-        /*
-         TODO:
-         Instead of assuming that we only have single-term literals, modify this method so it will create a PhraseLiteral
-         object if the first non-space character you find is a double-quote ("). In this case, the literal is not ended
-         by the next space character, but by the next double-quote character. Construct a PhraseLiteral object wrapping
-         each of the individual terms in the phrase in this case.
-         */
-        
+        return Literal(bounds: finalBounds, literal: TermLiteral(term: term))
     }
 }
