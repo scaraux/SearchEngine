@@ -10,7 +10,7 @@ import Foundation
 
 protocol QueryComponent {
     
-    func getPostingsFor(index: Index) -> [Posting]?
+    func getResultsFrom(index: Index) -> [Result]?
     
     func toString() -> String
     

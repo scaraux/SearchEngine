@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol DocumentCorpusProtocol {
+protocol DocumentCorpus {
     
     var corpusSize: Int { get }
     

@@ -160,7 +160,8 @@ class BooleanQueryParser {
         }
         // If term is a phrase, add is as PhraseLiteral
         if isPhrase {
-            return Literal(bounds: finalBounds, literal: PhraseLiteral(terms: term), isPhrase: false)
+            let phraseTerms = term.replacingOccurrences(of: "\"", with: "", options: NSString.CompareOptions.literal, range: nil)
+            return Literal(bounds: finalBounds, literal: PhraseLiteral(terms: phraseTerms), isPhrase: false)
         }
         // This is a term literal containing a single term.
         return Literal(bounds: finalBounds, literal: TermLiteral(term: term))

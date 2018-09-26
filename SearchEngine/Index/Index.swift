@@ -12,6 +12,9 @@ protocol Index {
     
     func getPostingsFor(term: String) -> [Posting]?
     
+    func getResultsFor(term: String) -> [Result]?
+    
     func getVocabulary() -> [String]
     
+    func clear() -> Void
 }

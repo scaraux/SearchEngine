@@ -8,89 +8,31 @@
 
 import Cocoa
 
-class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
+class ViewController: NSViewController, EngineDelegate {
 
     @IBOutlet weak var directoryPathLabel: NSTextField!
     @IBOutlet weak var queryInput: NSTextField!
     @IBOutlet weak var tableView: NSTableView!
     
-    var queryString: String = ""
-    
-    var corpus: DocumentCorpusProtocol?
-    
-    var index: Index?
-    
-    var queryResults: [Posting] = [Posting]()
-    
-    var queryParser = BooleanQueryParser()
-    
+    var engine = Engine()
+    var queryResults: [Result]?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.engine.delegate = self
         
-        var q = queryParser.parseQuery(query: "\"toto\" this is + \"my query\" final")
-
-        print("done")
+        // DEBUG
+        self.directoryPathLabel.stringValue = "DEBUG"
+        self.engine.initCorpus(withPath: URL(fileURLWithPath: "/Users/rakso/Desktop/CECS/529/Corpus", isDirectory: true))
     }
 
     override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
         }
-    }
-    
-    func execQuery(queryString: String) -> Void {
-        guard let index = self.index else {
-            return
-        }
-        
-        self.queryResults = []
-        
-        if let results = index.getPostingsFor(term: queryString) {
-            self.queryResults = results
-        }
-        
-        self.tableView.reloadData()
-//        if let postings: [Posting] = index.getPostings(term: queryString) {
-//            for posting in postings {
-//                if let doc: Document = corpus!.getDocumentWith(id: posting.documentId) {
-//                    print(doc.title)
-//                }
-//            }
-//            self.tableView.reloadData()
-//        }
-    }
-
-    func initCorpus(withPath path: URL) -> Void {
-        self.directoryPathLabel.stringValue = path.absoluteString
-        self.corpus = DirectoryCorpus.loadDirectoryCorpus(absolutePath: path, fileExtension: "txt")
-        self.index = indexCorpus(self.corpus!)
-    }
-    
-    func indexCorpus(_ corpus: DocumentCorpusProtocol) -> Index {
-        let processor: BasicTokenProcessor = BasicTokenProcessor()
-        let documents: [Document] = corpus.getDocuments()
-        
-        let index = InvertedIndex()
-    
-        for doc in documents {
-            guard let stream = doc.getContent() else {
-                print("Error: Cannot create stream for file \(doc.documentId)")
-                continue
-            }
-            let tokenStream = EnglishTokenStream(stream)
-            let tokens = tokenStream.getTokens()
-            
-            for rawToken in tokens {
-                
-                let processedToken: String = processor.processToken(token: rawToken)
-                index.addTerm(term: processedToken, documentId: doc.documentId)
-            }
-            tokenStream.dispose()
-        }
-        return index
     }
     
     func pickBaseFolderWithModal() -> URL? {
@@ -110,41 +52,54 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
         return nil
     }
     
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return self.queryResults.count
+    func onCorpusInitialized() {
+        
     }
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let posting = self.queryResults[row]
-        let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
-        cell?.textField?.stringValue = String(posting.documentId)
-        return cell
+    
+    func onQueryResulted(results: [Result]?) {
+//        let documents = results.map { self.corpus!.getDocumentWith(id: $0.documentId)! }
+
+        self.queryResults = results
+        self.tableView.reloadData()
     }
     
     @IBAction func chooseFolderTouchUp(_ sender: Any) {
         if let path = pickBaseFolderWithModal() {
-            initCorpus(withPath: path)
+            self.directoryPathLabel.stringValue = path.absoluteString
+            self.engine.initCorpus(withPath: path)
         }
     }
     
     @IBAction func queryTouchUp(_ sender: Any) {
-        self.queryString = self.queryInput.stringValue
-        execQuery(queryString: queryString)
+        let queryString = self.queryInput.stringValue
+        self.engine.execQuery(queryString: queryString)
+    }
+}
+
+extension ViewController: NSTableViewDelegate, NSTableViewDataSource {
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return self.queryResults?.count ?? 0
     }
     
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard let result = self.queryResults?[row] else {
+            return nil
+        }
+        
+        if tableColumn == tableView.tableColumns[0] {
+            let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
+            cell?.textField?.stringValue = String(result.documentId)
+            return cell
+        }
+        
+        if tableColumn == tableView.tableColumns[1] {
+            let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
+            cell?.textField?.stringValue = String(result.document!.title)
+            return cell
+        }
+        
+        let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
+        cell?.textField?.stringValue = result.matchingForTerms.compactMap({$0}).joined(separator: " ")
+        return cell
+    }
 }
-//
-//extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
-//
-//    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-//        return self.queryResults.count
-//    }
-//
-//    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-//
-//        let posting = self.queryResults[row]
-//        let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
-//        cell?.textField?.stringValue = String(posting.documentId)
-//        return cell
-//    }
-//}
-

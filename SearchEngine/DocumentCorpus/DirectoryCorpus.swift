@@ -9,7 +9,7 @@
 import Foundation
 import Cocoa
 
-class DirectoryCorpus: DocumentCorpusProtocol {
+class DirectoryCorpus: DocumentCorpus {
     
     let fileManager = FileManager.default
     
@@ -57,7 +57,7 @@ class DirectoryCorpus: DocumentCorpusProtocol {
         if self.documents == nil {
             self.documents = readDocuments()
         }
-        return Array(self.documents!.values)
+        return Array(self.documents!.values).sorted(by: { $0.documentId < $1.documentId })
     }
     
     func getDocumentWith(id: Int) -> Document? {

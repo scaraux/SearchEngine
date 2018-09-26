@@ -9,9 +9,21 @@
 import Foundation
 
 class Posting {
-    var documentId: Int = -1
     
-    init(_ documentId: Int) {
-        self.documentId = documentId
+    var documentId: Int = -1
+    var positions: [Int]
+    var term: String
+
+    init(withId id: Int, atPosition position: Int, forTerm term: String) {
+        self.documentId = id
+        self.positions = [Int]()
+        self.positions.append(position)
+        self.term = term
+    }
+    
+    func addPosition(_ position: Int) -> Void {
+        self.positions.append(position)
     }
 }
+
+
