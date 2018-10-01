@@ -21,14 +21,14 @@ class Engine {
     }
     
     func execQuery(queryString: String) -> Void {
-        //        let query: QueryComponent? = queryParser.parseQuery(query: queryString)
-        //
-        //        if var results: [QueryResult] = query?.getResultsFrom(index: self.index) {
-        //            results = attachDocumentsToResults(results: results)
-        //            self.delegate?.onQueryResulted(results: results)
-        //            return
-        //        }
-        //        self.delegate?.onQueryResulted(results: nil)
+        let query: QueryComponent? = queryParser.parseQuery(query: queryString)
+
+        if var results: [QueryResult] = query?.getResultsFrom(index: self.index) {
+            results = attachDocumentsToResults(results: results)
+            self.delegate?.onQueryResulted(results: results)
+            return
+        }
+        self.delegate?.onQueryResulted(results: nil)
     }
     
     func initCorpus(withPath path: URL) -> Void {
@@ -53,7 +53,8 @@ class Engine {
             var tokenPosition = 0
             for rawToken in tokens {                
                 let processedToken: String = processor.processToken(token: rawToken)
-                index.addTerm(processedToken, withId: doc.documentId, atPosition: tokenPosition)
+                self.index.addTerm(processedToken, withId: doc.documentId, atPosition: tokenPosition)
+                KGramIndex.shared().registerGramsFor(type: processedToken)
                 tokenPosition += 1
             }
             tokenStream.dispose()
@@ -62,7 +63,7 @@ class Engine {
     
     private func attachDocumentsToResults(results: [QueryResult]) -> [QueryResult] {
         for queryResult in results {
-            queryResult.document = self.corpus?.getDocumentWith(id: queryResult.documentId)
+            queryResult.document = self.corpus?.getFileDocumentWith(id: queryResult.documentId)
         }
         return results
     }

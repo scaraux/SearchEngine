@@ -15,4 +15,6 @@ protocol DocumentCorpus {
     func getDocuments() -> [Document]
     
     func getDocumentWith(id: Int) -> Document?
+    
+    func getFileDocumentWith(id: Int) -> FileDocument?
 }

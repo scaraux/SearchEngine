@@ -11,7 +11,7 @@ import Foundation
 class QueryResult {
     
     var documentId: Int
-    var document: Document?
+    var document: FileDocument?
     var posting: Posting
     var matchingForTerms: [String]
     

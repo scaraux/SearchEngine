@@ -100,8 +100,6 @@ class SearchEngineTests: XCTestCase {
     func matchCandidatesForGrams() {
         let term = "re*ve"
         
-        
-        print(candidates)
     }
     
 //    func testPerformanceExample() {

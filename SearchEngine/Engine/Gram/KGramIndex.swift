@@ -40,15 +40,31 @@ class KGramIndex {
         if self.gramIndex[gram] == nil {
             self.gramIndex[gram] = [String]()
         }
-        self.gramIndex[gram]!.append(type)
+        if gramIndex[gram]!.contains(type) == false {
+            self.gramIndex[gram]!.append(type)
+        }
     }
     
-    func test() {
-        print("test")
-    }
+    func getMatchingCandidatesFor(term: String) -> [String]? {
+        var candidates = [String]()
+        let grams = getMatchingGramsFor(term: term)!
+        
+        if let newCandidates = self.gramIndex[grams[0]] {
+            candidates = newCandidates
+        }
+        else {
+            return nil
+        }
 
-    func getMatchingCandidatesFor(gram: String) -> [String]? {
-        return self.gramIndex[gram]
+        for i in 1 ..< grams.count {
+            if let newCandidates = self.gramIndex[grams[i]] {
+                candidates = Array(Set(candidates).intersection(Set(newCandidates)))
+            }
+            else {
+                return nil
+            }
+        }
+        return candidates
     }
     
     
@@ -79,7 +95,7 @@ class KGramIndex {
         }
     }
     
-    func getMatchingGramsFor(term: String) -> [String]? {
+    private func getMatchingGramsFor(term: String) -> [String]? {
         var grams = [String]()
         // Wrap the term with dollar signs, at beginning and end
         let term = Constants.DollarSignCharacter + term + Constants.DollarSignCharacter

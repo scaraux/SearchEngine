@@ -64,6 +64,10 @@ class DirectoryCorpus: DocumentCorpus {
         return self.documents?[id]
     }
     
+    func getFileDocumentWith(id: Int) -> FileDocument? {
+        return self.documents?[id]
+    }
+    
     func registerFileDocumentFactoryFor(fileExtension: String, factory: DocumentFactoryProtocol) {
         self.factories[fileExtension] = factory
     }

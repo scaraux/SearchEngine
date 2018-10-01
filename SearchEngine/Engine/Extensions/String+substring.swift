@@ -11,7 +11,7 @@ import Foundation
 extension String {
     
     func substring(_ location: Int, _ length: Int) -> String? {
-        guard characters.count >= location + length else { return nil }
+        guard count >= location + length else { return nil }
         let start = index(startIndex, offsetBy: location)
         let end = index(startIndex, offsetBy: location + length)
         return substring(with: start..<end)

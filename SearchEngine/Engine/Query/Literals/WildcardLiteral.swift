@@ -17,18 +17,25 @@ class WildcardLiteral: QueryComponent {
     }
     
     func getResultsFrom(index: Index) -> [QueryResult]? {
-        var grams = KGramIndex.shared().getMatchingGramsFor(term: self.term)
-        
-        for gram in grams {
-            
-            var candidates = KGramIndex.shared().getMatchingCandidatesFor(gram: gram)
+        var mergedResults = [QueryResult]()
+
+        guard var candidates = KGramIndex.shared().getMatchingCandidatesFor(term: self.term) else {
+            return nil
         }
         
+        if let newResults = index.getQueryResultsFor(term: candidates[0]) {
+            mergedResults.append(contentsOf: newResults)
+        }
         
-        return nil
+        for i in 1 ..< candidates.count {
+            if let newResults = index.getQueryResultsFor(term: candidates[i]) {
+                mergedResults = orMerge(left: mergedResults, right: newResults)
+            }
+        }
+        return mergedResults
     }
     
-    func andMerge(left: [QueryResult], right: [QueryResult]) -> [QueryResult] {
+    func orMerge(left: [QueryResult], right: [QueryResult]) -> [QueryResult] {
         
         var queryResults = [QueryResult]()
         var i: Int = 0
@@ -42,10 +49,26 @@ class WildcardLiteral: QueryComponent {
                 j += 1
             }
             else if left[i].documentId > right[j].documentId {
+                queryResults.append(right[j])
                 j += 1
             }
             else if left[i].documentId < right[j].documentId {
+                queryResults.append(left[i])
                 i += 1
+            }
+        }
+        
+        if i < left.count {
+            while i < left.count {
+                queryResults.append(left[i])
+                i += 1
+            }
+        }
+        
+        if j < right.count {
+            while j < right.count {
+                queryResults.append(right[j])
+                j += 1
             }
         }
         return queryResults

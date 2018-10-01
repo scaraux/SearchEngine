@@ -701,6 +701,52 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
+        <!--File Preview Controller-->
+        <scene sceneID="48Q-OA-6jr">
+            <objects>
+                <viewController storyboardIdentifier="FilePreviewController" id="q3f-Ww-nNs" customClass="FilePreviewController" customModule="SearchEngine" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="eFh-ln-jJT">
+                        <rect key="frame" x="0.0" y="0.0" width="457" height="304"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4v-KZ-Cl5">
+                                <rect key="frame" x="0.0" y="0.0" width="457" height="304"/>
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="glT-Pb-vGQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="457" height="304"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="LiU-zB-V4N">
+                                            <rect key="frame" x="0.0" y="0.0" width="457" height="304"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <size key="minSize" width="457" height="304"/>
+                                            <size key="maxSize" width="457" height="10000000"/>
+                                            <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        </textView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="aYT-hB-WQ6">
+                                    <rect key="frame" x="441" y="0.0" width="16" height="304"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="O4v-KZ-Cl5" firstAttribute="leading" secondItem="eFh-ln-jJT" secondAttribute="leading" id="8LM-zP-Eoj"/>
+                            <constraint firstItem="O4v-KZ-Cl5" firstAttribute="top" secondItem="eFh-ln-jJT" secondAttribute="top" id="O9Z-fX-b37"/>
+                            <constraint firstAttribute="bottom" secondItem="O4v-KZ-Cl5" secondAttribute="bottom" id="Rcx-yJ-0mH"/>
+                            <constraint firstAttribute="trailing" secondItem="O4v-KZ-Cl5" secondAttribute="trailing" id="mvL-7m-tKa"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="LiU-zB-V4N" id="Pst-X4-CaY"/>
+                    </connections>
+                </viewController>
+                <customObject id="Pa2-Zz-BH3" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="597" y="250"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>

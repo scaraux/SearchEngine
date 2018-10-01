@@ -8,6 +8,10 @@
 
 import Cocoa
 
+//fileprivate extension Selector {
+//    static let onTableViewRowDoubleClicked = #selector(onTableViewRowDoubleClicked)
+//}
+
 class ViewController: NSViewController, EngineDelegate {
 
     @IBOutlet weak var directoryPathLabel: NSTextField!
@@ -22,6 +26,7 @@ class ViewController: NSViewController, EngineDelegate {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.doubleAction = #selector(onTableViewRowDoubleClicked)
         self.engine.delegate = self
         
         // DEBUG
@@ -35,7 +40,16 @@ class ViewController: NSViewController, EngineDelegate {
         }
     }
     
-    func pickBaseFolderWithModal() -> URL? {
+    func onCorpusInitialized() {
+        
+    }
+    
+    func onQueryResulted(results: [QueryResult]?) {
+        self.queryResults = results
+        self.tableView.reloadData()
+    }
+    
+    private func pickBaseFolderWithModal() -> URL? {
         let openPanel = NSOpenPanel();
         openPanel.title = "Select a folder"
         openPanel.message = "Pick a folder"
@@ -51,16 +65,25 @@ class ViewController: NSViewController, EngineDelegate {
         }
         return nil
     }
-    
-    func onCorpusInitialized() {
-        
+
+    @objc private func onTableViewRowDoubleClicked() -> Void {
+        let selectedRow = self.tableView.selectedRow
+        guard let relatedQueryResult = self.queryResults?[selectedRow] else {
+            return
+        }
+        openFilePreviewController(queryResult: relatedQueryResult)
     }
     
-    func onQueryResulted(results: [QueryResult]?) {
-//        let documents = results.map { self.corpus!.getDocumentWith(id: $0.documentId)! }
-
-        self.queryResults = results
-        self.tableView.reloadData()
+    private func openFilePreviewController(queryResult: QueryResult) -> Void {
+        var secondaryWindow: NSWindow? = nil
+        let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
+        let previewController: FilePreviewController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "FilePreviewController")) as! FilePreviewController
+        previewController.queryData = queryResult
+        secondaryWindow = NSWindow(contentViewController: previewController)
+        secondaryWindow?.setContentSize(NSSize(width: 700, height: 1000))
+        secondaryWindow!.makeKeyAndOrderFront(self)
+        let windowController = NSWindowController(window: secondaryWindow)
+        windowController.showWindow(self)
     }
     
     @IBAction func chooseFolderTouchUp(_ sender: Any) {
