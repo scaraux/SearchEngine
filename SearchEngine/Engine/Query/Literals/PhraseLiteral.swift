@@ -20,10 +20,10 @@ class PhraseLiteral: QueryComponent {
         self.terms.append(contentsOf: terms.components(separatedBy: " "))
     }
     
-    func getResultsFrom(index: Index) -> [Result]? {
-        var mergedResults: [Result]
+    func getResultsFrom(index: Index) -> [QueryResult]? {
+        var mergedResults: [QueryResult]
 
-        if let newResults = index.getResultsFor(term: terms[0]) {
+        if let newResults = index.getQueryResultsFor(term: terms[0]) {
             mergedResults = newResults
         }
         else {
@@ -31,7 +31,7 @@ class PhraseLiteral: QueryComponent {
         }
         
         for i in 1 ..< self.terms.count {
-            if let newResults = index.getResultsFor(term: terms[i]) {
+            if let newResults = index.getQueryResultsFor(term: terms[i]) {
                 mergedResults = positionalMerge(left: mergedResults, right: newResults)
             }
             else {
@@ -42,16 +42,17 @@ class PhraseLiteral: QueryComponent {
         return mergedResults
     }
     
-    func positionalMerge(left: [Result], right: [Result]) -> [Result] {
+    func positionalMerge(left: [QueryResult], right: [QueryResult]) -> [QueryResult] {
+        
+        var queryResults = [QueryResult]()
         var i: Int = 0
         var j: Int = 0
-        var ret = [Result]()
         
         while i < left.count && j < right.count {
             if left[i].documentId == right[j].documentId {
                 if isFollowed(left: left[i].posting, right: right[i].posting) {
                     right[j].addMatchingTerms(terms: left[i].matchingForTerms)
-                    ret.append(right[j])
+                    queryResults.append(right[j])
                 }
                 i += 1
                 j += 1
@@ -63,7 +64,7 @@ class PhraseLiteral: QueryComponent {
                 i += 1
             }
         }
-        return ret
+        return queryResults
     }
     
     func isFollowed(left: Posting, right: Posting) -> Bool {

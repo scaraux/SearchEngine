@@ -15,7 +15,7 @@ class ViewController: NSViewController, EngineDelegate {
     @IBOutlet weak var tableView: NSTableView!
     
     var engine = Engine()
-    var queryResults: [Result]?
+    var queryResults: [QueryResult]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,7 @@ class ViewController: NSViewController, EngineDelegate {
         
     }
     
-    func onQueryResulted(results: [Result]?) {
+    func onQueryResulted(results: [QueryResult]?) {
 //        let documents = results.map { self.corpus!.getDocumentWith(id: $0.documentId)! }
 
         self.queryResults = results

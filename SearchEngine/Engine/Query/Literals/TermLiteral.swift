@@ -16,16 +16,8 @@ class TermLiteral: QueryComponent {
         self.term = term
     }
     
-    func getResultsFrom(index: Index) -> [Result]? {
-        var results = [Result]()
-        if let postings = index.getPostingsFor(term: term) {
-            for posting in postings {
-                let result = Result(posting)
-                results.append(result)
-            }
-            return results
-        }
-        return nil
+    func getResultsFrom(index: Index) -> [QueryResult]? {
+        return index.getQueryResultsFor(term: self.term)
     }
     
     func toString() -> String {

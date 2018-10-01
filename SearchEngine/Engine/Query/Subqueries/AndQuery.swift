@@ -17,8 +17,8 @@ class AndQuery: QueryComponent {
         self.components.append(contentsOf: components)
     }
     
-    func getResultsFrom(index: Index) -> [Result]? {
-        var mergedResults: [Result]
+    func getResultsFrom(index: Index) -> [QueryResult]? {
+        var mergedResults: [QueryResult]
         
         if let newResults = self.components[0].getResultsFrom(index: index) {
             mergedResults = newResults
@@ -38,15 +38,16 @@ class AndQuery: QueryComponent {
         return mergedResults
     }
     
-    func andMerge(left: [Result], right: [Result]) -> [Result] {
+    func andMerge(left: [QueryResult], right: [QueryResult]) -> [QueryResult] {
+        
+        var queryResults = [QueryResult]()
         var i: Int = 0
         var j: Int = 0
-        var ret = [Result]()
         
         while i < left.count && j < right.count {
             if left[i].documentId == right[j].documentId {
-                left[i].addMatchingTerms(terms: right[j].matchingForTerms)
-                ret.append(left[i])
+                right[j].addMatchingTerms(terms: left[i].matchingForTerms)
+                queryResults.append(right[j])
                 i += 1
                 j += 1
             }
@@ -57,7 +58,7 @@ class AndQuery: QueryComponent {
                 i += 1
             }
         }
-        return ret
+        return queryResults
     }
     
     func toString() -> String {

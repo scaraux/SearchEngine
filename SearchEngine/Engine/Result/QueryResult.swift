@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Result {
+class QueryResult {
     
     var documentId: Int
     var document: Document?
@@ -24,14 +24,14 @@ class Result {
     
     func addMatchingTerm(_ term: String) -> Void {
         if self.matchingForTerms.contains(term) == false {
-            self.matchingForTerms.append(term)
+            self.matchingForTerms.insert(term, at: 0)
         }
     }
     
     func addMatchingTerms(terms: [String]) -> Void {
         for term in terms {
             if self.matchingForTerms.contains(term) == false {
-                self.matchingForTerms.append(term)
+                self.matchingForTerms.insert(contentsOf: terms, at: 0)
             }
         }
     }

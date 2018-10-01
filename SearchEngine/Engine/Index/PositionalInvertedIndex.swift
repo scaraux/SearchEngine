@@ -16,17 +16,9 @@ class PositionalInvertedIndex: Index {
         self.map = [String: [Posting]]()
     }
     
-    func getPostingsFor(term: String) -> [Posting]? {
-        return self.map[term]
-    }
-    
-    func getResultsFor(term: String) -> [Result]? {
-        var results = [Result]()
+    func getQueryResultsFor(term: String) -> [QueryResult]? {
         if let postings = self.map[term] {
-            for p in postings {
-                results.append(Result(p))
-            }
-            return results
+            return postings.map({ QueryResult($0) })
         }
         return nil
     }

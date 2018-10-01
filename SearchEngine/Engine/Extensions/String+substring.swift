@@ -17,7 +17,7 @@ extension String {
         return substring(with: start..<end)
     }
     
-    func nextIndexAfter(of character: Character, from startPosition: Int) -> Int {
+    func nextIndexAfter(character: Character, from startPosition: Int) -> Int {
         if startPosition > count {
             return -1
         }

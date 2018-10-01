@@ -10,6 +10,13 @@ import Foundation
 
 class BooleanQueryParser {
     
+    struct Constants {
+        static let DoubleQuoteCharacter = Character("\"")
+        static let WildCardCharacter = Character("*")
+        static let SpaceCharacter = Character(" ")
+        static let PlusCharacter = Character("+")
+    }
+    
     struct StringBounds {
         
         var start: Int
@@ -25,12 +32,10 @@ class BooleanQueryParser {
         
         let stringBounds: StringBounds
         let literalComponent: QueryComponent
-        let isPhrase: Bool
         
-        init(bounds: StringBounds, literal: QueryComponent, isPhrase: Bool = false) {
+        init(bounds: StringBounds, literal: QueryComponent) {
             self.stringBounds = bounds
             self.literalComponent = literal
-            self.isPhrase = isPhrase
         }
     }
     
@@ -98,11 +103,11 @@ class BooleanQueryParser {
         var startPosition = startIndex
         
         // Find the start of the next subquery by skipping spaces and + signs.
-        while query[startPosition] == " " || query[startPosition] == "+" {
+        while query[startPosition] == Constants.SpaceCharacter || query[startPosition] == Constants.PlusCharacter {
             startPosition += 1
         }
         // Find the end of the next subquery.
-        var nextPlus: Int = query.nextIndexAfter(of: "+", from: startPosition + 1)
+        var nextPlus: Int = query.nextIndexAfter(character: Constants.PlusCharacter, from: startPosition + 1)
         // If there is no other + sign, then this is the final subquery in the
         // query string.
         if nextPlus < 0 {
@@ -112,7 +117,7 @@ class BooleanQueryParser {
         // to the next + sign.
         else {
             // Move nextPlus backwards until finding a non-space non-plus character.
-            while query[nextPlus] == " " || query[nextPlus] == "+" {
+            while query[nextPlus] == Constants.SpaceCharacter || query[nextPlus] == Constants.PlusCharacter {
                 nextPlus -= 1
             }
             lengthOut = 1 + nextPlus - startPosition
@@ -128,18 +133,18 @@ class BooleanQueryParser {
         var lengthOut: Int
         
         // Skip past white spaces
-        while subquery[startIndex] == " " {
+        while subquery[startIndex] == Constants.SpaceCharacter {
             startIndex += 1
         }
         // If subquery starts by a " character, its a phrase literal
         // Locate the next closing " to find the end of this phrase
-        if subquery[startIndex] == "\"" {
+        if subquery[startIndex] == Constants.DoubleQuoteCharacter {
             isPhrase = true
-            nextDelimiter = subquery.nextIndexAfter(of: "\"", from: startIndex + 1) + 1
+            nextDelimiter = subquery.nextIndexAfter(character: Constants.DoubleQuoteCharacter, from: startIndex + 1) + 1
         }
         // Locate the next space to find the end of this literal.
         else {
-            nextDelimiter = subquery.nextIndexAfter(of: " ", from: startIndex)
+            nextDelimiter = subquery.nextIndexAfter(character: Constants.SpaceCharacter, from: startIndex)
         }
         // No more literals in this subquery.
         if nextDelimiter < 0 {
@@ -158,12 +163,16 @@ class BooleanQueryParser {
         guard let term = subquery.substring(startIndex, lengthOut) else {
             fatalError("Cannot find next literal for string \(subquery) at position \(startIndex)")
         }
-        // If term is a phrase, add is as PhraseLiteral
+        // If term contains * its a WildcardLiteral
+        if term.contains(Constants.WildCardCharacter) {
+            return Literal(bounds: finalBounds, literal: WildcardLiteral(term: term))
+        }
+        // If term is a phrase, add it as PhraseLiteral
         if isPhrase {
             let phraseTerms = term.replacingOccurrences(of: "\"", with: "", options: NSString.CompareOptions.literal, range: nil)
-            return Literal(bounds: finalBounds, literal: PhraseLiteral(terms: phraseTerms), isPhrase: false)
+            return Literal(bounds: finalBounds, literal: PhraseLiteral(terms: phraseTerms))
         }
-        // This is a term literal containing a single term.
+        // Term is regular, add as TermLiteral
         return Literal(bounds: finalBounds, literal: TermLiteral(term: term))
     }
 }

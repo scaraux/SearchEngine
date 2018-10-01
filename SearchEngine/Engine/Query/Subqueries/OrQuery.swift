@@ -17,8 +17,8 @@ class OrQuery: QueryComponent {
         self.components.append(contentsOf: components)
     }
     
-    func getResultsFrom(index: Index) -> [Result]? {
-        var mergedResults = [Result]()
+    func getResultsFrom(index: Index) -> [QueryResult]? {
+        var mergedResults = [QueryResult]()
 
         if let newResults = self.components[0].getResultsFrom(index: index) {
             mergedResults.append(contentsOf: newResults)
@@ -32,42 +32,43 @@ class OrQuery: QueryComponent {
         return mergedResults
     }
     
-    func orMerge(left: [Result], right: [Result]) -> [Result] {
+    func orMerge(left: [QueryResult], right: [QueryResult]) -> [QueryResult] {
+        
+        var queryResults = [QueryResult]()
         var i: Int = 0
         var j: Int = 0
-        var ret = [Result]()
         
         while i < left.count && j < right.count {
             if left[i].documentId == right[j].documentId {
-                left[i].addMatchingTerms(terms: right[j].matchingForTerms)
-                ret.append(left[i])
+                right[j].addMatchingTerms(terms: left[i].matchingForTerms)
+                queryResults.append(right[j])
                 i += 1
                 j += 1
             }
             else if left[i].documentId > right[j].documentId {
-                ret.append(right[j])
+                queryResults.append(right[j])
                 j += 1
             }
             else if left[i].documentId < right[j].documentId {
-                ret.append(left[i])
+                queryResults.append(left[i])
                 i += 1
             }
         }
         
         if i < left.count {
             while i < left.count {
-                ret.append(left[i])
+                queryResults.append(left[i])
                 i += 1
             }
         }
         
         if j < right.count {
             while j < right.count {
-                ret.append(right[j])
+                queryResults.append(right[j])
                 j += 1
             }
         }
-        return ret
+        return queryResults
     }
     
     func toString() -> String {

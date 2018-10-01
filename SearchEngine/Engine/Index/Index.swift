@@ -10,10 +10,8 @@ import Foundation
 
 protocol Index {
     
-    func getPostingsFor(term: String) -> [Posting]?
-    
-    func getResultsFor(term: String) -> [Result]?
-    
+    func getQueryResultsFor(term: String) -> [QueryResult]?
+        
     func getVocabulary() -> [String]
     
     func clear() -> Void

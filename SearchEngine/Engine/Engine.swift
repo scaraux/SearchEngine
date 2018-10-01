@@ -10,21 +10,33 @@ import Foundation
 
 class Engine {
     
-    var index: PositionalInvertedIndex
-    var queryParser: BooleanQueryParser
+    private var index: PositionalInvertedIndex
+    private var queryParser: BooleanQueryParser
+    private var corpus: DocumentCorpus?
     var delegate: EngineDelegate?
-    var corpus: DocumentCorpus?
     
     init() {
         self.index = PositionalInvertedIndex()
         self.queryParser = BooleanQueryParser()
     }
+    
+    func execQuery(queryString: String) -> Void {
+        //        let query: QueryComponent? = queryParser.parseQuery(query: queryString)
+        //
+        //        if var results: [QueryResult] = query?.getResultsFrom(index: self.index) {
+        //            results = attachDocumentsToResults(results: results)
+        //            self.delegate?.onQueryResulted(results: results)
+        //            return
+        //        }
+        //        self.delegate?.onQueryResulted(results: nil)
+    }
+    
     func initCorpus(withPath path: URL) -> Void {
         self.corpus = DirectoryCorpus.loadDirectoryCorpus(absolutePath: path, fileExtension: "txt")
         indexCorpus(self.corpus!)
     }
     
-    func indexCorpus(_ corpus: DocumentCorpus) -> Void {
+    private func indexCorpus(_ corpus: DocumentCorpus) -> Void {
         let processor: BasicTokenProcessor = BasicTokenProcessor()
         let documents: [Document] = corpus.getDocuments()
         
@@ -48,17 +60,10 @@ class Engine {
         }
     }
     
-    func execQuery(queryString: String) -> Void {
-
-        let query: QueryComponent? = queryParser.parseQuery(query: queryString)
-        
-        if let results: [Result] = query?.getResultsFrom(index: self.index) {
-            for result in results {
-                result.document = self.corpus!.getDocumentWith(id: result.documentId)!
-            }
-            self.delegate?.onQueryResulted(results: results)
-            return
+    private func attachDocumentsToResults(results: [QueryResult]) -> [QueryResult] {
+        for queryResult in results {
+            queryResult.document = self.corpus?.getDocumentWith(id: queryResult.documentId)
         }
-        self.delegate?.onQueryResulted(results: nil)
+        return results
     }
 }

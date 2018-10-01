@@ -10,5 +10,5 @@ import Foundation
 
 protocol EngineDelegate {
     func onCorpusInitialized()
-    func onQueryResulted(results: [Result]?)
+    func onQueryResulted(results: [QueryResult]?)
 }
