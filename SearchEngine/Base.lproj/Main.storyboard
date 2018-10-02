@@ -246,7 +246,7 @@
                                                 <rect key="frame" x="53" y="1" width="83" height="17"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Not Selected" id="QHW-Jb-BrN">
                                                     <font key="font" metaFont="system"/>
-                                                    <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="textColor" white="0.92391065139999995" alpha="0.55779599469999996" colorSpace="calibratedWhite"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>

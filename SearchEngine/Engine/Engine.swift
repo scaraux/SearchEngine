@@ -41,11 +41,13 @@ class Engine {
     }
     
     private func indexCorpus(_ corpus: DocumentCorpusProtocol) -> Void {
+    
         DispatchQueue.global(qos: .userInitiated).async {
             let start = DispatchTime.now()
 
             let processor: BasicTokenProcessor = BasicTokenProcessor()
             let documents: [DocumentProtocol] = corpus.getDocuments()
+            var types = Set<String>()
             
             self.index.clear()
             
@@ -64,8 +66,8 @@ class Engine {
                 var tokenPosition = 0
                 for rawToken in tokens {
                     let processedToken: String = processor.processToken(token: rawToken)
+                    types.insert(processedToken)
                     self.index.addTerm(processedToken, withId: doc.documentId, atPosition: tokenPosition)
-                    KGramIndex.shared().registerGramsFor(type: processedToken)
                     tokenPosition += 1
                 }
                 tokenStream.dispose()
@@ -74,6 +76,11 @@ class Engine {
                     self.delegate?.onCorpusIndexedOneMoreDocument()
                 }
             }
+            
+            for type in types {
+                self.index.getKGramIndex().registerGramsFor(type: type)
+            }
+
             DispatchQueue.main.async {
                 let end = DispatchTime.now()
                 let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds

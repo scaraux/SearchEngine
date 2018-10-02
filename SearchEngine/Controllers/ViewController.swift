@@ -54,7 +54,6 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
         
         }
     }
-
     
     override func keyDown(with event: NSEvent) {
         if (event.characters?.contains("\r"))! {

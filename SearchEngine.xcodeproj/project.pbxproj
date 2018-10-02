@@ -30,6 +30,7 @@
 		D04CDA6121546DA8007B8CB2 /* EngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04CDA6021546DA8007B8CB2 /* EngineDelegate.swift */; };
 		D0766BBA215AF0AD00F6A9B6 /* QueryResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0766BB9215AF0AD00F6A9B6 /* QueryResult.swift */; };
 		D0957DC5214DC4740096EFA4 /* String+alphanumeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0957DC4214DC4740096EFA4 /* String+alphanumeric.swift */; };
+		D0AD33692163EAE500139F76 /* KGramIndexProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD33682163EAE500139F76 /* KGramIndexProtocol.swift */; };
 		D0D158E6215F035100CE1376 /* KGramIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D158E5215F035100CE1376 /* KGramIndex.swift */; };
 		D0D158E82161932800CE1376 /* WildcardLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D158E72161932800CE1376 /* WildcardLiteral.swift */; };
 		D0D158EA2161EFE700CE1376 /* FilePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D158E92161EFE700CE1376 /* FilePreviewController.swift */; };
@@ -81,6 +82,7 @@
 		D04CDA6021546DA8007B8CB2 /* EngineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineDelegate.swift; sourceTree = "<group>"; };
 		D0766BB9215AF0AD00F6A9B6 /* QueryResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResult.swift; sourceTree = "<group>"; };
 		D0957DC4214DC4740096EFA4 /* String+alphanumeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+alphanumeric.swift"; sourceTree = "<group>"; };
+		D0AD33682163EAE500139F76 /* KGramIndexProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KGramIndexProtocol.swift; sourceTree = "<group>"; };
 		D0D158E5215F035100CE1376 /* KGramIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KGramIndex.swift; sourceTree = "<group>"; };
 		D0D158E72161932800CE1376 /* WildcardLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildcardLiteral.swift; sourceTree = "<group>"; };
 		D0D158E92161EFE700CE1376 /* FilePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePreviewController.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				D0D158E5215F035100CE1376 /* KGramIndex.swift */,
+				D0AD33682163EAE500139F76 /* KGramIndexProtocol.swift */,
 			);
 			path = Gram;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				D040E695214CBC7700A487F5 /* DocumentFactoryProtocol.swift in Sources */,
 				D0FEDE44214F36140064B3D5 /* TermLiteral.swift in Sources */,
 				D0FEDE48214F38740064B3D5 /* PhraseLiteral.swift in Sources */,
+				D0AD33692163EAE500139F76 /* KGramIndexProtocol.swift in Sources */,
 				D0FEDE46214F373E0064B3D5 /* OrQuery.swift in Sources */,
 				D0D158E82161932800CE1376 /* WildcardLiteral.swift in Sources */,
 				D040E656214C99C900A487F5 /* AppDelegate.swift in Sources */,

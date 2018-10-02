@@ -12,7 +12,7 @@ import XCTest
 class SearchEngineTests: XCTestCase {
     
     var engine: Engine?
-    
+
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         super.setUp()
@@ -26,16 +26,16 @@ class SearchEngineTests: XCTestCase {
     }
     
     func testKGramIndex() {
-        KGramIndex.destroy()
-        gramsRegistration()
-        getMatchingGramsForTerms()
+        let index = KGramIndex()
+        gramsRegistration(index: index)
+        getMatchingGramsForTerms(index: index)
     }
     
-    func gramsRegistration() {
+    func gramsRegistration(index: KGramIndex) {
         let term = "abricot"
         
-        KGramIndex.shared().registerGramsFor(type: term)
-        let registeredTerms = KGramIndex.shared().gramIndex
+        index.registerGramsFor(type: term)
+        let registeredTerms = index.gramIndex
         
         XCTAssertEqual(registeredTerms.count, 22)
         
@@ -67,29 +67,29 @@ class SearchEngineTests: XCTestCase {
         XCTAssertTrue(registeredTerms["cot"]!.contains(term))
     }
     
-    func getMatchingGramsForTerms() {
+    func getMatchingGramsForTerms(index: KGramIndex) {
         var grams: [String]?
         
         let term1 = "red*"
-        grams = KGramIndex.shared().getMatchingGramsFor(term: term1)
+        grams = index.getMatchingGramsFor(term: term1)
         XCTAssertEqual(grams!.count, 2)
         XCTAssertTrue(grams!.contains("$re"))
         XCTAssertTrue(grams!.contains("red"))
         
         let term2 = "*red"
-        grams = KGramIndex.shared().getMatchingGramsFor(term: term2)
+        grams = index.getMatchingGramsFor(term: term2)
         XCTAssertEqual(grams!.count, 2)
         XCTAssertTrue(grams!.contains("red"))
         XCTAssertTrue(grams!.contains("ed$"))
         
         let term3 = "re*ve"
-        grams = KGramIndex.shared().getMatchingGramsFor(term: term3)
+        grams = index.getMatchingGramsFor(term: term3)
         XCTAssertEqual(grams!.count, 2)
         XCTAssertTrue(grams!.contains("$re"))
         XCTAssertTrue(grams!.contains("ve$"))
         
         let term4 = "red*a*d"
-        grams = KGramIndex.shared().getMatchingGramsFor(term: term4)
+        grams = index.getMatchingGramsFor(term: term4)
         XCTAssertEqual(grams!.count, 4)
         XCTAssertTrue(grams!.contains("$re"))
         XCTAssertTrue(grams!.contains("red"))
@@ -99,7 +99,6 @@ class SearchEngineTests: XCTestCase {
     
     func matchCandidatesForGrams() {
         let term = "re*ve"
-        
     }
     
 //    func testPerformanceExample() {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class KGramIndex {
+class KGramIndex: KGramIndexProtocol {
     
     struct Constants {
         static let MaximumGramLength = 3
@@ -16,33 +16,10 @@ class KGramIndex {
         static let WildcardCharacter = "*"
     }
     
-    var gramIndex: [String:[String]]
+    private(set) var gramIndex: [String:Set<String>]
     
-    private static var privateShared: KGramIndex?
-    
-    private init() {
-        self.gramIndex = [String:[String]]()
-    }
-    
-    class func shared() -> KGramIndex { // change class to final to prevent override
-        guard let pShared = privateShared else {
-            privateShared = KGramIndex()
-            return privateShared!
-        }
-        return pShared
-    }
-    
-    class func destroy() -> Void {
-        privateShared = nil
-    }
-    
-    private func addTypeCandidateForGram(gram: String, type: String) -> Void {
-        if self.gramIndex[gram] == nil {
-            self.gramIndex[gram] = [String]()
-        }
-        if gramIndex[gram]!.contains(type) == false {
-            self.gramIndex[gram]!.append(type)
-        }
+    init() {
+        self.gramIndex = [String:Set<String>]()
     }
     
     func getMatchingCandidatesFor(term: String) -> [String]? {
@@ -50,7 +27,7 @@ class KGramIndex {
         let grams = getMatchingGramsFor(term: term)!
         
         if let newCandidates = self.gramIndex[grams[0]] {
-            candidates = newCandidates
+            candidates = Array(newCandidates)
         }
         else {
             return nil
@@ -67,7 +44,13 @@ class KGramIndex {
         return candidates
     }
     
-    
+    private func addTypeCandidateForGram(gram: String, type: String) -> Void {
+        if self.gramIndex[gram] == nil {
+            self.gramIndex[gram] = Set<String>()
+        }
+        self.gramIndex[gram]!.insert(type)
+    }
+
     func registerGramsFor(type: String) -> Void {
         var i: Int = 0
         // Wrap the term with dollar signs, at beginning and end
@@ -95,7 +78,7 @@ class KGramIndex {
         }
     }
     
-    private func getMatchingGramsFor(term: String) -> [String]? {
+    func getMatchingGramsFor(term: String) -> [String]? {
         var grams = [String]()
         // Wrap the term with dollar signs, at beginning and end
         let term = Constants.DollarSignCharacter + term + Constants.DollarSignCharacter

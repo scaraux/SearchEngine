@@ -14,5 +14,7 @@ protocol IndexProtocol {
         
     func getVocabulary() -> [String]
     
+    func getKGramIndex() -> KGramIndexProtocol
+    
     func clear() -> Void
 }

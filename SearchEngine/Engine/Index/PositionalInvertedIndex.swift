@@ -9,11 +9,13 @@
 import Foundation
 
 class PositionalInvertedIndex: IndexProtocol {
-    
+
     private var map: [String : [Posting]]
+    public var kGramIndex: KGramIndex
 
     init() {
         self.map = [String: [Posting]]()
+        self.kGramIndex = KGramIndex()
     }
     
     func getQueryResultsFor(term: String) -> [QueryResult]? {
@@ -21,6 +23,10 @@ class PositionalInvertedIndex: IndexProtocol {
             return postings.map({ QueryResult($0) })
         }
         return nil
+    }
+    
+    func getKGramIndex() -> KGramIndexProtocol {
+        return self.kGramIndex
     }
     
     func getVocabulary() -> [String] {

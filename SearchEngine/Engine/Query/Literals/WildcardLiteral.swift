@@ -18,8 +18,9 @@ class WildcardLiteral: Queriable {
     
     func getResultsFrom(index: IndexProtocol) -> [QueryResult]? {
         var mergedResults = [QueryResult]()
+        let kGramIndex = index.getKGramIndex()
 
-        guard var candidates = KGramIndex.shared().getMatchingCandidatesFor(term: self.term) else {
+        guard var candidates = kGramIndex.getMatchingCandidatesFor(term: self.term) else {
             return nil
         }
         
