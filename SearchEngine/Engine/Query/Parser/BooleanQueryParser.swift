@@ -31,18 +31,18 @@ class BooleanQueryParser {
     class Literal {
         
         let stringBounds: StringBounds
-        let literalComponent: QueryComponent
+        let literalComponent: Queriable
         
-        init(bounds: StringBounds, literal: QueryComponent) {
+        init(bounds: StringBounds, literal: Queriable) {
             self.stringBounds = bounds
             self.literalComponent = literal
         }
     }
     
-    func parseQuery(query: String) -> QueryComponent? {
+    func parseQuery(query: String) -> Queriable? {
         
         var start: Int = 0
-        var allSubqueries = [QueryComponent]()
+        var allSubqueries = [Queriable]()
         // General routine: scan the query to identify a literal, and put that literal into a list.
         // Repeat until a + or the end of the query is encountered; build an AND query with each
         // of the literals found. Repeat the scan-and-build-AND-query phase for each segment of the
@@ -60,7 +60,7 @@ class BooleanQueryParser {
                 fatalError("Cannot parse message")
             }
             // Store all the individual components of this subquery.
-            var subqueryLiterals = [QueryComponent]()
+            var subqueryLiterals = [Queriable]()
             
             repeat {
                 // Extract the next literal from the subquery.

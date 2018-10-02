@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Index {
+protocol IndexProtocol {
     
     func getQueryResultsFor(term: String) -> [QueryResult]?
         

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TermLiteral: QueryComponent {
+class TermLiteral: Queriable {
     
     var term: String
     
@@ -16,7 +16,7 @@ class TermLiteral: QueryComponent {
         self.term = term
     }
     
-    func getResultsFrom(index: Index) -> [QueryResult]? {
+    func getResultsFrom(index: IndexProtocol) -> [QueryResult]? {
         return index.getQueryResultsFor(term: self.term)
     }
     

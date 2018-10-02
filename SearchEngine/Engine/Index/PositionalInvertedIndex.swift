@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PositionalInvertedIndex: Index {
+class PositionalInvertedIndex: IndexProtocol {
     
     private var map: [String : [Posting]]
 
@@ -24,7 +24,7 @@ class PositionalInvertedIndex: Index {
     }
     
     func getVocabulary() -> [String] {
-        return Array(self.map.keys)
+        return Array(self.map.keys).sorted(by: <)
     }
     
     func addTerm(_ term: String, withId id: Int, atPosition position: Int) {

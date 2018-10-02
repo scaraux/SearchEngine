@@ -8,9 +8,9 @@
 
 import Foundation
 
-protocol QueryComponent {
+protocol Queriable {
     
-    func getResultsFrom(index: Index) -> [QueryResult]?
+    func getResultsFrom(index: IndexProtocol) -> [QueryResult]?
     
     func toString() -> String
     

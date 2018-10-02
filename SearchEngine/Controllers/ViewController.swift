@@ -12,7 +12,16 @@ import Cocoa
 //    static let onTableViewRowDoubleClicked = #selector(onTableViewRowDoubleClicked)
 //}
 
-class ViewController: NSViewController, EngineDelegate {
+class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
+    
+    enum TableViewDisplayMode {
+        case QueryResultsMode
+        case VocabularyMode
+    }
+    
+    struct Constants {
+        static let maximumVocabularyDisplayed: Int = 1000
+    }
 
     @IBOutlet weak var directoryPathLabel: NSTextField!
     @IBOutlet weak var queryInput: NSTextField!
@@ -20,18 +29,25 @@ class ViewController: NSViewController, EngineDelegate {
     
     var engine = Engine()
     var queryResults: [QueryResult]?
-
+    var vocabulary: [String]?
+    var tableViewMode: TableViewDisplayMode = .QueryResultsMode
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.engine.delegate = self
+
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.doubleAction = #selector(onTableViewRowDoubleClicked)
-        self.engine.delegate = self
         
+        self.queryInput.delegate = self
+    
+        setTableViewMode(to: .QueryResultsMode)
+        self.tableView.sizeLastColumnToFit()
         // DEBUG
-        self.directoryPathLabel.stringValue = "DEBUG"
-        self.engine.initCorpus(withPath: URL(fileURLWithPath: "/Users/rakso/Desktop/CECS/529/Corpus", isDirectory: true))
+//        self.directoryPathLabel.stringValue = "DEBUG"
+//        self.engine.initCorpus(withPath: URL(fileURLWithPath: "/Users/rakso/Desktop/CECS/529/Corpus", isDirectory: true))
     }
 
     override var representedObject: Any? {
@@ -39,14 +55,74 @@ class ViewController: NSViewController, EngineDelegate {
         // Update the view, if already loaded.
         }
     }
+
     
-    func onCorpusInitialized() {
-        
+    override func keyDown(with event: NSEvent) {
+        if (event.characters?.contains("\r"))! {
+            triggerQuery()
+        }
+    }
+    
+    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        if (commandSelector == #selector(NSResponder.insertNewline(_:))) {
+            triggerQuery()
+            return true
+        }
+        return false
+    }
+    
+    func onCorpusInitialized(timeElapsed: Double) {
+        print(timeElapsed)
     }
     
     func onQueryResulted(results: [QueryResult]?) {
         self.queryResults = results
+        if self.tableViewMode != .QueryResultsMode {
+            setTableViewMode(to: .QueryResultsMode)
+        }
         self.tableView.reloadData()
+        self.tableView.sizeLastColumnToFit()
+    }
+    
+    private func triggerQuery() -> Void {
+        self.queryResults?.removeAll()
+        let queryString = self.queryInput.stringValue
+        if queryString.isEmpty == false {
+            self.engine.execQuery(queryString: queryString)
+        }
+        else {
+            self.tableView.reloadData()
+        }
+    }
+    
+    @objc private func onTableViewRowDoubleClicked() -> Void {
+        let selectedRow = self.tableView.selectedRow
+        guard let relatedQueryResult = self.queryResults?[selectedRow] else {
+            return
+        }
+        openFilePreviewController(queryResult: relatedQueryResult)
+    }
+    
+    private func setTableViewMode(to mode: TableViewDisplayMode) -> Void {
+        if mode == .QueryResultsMode {
+            self.tableView.tableColumns[0].headerCell.title = "Id"
+            self.tableView.tableColumns[0].width = 50.0
+            self.tableView.tableColumns[0].minWidth = 50.0
+            self.tableView.tableColumns[0].maxWidth = 50.0
+            self.tableView.tableColumns[1].isHidden = false
+            self.tableView.tableColumns[1].width = 150.0
+            self.tableView.tableColumns[1].minWidth = 150.0
+            self.tableView.tableColumns[2].isHidden = false
+            self.tableView.tableColumns[2].width = 150.0
+            self.tableViewMode = .QueryResultsMode
+        }
+        else if mode == .VocabularyMode {
+            self.tableView.tableColumns[0].headerCell.title = "Words"
+            self.tableView.tableColumns[0].maxWidth = 500.0
+            self.tableView.tableColumns[1].isHidden = true
+            self.tableView.tableColumns[2].isHidden = true
+            self.tableViewMode = .VocabularyMode
+        }
     }
     
     private func pickBaseFolderWithModal() -> URL? {
@@ -66,14 +142,6 @@ class ViewController: NSViewController, EngineDelegate {
         return nil
     }
 
-    @objc private func onTableViewRowDoubleClicked() -> Void {
-        let selectedRow = self.tableView.selectedRow
-        guard let relatedQueryResult = self.queryResults?[selectedRow] else {
-            return
-        }
-        openFilePreviewController(queryResult: relatedQueryResult)
-    }
-    
     private func openFilePreviewController(queryResult: QueryResult) -> Void {
         var secondaryWindow: NSWindow? = nil
         let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
@@ -94,35 +162,67 @@ class ViewController: NSViewController, EngineDelegate {
     }
     
     @IBAction func queryTouchUp(_ sender: Any) {
-        let queryString = self.queryInput.stringValue
-        self.engine.execQuery(queryString: queryString)
+        triggerQuery()
+    }
+    
+    @IBAction func showVocabulary(_ sender: Any) {
+        self.vocabulary = self.engine.getVocabulary()
+        self.setTableViewMode(to: .VocabularyMode)
+        self.tableView.reloadData()
+        self.tableView.sizeLastColumnToFit()
     }
 }
 
 extension ViewController: NSTableViewDelegate, NSTableViewDataSource {
+    
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return self.queryResults?.count ?? 0
+        if self.tableViewMode == .QueryResultsMode {
+          return self.queryResults?.count ?? 0
+        }
+        else if self.tableViewMode == .VocabularyMode {
+            guard let vocabularyCount = self.vocabulary?.count else {
+                return 0
+            }
+            return vocabularyCount > Constants.maximumVocabularyDisplayed ? Constants.maximumVocabularyDisplayed : vocabularyCount
+        }
+        return 0
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard let result = self.queryResults?[row] else {
-            return nil
-        }
         
-        if tableColumn == tableView.tableColumns[0] {
+         if self.tableViewMode == .QueryResultsMode {
+            guard let result = self.queryResults?[row] else {
+                return nil
+            }
+            
+            if tableColumn == tableView.tableColumns[0] {
+                let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
+                cell?.textField?.stringValue = String(result.documentId)
+                return cell
+            }
+            
+            if tableColumn == tableView.tableColumns[1] {
+                let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
+                cell?.textField?.stringValue = String(result.document!.title)
+                return cell
+            }
+            
             let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
-            cell?.textField?.stringValue = String(result.documentId)
+            cell?.textField?.stringValue = result.matchingForTerms.compactMap({$0}).joined(separator: " ")
             return cell
         }
-        
-        if tableColumn == tableView.tableColumns[1] {
-            let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
-            cell?.textField?.stringValue = String(result.document!.title)
-            return cell
+        else if self.tableViewMode == .VocabularyMode {
+            
+            guard let vocabularyEntry = self.vocabulary?[row] else {
+                return nil
+            }
+            
+            if tableColumn == tableView.tableColumns[0] {
+                let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
+                cell?.textField?.stringValue = String(vocabularyEntry)
+                return cell
+            }
         }
-        
-        let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
-        cell?.textField?.stringValue = result.matchingForTerms.compactMap({$0}).joined(separator: " ")
-        return cell
+        return nil
     }
 }

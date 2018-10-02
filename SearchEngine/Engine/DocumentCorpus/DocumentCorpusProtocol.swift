@@ -8,13 +8,13 @@
 
 import Foundation
 
-protocol DocumentCorpus {
+protocol DocumentCorpusProtocol {
     
     var corpusSize: Int { get }
     
-    func getDocuments() -> [Document]
+    func getDocuments() -> [DocumentProtocol]
     
-    func getDocumentWith(id: Int) -> Document?
+    func getDocumentWith(id: Int) -> DocumentProtocol?
     
     func getFileDocumentWith(id: Int) -> FileDocument?
 }

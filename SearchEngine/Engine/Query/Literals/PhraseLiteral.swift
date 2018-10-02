@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PhraseLiteral: QueryComponent {
+class PhraseLiteral: Queriable {
 
     private var terms: [String] = [String]()
     
@@ -20,7 +20,7 @@ class PhraseLiteral: QueryComponent {
         self.terms.append(contentsOf: terms.components(separatedBy: " "))
     }
     
-    func getResultsFrom(index: Index) -> [QueryResult]? {
+    func getResultsFrom(index: IndexProtocol) -> [QueryResult]? {
         var mergedResults: [QueryResult]
 
         if let newResults = index.getQueryResultsFor(term: terms[0]) {
@@ -38,7 +38,6 @@ class PhraseLiteral: QueryComponent {
                 return nil
             }
         }
-        
         return mergedResults
     }
     
@@ -50,7 +49,7 @@ class PhraseLiteral: QueryComponent {
         
         while i < left.count && j < right.count {
             if left[i].documentId == right[j].documentId {
-                if isFollowed(left: left[i].posting, right: right[i].posting) {
+                if isFollowed(left: left[i].posting, right: right[j].posting) {
                     right[j].addMatchingTerms(terms: left[i].matchingForTerms)
                     queryResults.append(right[j])
                 }
@@ -72,7 +71,6 @@ class PhraseLiteral: QueryComponent {
         var j: Int = 0
         
         while i < left.positions.count && j < right.positions.count {
-            print("\(left.positions[i]) \(right.positions[j])")
             if left.positions[i] == right.positions[j] {
                 i += 1
             }

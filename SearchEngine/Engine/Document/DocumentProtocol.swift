@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Document {
+protocol DocumentProtocol {
     
     var documentId: Int { get }
 

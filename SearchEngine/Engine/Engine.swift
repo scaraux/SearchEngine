@@ -12,7 +12,7 @@ class Engine {
     
     private var index: PositionalInvertedIndex
     private var queryParser: BooleanQueryParser
-    private var corpus: DocumentCorpus?
+    private var corpus: DocumentCorpusProtocol?
     var delegate: EngineDelegate?
     
     init() {
@@ -21,7 +21,7 @@ class Engine {
     }
     
     func execQuery(queryString: String) -> Void {
-        let query: QueryComponent? = queryParser.parseQuery(query: queryString)
+        let query: Queriable? = queryParser.parseQuery(query: queryString)
 
         if var results: [QueryResult] = query?.getResultsFrom(index: self.index) {
             results = attachDocumentsToResults(results: results)
@@ -32,13 +32,22 @@ class Engine {
     }
     
     func initCorpus(withPath path: URL) -> Void {
+        let start = DispatchTime.now()
         self.corpus = DirectoryCorpus.loadDirectoryCorpus(absolutePath: path, fileExtension: "txt")
         indexCorpus(self.corpus!)
+        let end = DispatchTime.now()
+        let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
+        let timeInterval = Double(nanoTime) / 1_000_000_000
+        self.delegate?.onCorpusInitialized(timeElapsed: timeInterval)
     }
     
-    private func indexCorpus(_ corpus: DocumentCorpus) -> Void {
+    func getVocabulary() -> [String] {
+        return self.index.getVocabulary()
+    }
+    
+    private func indexCorpus(_ corpus: DocumentCorpusProtocol) -> Void {
         let processor: BasicTokenProcessor = BasicTokenProcessor()
-        let documents: [Document] = corpus.getDocuments()
+        let documents: [DocumentProtocol] = corpus.getDocuments()
         
         self.index.clear()
         
@@ -51,7 +60,7 @@ class Engine {
             let tokens = tokenStream.getTokens()
             
             var tokenPosition = 0
-            for rawToken in tokens {                
+            for rawToken in tokens {
                 let processedToken: String = processor.processToken(token: rawToken)
                 self.index.addTerm(processedToken, withId: doc.documentId, atPosition: tokenPosition)
                 KGramIndex.shared().registerGramsFor(type: processedToken)

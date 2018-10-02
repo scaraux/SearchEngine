@@ -8,16 +8,16 @@
 
 import Foundation
 
-class AndQuery: QueryComponent {
+class AndQuery: Queriable {
     
-    private var components: [QueryComponent]
+    private var components: [Queriable]
     
-    init(components: [QueryComponent]) {
-        self.components = [QueryComponent]()
+    init(components: [Queriable]) {
+        self.components = [Queriable]()
         self.components.append(contentsOf: components)
     }
     
-    func getResultsFrom(index: Index) -> [QueryResult]? {
+    func getResultsFrom(index: IndexProtocol) -> [QueryResult]? {
         var mergedResults: [QueryResult]
         
         if let newResults = self.components[0].getResultsFrom(index: index) {

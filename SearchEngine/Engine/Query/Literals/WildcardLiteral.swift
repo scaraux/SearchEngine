@@ -8,7 +8,7 @@
 
 import Foundation
 
-class WildcardLiteral: QueryComponent {
+class WildcardLiteral: Queriable {
 
     var term: String
 
@@ -16,7 +16,7 @@ class WildcardLiteral: QueryComponent {
         self.term = term
     }
     
-    func getResultsFrom(index: Index) -> [QueryResult]? {
+    func getResultsFrom(index: IndexProtocol) -> [QueryResult]? {
         var mergedResults = [QueryResult]()
 
         guard var candidates = KGramIndex.shared().getMatchingCandidatesFor(term: self.term) else {

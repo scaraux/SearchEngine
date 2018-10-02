@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol FileDocument : Document {
+protocol FileDocument : DocumentProtocol {
     
     var fileURL: URL { get }
     
