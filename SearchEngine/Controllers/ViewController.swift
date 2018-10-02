@@ -13,7 +13,7 @@ import Cocoa
 //}
 
 class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
-    
+
     enum TableViewDisplayMode {
         case QueryResultsMode
         case VocabularyMode
@@ -26,6 +26,8 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
     @IBOutlet weak var directoryPathLabel: NSTextField!
     @IBOutlet weak var queryInput: NSTextField!
     @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var progressBar: NSProgressIndicator!
+    @IBOutlet weak var timeElapsedLabel: NSTextField!
     
     var engine = Engine()
     var queryResults: [QueryResult]?
@@ -36,23 +38,20 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
         super.viewDidLoad()
         
         self.engine.delegate = self
-
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.doubleAction = #selector(onTableViewRowDoubleClicked)
-        
         self.queryInput.delegate = self
-    
-        setTableViewMode(to: .QueryResultsMode)
+        self.progressBar.isHidden = true
+        self.timeElapsedLabel.isHidden = true
         self.tableView.sizeLastColumnToFit()
-        // DEBUG
-//        self.directoryPathLabel.stringValue = "DEBUG"
-//        self.engine.initCorpus(withPath: URL(fileURLWithPath: "/Users/rakso/Desktop/CECS/529/Corpus", isDirectory: true))
+        
+        setTableViewMode(to: .QueryResultsMode)
     }
 
     override var representedObject: Any? {
         didSet {
-        // Update the view, if already loaded.
+        
         }
     }
 
@@ -71,8 +70,22 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
         return false
     }
     
+    func onCorpusIndexingStarted(elementsToIndex: Int) {
+        self.timeElapsedLabel.isHidden = true
+        self.progressBar.isHidden = false
+        self.progressBar.doubleValue = 0.0
+        self.progressBar.minValue = 0
+        self.progressBar.maxValue = Double(elementsToIndex)
+    }
+    
+    func onCorpusIndexedOneMoreDocument() {
+        self.progressBar.increment(by: 1.0)
+    }
+    
     func onCorpusInitialized(timeElapsed: Double) {
-        print(timeElapsed)
+        self.timeElapsedLabel.isHidden = false
+        self.timeElapsedLabel.stringValue = "Time elapsed: \(timeElapsed)"
+        self.progressBar.isHidden = true
     }
     
     func onQueryResulted(results: [QueryResult]?) {
@@ -194,7 +207,6 @@ extension ViewController: NSTableViewDelegate, NSTableViewDataSource {
             guard let result = self.queryResults?[row] else {
                 return nil
             }
-            
             if tableColumn == tableView.tableColumns[0] {
                 let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
                 cell?.textField?.stringValue = String(result.documentId)
@@ -206,17 +218,14 @@ extension ViewController: NSTableViewDelegate, NSTableViewDataSource {
                 cell?.textField?.stringValue = String(result.document!.title)
                 return cell
             }
-            
             let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
             cell?.textField?.stringValue = result.matchingForTerms.compactMap({$0}).joined(separator: " ")
             return cell
         }
         else if self.tableViewMode == .VocabularyMode {
-            
             guard let vocabularyEntry = self.vocabulary?[row] else {
                 return nil
             }
-            
             if tableColumn == tableView.tableColumns[0] {
                 let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
                 cell?.textField?.stringValue = String(vocabularyEntry)

@@ -32,13 +32,8 @@ class Engine {
     }
     
     func initCorpus(withPath path: URL) -> Void {
-        let start = DispatchTime.now()
         self.corpus = DirectoryCorpus.loadDirectoryCorpus(absolutePath: path, fileExtension: "txt")
-        indexCorpus(self.corpus!)
-        let end = DispatchTime.now()
-        let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
-        let timeInterval = Double(nanoTime) / 1_000_000_000
-        self.delegate?.onCorpusInitialized(timeElapsed: timeInterval)
+        self.indexCorpus(self.corpus!)
     }
     
     func getVocabulary() -> [String] {
@@ -46,27 +41,45 @@ class Engine {
     }
     
     private func indexCorpus(_ corpus: DocumentCorpusProtocol) -> Void {
-        let processor: BasicTokenProcessor = BasicTokenProcessor()
-        let documents: [DocumentProtocol] = corpus.getDocuments()
-        
-        self.index.clear()
-        
-        for doc in documents {
-            guard let stream = doc.getContent() else {
-                print("Error: Cannot create stream for file \(doc.documentId)")
-                continue
-            }
-            let tokenStream = EnglishTokenStream(stream)
-            let tokens = tokenStream.getTokens()
+        DispatchQueue.global(qos: .userInitiated).async {
+            let start = DispatchTime.now()
+
+            let processor: BasicTokenProcessor = BasicTokenProcessor()
+            let documents: [DocumentProtocol] = corpus.getDocuments()
             
-            var tokenPosition = 0
-            for rawToken in tokens {
-                let processedToken: String = processor.processToken(token: rawToken)
-                self.index.addTerm(processedToken, withId: doc.documentId, atPosition: tokenPosition)
-                KGramIndex.shared().registerGramsFor(type: processedToken)
-                tokenPosition += 1
+            self.index.clear()
+            
+            DispatchQueue.main.async {
+                self.delegate?.onCorpusIndexingStarted(elementsToIndex: documents.count)
             }
-            tokenStream.dispose()
+            
+            for doc in documents {
+                guard let stream = doc.getContent() else {
+                    print("Error: Cannot create stream for file \(doc.documentId)")
+                    continue
+                }
+                let tokenStream = EnglishTokenStream(stream)
+                let tokens = tokenStream.getTokens()
+                
+                var tokenPosition = 0
+                for rawToken in tokens {
+                    let processedToken: String = processor.processToken(token: rawToken)
+                    self.index.addTerm(processedToken, withId: doc.documentId, atPosition: tokenPosition)
+                    KGramIndex.shared().registerGramsFor(type: processedToken)
+                    tokenPosition += 1
+                }
+                tokenStream.dispose()
+                
+                DispatchQueue.main.async {
+                    self.delegate?.onCorpusIndexedOneMoreDocument()
+                }
+            }
+            DispatchQueue.main.async {
+                let end = DispatchTime.now()
+                let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
+                let timeInterval = Double(nanoTime) / 1_000_000_000
+                self.delegate?.onCorpusInitialized(timeElapsed: timeInterval)
+            }
         }
     }
     

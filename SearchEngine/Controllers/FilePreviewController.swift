@@ -58,7 +58,7 @@ class FilePreviewController: NSViewController {
                 range = (content as NSString).range(of: term, options: [NSString.CompareOptions.caseInsensitive], range: range)
                 if (range.location != NSNotFound) {
                     attributedContent.addAttributes([NSAttributedStringKey.foregroundColor: NSColor.black,
-                                                     NSAttributedStringKey.backgroundColor: NSColor.white], range: range)
+                                                     NSAttributedStringKey.backgroundColor: NSColor.orange], range: range)
 
                     range = NSRange(location: range.location + range.length, length: inputLength - (range.location + range.length))
                 }

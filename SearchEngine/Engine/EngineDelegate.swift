@@ -9,6 +9,8 @@
 import Foundation
 
 protocol EngineDelegate {
+    func onCorpusIndexingStarted(elementsToIndex: Int)
+    func onCorpusIndexedOneMoreDocument()
     func onCorpusInitialized(timeElapsed: Double)
     func onQueryResulted(results: [QueryResult]?)
 }
