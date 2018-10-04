@@ -33,7 +33,7 @@ class JsonFileDocument : FileDocument {
         if let data = NSData(contentsOf: fileURL) {
             do {
                 if let json = try JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: AnyObject] {
-                    return json["author"] as? String
+                    return json["title"] as? String
                 }
             }
             catch {
