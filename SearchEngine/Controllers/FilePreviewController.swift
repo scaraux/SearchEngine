@@ -43,12 +43,12 @@ class FilePreviewController: NSViewController {
             return
         }
         
-        let attributes = [NSAttributedStringKey.foregroundColor: NSColor.white]
+        let attributes = [NSAttributedString.Key.foregroundColor: NSColor.white]
         let attributedContent = NSMutableAttributedString(string: content, attributes: attributes)
         let area = NSMakeRange(0, attributedContent.length)
         let font = NSFont.systemFont(ofSize: 15.0, weight: NSFont.Weight.light)
         
-        attributedContent.addAttribute(NSAttributedStringKey.font, value: font, range: area)
+        attributedContent.addAttribute(NSAttributedString.Key.font, value: font, range: area)
         
         for term in query.matchingForTerms {
             var range = NSRange(location: 0, length: attributedContent.length)
@@ -57,8 +57,8 @@ class FilePreviewController: NSViewController {
             while (range.location != NSNotFound) {
                 range = (content as NSString).range(of: term, options: [NSString.CompareOptions.caseInsensitive], range: range)
                 if (range.location != NSNotFound) {
-                    attributedContent.addAttributes([NSAttributedStringKey.foregroundColor: NSColor.black,
-                                                     NSAttributedStringKey.backgroundColor: NSColor.orange], range: range)
+                    attributedContent.addAttributes([NSAttributedString.Key.foregroundColor: NSColor.black,
+                                                     NSAttributedString.Key.backgroundColor: NSColor.orange], range: range)
 
                     range = NSRange(location: range.location + range.length, length: inputLength - (range.location + range.length))
                 }

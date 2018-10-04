@@ -16,6 +16,8 @@ protocol DocumentProtocol {
     
     func getContent() -> StreamReader?
     
+    func getLines() -> [String]?
+    
     static func getFactory() -> DocumentFactoryProtocol
 
 }

@@ -87,9 +87,10 @@ class DirectoryCorpus: DocumentCorpusProtocol {
         }
     }
     
-    static func loadDirectoryCorpus(absolutePath: URL, fileExtension: String) -> DirectoryCorpus {
+    static func loadDirectoryCorpus(absolutePath: URL) -> DirectoryCorpus? {
         let corpus: DirectoryCorpus = DirectoryCorpus(directoryPath: absolutePath)
-        corpus.registerFileDocumentFactoryFor(fileExtension: fileExtension, factory: TextFileDocument.getFactory())
+        corpus.registerFileDocumentFactoryFor(fileExtension: "txt", factory: TextFileDocument.getFactory())
+        corpus.registerFileDocumentFactoryFor(fileExtension: "json", factory: JsonFileDocument.getFactory())
         return corpus
     }
 }

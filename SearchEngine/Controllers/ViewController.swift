@@ -47,6 +47,15 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
         self.tableView.sizeLastColumnToFit()
         
         setTableViewMode(to: .QueryResultsMode)
+    
+//        if let stemmer = PorterStemmer()
+//        {
+//            let inputWord = "convenience"
+//            let stemmedWord = stemmer.stem(inputWord)
+//            print(stemmedWord)
+//        }
+        
+        
     }
 
     override var representedObject: Any? {
@@ -156,8 +165,8 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
 
     private func openFilePreviewController(queryResult: QueryResult) -> Void {
         var secondaryWindow: NSWindow? = nil
-        let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
-        let previewController: FilePreviewController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "FilePreviewController")) as! FilePreviewController
+        let storyboard = NSStoryboard(name: "main", bundle: nil)
+        let previewController: FilePreviewController = storyboard.instantiateController(withIdentifier: "FilePreviewController") as! FilePreviewController
         previewController.queryData = queryResult
         secondaryWindow = NSWindow(contentViewController: previewController)
         secondaryWindow?.setContentSize(NSSize(width: 700, height: 1000))

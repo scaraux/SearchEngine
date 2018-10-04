@@ -10,7 +10,7 @@ import Foundation
 
 class EnglishTokenStream: TokenStreamProtocol {
     
-    var reader: StreamReader
+    var reader: StreamReader?
 
     init(_ inputStream: StreamReader) {
         self.reader = inputStream
@@ -19,7 +19,7 @@ class EnglishTokenStream: TokenStreamProtocol {
     func getTokens() -> [String] {
         var tokens = [String]()
         
-        for line in self.reader {
+        for line in self.reader! {
             for word in line.components(separatedBy: CharacterSet.whitespacesAndNewlines) {
                 if !word.isEmpty {
                     tokens.append(word)
@@ -30,6 +30,7 @@ class EnglishTokenStream: TokenStreamProtocol {
     }
     
     func dispose() -> Void {
-        self.reader.close()
+        self.reader?.close()
+        self.reader = nil
     }
 }

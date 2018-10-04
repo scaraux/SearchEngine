@@ -29,8 +29,12 @@
 		D04CDA5F21546C99007B8CB2 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04CDA5E21546C99007B8CB2 /* Engine.swift */; };
 		D04CDA6121546DA8007B8CB2 /* EngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04CDA6021546DA8007B8CB2 /* EngineDelegate.swift */; };
 		D0766BBA215AF0AD00F6A9B6 /* QueryResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0766BB9215AF0AD00F6A9B6 /* QueryResult.swift */; };
-		D0957DC5214DC4740096EFA4 /* String+alphanumeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0957DC4214DC4740096EFA4 /* String+alphanumeric.swift */; };
 		D0AD33692163EAE500139F76 /* KGramIndexProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD33682163EAE500139F76 /* KGramIndexProtocol.swift */; };
+		D0AD336D216441F700139F76 /* JsonFileDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD336C216441F700139F76 /* JsonFileDocument.swift */; };
+		D0AD336F216475D700139F76 /* AdvancedTokenProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD336E216475D700139F76 /* AdvancedTokenProcessor.swift */; };
+		D0AD33722165529500139F76 /* MyFile.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AD33712165529500139F76 /* MyFile.m */; };
+		D0AD33922165606500139F76 /* stemming.c in Sources */ = {isa = PBXBuildFile; fileRef = D0AD33912165606500139F76 /* stemming.c */; };
+		D0AD3394216560C500139F76 /* PorterStemmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD3393216560C500139F76 /* PorterStemmer.swift */; };
 		D0D158E6215F035100CE1376 /* KGramIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D158E5215F035100CE1376 /* KGramIndex.swift */; };
 		D0D158E82161932800CE1376 /* WildcardLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D158E72161932800CE1376 /* WildcardLiteral.swift */; };
 		D0D158EA2161EFE700CE1376 /* FilePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D158E92161EFE700CE1376 /* FilePreviewController.swift */; };
@@ -81,8 +85,14 @@
 		D04CDA5E21546C99007B8CB2 /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		D04CDA6021546DA8007B8CB2 /* EngineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineDelegate.swift; sourceTree = "<group>"; };
 		D0766BB9215AF0AD00F6A9B6 /* QueryResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResult.swift; sourceTree = "<group>"; };
-		D0957DC4214DC4740096EFA4 /* String+alphanumeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+alphanumeric.swift"; sourceTree = "<group>"; };
 		D0AD33682163EAE500139F76 /* KGramIndexProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KGramIndexProtocol.swift; sourceTree = "<group>"; };
+		D0AD336C216441F700139F76 /* JsonFileDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonFileDocument.swift; sourceTree = "<group>"; };
+		D0AD336E216475D700139F76 /* AdvancedTokenProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedTokenProcessor.swift; sourceTree = "<group>"; };
+		D0AD33702165529500139F76 /* SearchEngine-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SearchEngine-Bridging-Header.h"; sourceTree = "<group>"; };
+		D0AD33712165529500139F76 /* MyFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MyFile.m; path = SearchEngine/Engine/MyFile.m; sourceTree = "<group>"; };
+		D0AD33902165605200139F76 /* stemming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stemming.h; sourceTree = "<group>"; };
+		D0AD33912165606500139F76 /* stemming.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stemming.c; sourceTree = "<group>"; };
+		D0AD3393216560C500139F76 /* PorterStemmer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PorterStemmer.swift; sourceTree = "<group>"; };
 		D0D158E5215F035100CE1376 /* KGramIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KGramIndex.swift; sourceTree = "<group>"; };
 		D0D158E72161932800CE1376 /* WildcardLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildcardLiteral.swift; sourceTree = "<group>"; };
 		D0D158E92161EFE700CE1376 /* FilePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePreviewController.swift; sourceTree = "<group>"; };
@@ -116,9 +126,11 @@
 		D040E649214C99C900A487F5 = {
 			isa = PBXGroup;
 			children = (
+				D0AD33712165529500139F76 /* MyFile.m */,
 				D040E654214C99C900A487F5 /* SearchEngine */,
 				D040E667214C99CB00A487F5 /* SearchEngineTests */,
 				D040E653214C99C900A487F5 /* Products */,
+				D0AD33702165529500139F76 /* SearchEngine-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -134,6 +146,7 @@
 		D040E654214C99C900A487F5 /* SearchEngine */ = {
 			isa = PBXGroup;
 			children = (
+				D0AD338F2165603C00139F76 /* Stemmer */,
 				D0766BBC215C303F00F6A9B6 /* Controllers */,
 				D04CDA5D21546C90007B8CB2 /* Engine */,
 				D040E655214C99C900A487F5 /* AppDelegate.swift */,
@@ -176,6 +189,7 @@
 			children = (
 				D040E677214C9B1000A487F5 /* TokenProcessorProtocol.swift */,
 				D040E67A214C9B4B00A487F5 /* BasicTokenProcessor.swift */,
+				D0AD336E216475D700139F76 /* AdvancedTokenProcessor.swift */,
 			);
 			path = Token;
 			sourceTree = "<group>";
@@ -183,10 +197,11 @@
 		D040E680214C9FCA00A487F5 /* Document */ = {
 			isa = PBXGroup;
 			children = (
+				D0AD336B216440D400139F76 /* JSONType */,
+				D0AD336A216440C700139F76 /* TextType */,
 				D0957DC2214DB4810096EFA4 /* DocumentFactory */,
 				D040E681214C9FD700A487F5 /* DocumentProtocol.swift */,
 				D040E692214CA93400A487F5 /* FileDocument.swift */,
-				D040E686214CA3D100A487F5 /* TextFileDocument.swift */,
 			);
 			path = Document;
 			sourceTree = "<group>";
@@ -275,10 +290,35 @@
 		D0957DC3214DC4600096EFA4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D0957DC4214DC4740096EFA4 /* String+alphanumeric.swift */,
 				D0FEDE4F214F3DBF0064B3D5 /* String+substring.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D0AD336A216440C700139F76 /* TextType */ = {
+			isa = PBXGroup;
+			children = (
+				D040E686214CA3D100A487F5 /* TextFileDocument.swift */,
+			);
+			path = TextType;
+			sourceTree = "<group>";
+		};
+		D0AD336B216440D400139F76 /* JSONType */ = {
+			isa = PBXGroup;
+			children = (
+				D0AD336C216441F700139F76 /* JsonFileDocument.swift */,
+			);
+			path = JSONType;
+			sourceTree = "<group>";
+		};
+		D0AD338F2165603C00139F76 /* Stemmer */ = {
+			isa = PBXGroup;
+			children = (
+				D0AD3393216560C500139F76 /* PorterStemmer.swift */,
+				D0AD33912165606500139F76 /* stemming.c */,
+				D0AD33902165605200139F76 /* stemming.h */,
+			);
+			path = Stemmer;
 			sourceTree = "<group>";
 		};
 		D0D158E4215F031900CE1376 /* Gram */ = {
@@ -368,9 +408,11 @@
 				TargetAttributes = {
 					D040E651214C99C900A487F5 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 					D040E663214C99CB00A487F5 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						TestTargetID = D040E651214C99C900A487F5;
 					};
 				};
@@ -424,23 +466,27 @@
 				D0FEDE4E214F3ABB0064B3D5 /* BooleanQueryParser.swift in Sources */,
 				D0D158EA2161EFE700CE1376 /* FilePreviewController.swift in Sources */,
 				D04CDA6121546DA8007B8CB2 /* EngineDelegate.swift in Sources */,
-				D0957DC5214DC4740096EFA4 /* String+alphanumeric.swift in Sources */,
 				D040E68F214CA6C300A487F5 /* DocumentCorpusProtocol.swift in Sources */,
 				D040E658214C99C900A487F5 /* ViewController.swift in Sources */,
 				D040E67B214C9B4B00A487F5 /* BasicTokenProcessor.swift in Sources */,
+				D0AD336D216441F700139F76 /* JsonFileDocument.swift in Sources */,
 				D040E682214C9FD700A487F5 /* DocumentProtocol.swift in Sources */,
 				D040E687214CA3D100A487F5 /* TextFileDocument.swift in Sources */,
+				D0AD3394216560C500139F76 /* PorterStemmer.swift in Sources */,
+				D0AD33722165529500139F76 /* MyFile.m in Sources */,
 				D040E685214CA1FB00A487F5 /* StreamReader.swift in Sources */,
 				D040E67D214C9BAA00A487F5 /* IndexProtocol.swift in Sources */,
 				D0D158E6215F035100CE1376 /* KGramIndex.swift in Sources */,
 				D04CDA5C21546864007B8CB2 /* PositionalInvertedIndex.swift in Sources */,
 				D040E695214CBC7700A487F5 /* DocumentFactoryProtocol.swift in Sources */,
+				D0AD336F216475D700139F76 /* AdvancedTokenProcessor.swift in Sources */,
 				D0FEDE44214F36140064B3D5 /* TermLiteral.swift in Sources */,
 				D0FEDE48214F38740064B3D5 /* PhraseLiteral.swift in Sources */,
 				D0AD33692163EAE500139F76 /* KGramIndexProtocol.swift in Sources */,
 				D0FEDE46214F373E0064B3D5 /* OrQuery.swift in Sources */,
 				D0D158E82161932800CE1376 /* WildcardLiteral.swift in Sources */,
 				D040E656214C99C900A487F5 /* AppDelegate.swift in Sources */,
+				D0AD33922165606500139F76 /* stemming.c in Sources */,
 				D040E691214CA72500A487F5 /* DirectoryCorpus.swift in Sources */,
 				D040E678214C9B1000A487F5 /* TokenProcessorProtocol.swift in Sources */,
 				D040E693214CA93400A487F5 /* FileDocument.swift in Sources */,
@@ -599,6 +645,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SearchEngine/SearchEngine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -610,7 +657,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.frenchfalcon.SearchEngine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "SearchEngine-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -618,6 +667,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SearchEngine/SearchEngine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -629,7 +679,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.frenchfalcon.SearchEngine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "SearchEngine-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -649,7 +700,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.frenchfalcon.SearchEngineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SearchEngine.app/Contents/MacOS/SearchEngine";
 			};
 			name = Debug;
@@ -670,7 +721,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.frenchfalcon.SearchEngineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SearchEngine.app/Contents/MacOS/SearchEngine";
 			};
 			name = Release;
