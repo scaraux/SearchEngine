@@ -9,8 +9,10 @@
 import Foundation
 
 class PositionalInvertedIndex: IndexProtocol {
+    
+    private var i = 0
 
-    private var map: [String : [Posting]]
+    public var map: [String : ContiguousArray<Posting>]
     public var kGramIndex: KGramIndex
     
     public var count: Int {
@@ -20,14 +22,13 @@ class PositionalInvertedIndex: IndexProtocol {
     }
 
     init() {
-        self.map = [String: [Posting]]()
-        self.map.reserveCapacity(100000)
+        self.map = [String : ContiguousArray<Posting>]()
         self.kGramIndex = KGramIndex()
     }
     
-    func getQueryResultsFor(term: String) -> [QueryResult]? {
-        if let postings = self.map[term] {
-            return postings.map({ QueryResult($0) })
+    func getQueryResultsFor(stem: String, fromTerm: String) -> [QueryResult]? {
+        if let postings = self.map[stem] {
+            return postings.map({ QueryResult($0, term: fromTerm) })
         }
         return nil
     }
@@ -37,24 +38,21 @@ class PositionalInvertedIndex: IndexProtocol {
     }
     
     func getVocabulary() -> [String] {
-        return Array(self.map.keys)//.sorted(by: <)
+        return Array(self.map.keys).sorted(by: <)
     }
     
     func addTerm(_ term: String, withId id: Int, atPosition position: Int) {
         
         if self.map[term] == nil {
-            self.map[term] = [Posting]()
+            self.map[term] = ContiguousArray<Posting>()
         }
         
-        self.map[term]!.count
-
-
-        
         if self.map[term]!.last?.documentId == id {
-//            self.map[term]!.last?.addPosition(position)
+            self.map[term]!.last?.addPosition(position)
         }
         else {
             self.map[term]!.append(Posting(withId: id, atPosition: position, forTerm: term))
+
         }
     }
     

@@ -12,5 +12,6 @@ protocol EngineDelegate {
     func onCorpusIndexingStarted(elementsToIndex: Int)
     func onCorpusIndexedOneMoreDocument()
     func onCorpusInitialized(timeElapsed: Double)
+    func onCorpusIndexedGram(gramNb: Int, totalGrams: Int)
     func onQueryResulted(results: [QueryResult]?)
 }

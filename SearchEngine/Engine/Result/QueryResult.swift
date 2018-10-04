@@ -15,11 +15,11 @@ class QueryResult {
     var posting: Posting
     var matchingForTerms: [String]
     
-    init(_ posting: Posting) {
+    init(_ posting: Posting, term: String) {
         self.posting = posting
         self.documentId = self.posting.documentId
         self.matchingForTerms = [String]()
-        self.matchingForTerms.append(self.posting.term)
+        self.matchingForTerms.append(term)
     }
     
     func addMatchingTerm(_ term: String) -> Void {

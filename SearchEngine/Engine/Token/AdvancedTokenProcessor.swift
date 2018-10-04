@@ -13,19 +13,15 @@ class AdvancedTokenProcessor: TokenProcessorProtocol {
     func processToken(token: String) -> String {
         var result = String()
 
-//        for ascii in token.utf8 {
+        for ascii in token.utf8 {
         
-//            if ascii > 64 && ascii < 91 {
-//                result.append(String(UnicodeScalar(UInt8(ascii + 32))))
-//            }
-//            else {
-//                result.append(String(UnicodeScalar(UInt8(ascii))))
-//            }
-//            else if ascii > 96 && ascii < 123 {
-//                result.append(String(UnicodeScalar(UInt8(ascii))))
-//            }
-//        }
-        return token.lowercased()
-//        return result
+            if ascii > 64 && ascii < 91 {
+                result.append(String(UnicodeScalar(UInt8(ascii + 32))))
+            }
+            else if ascii > 96 && ascii < 123 {
+                result.append(String(UnicodeScalar(UInt8(ascii))))
+            }
+        }
+        return result
     }
 }

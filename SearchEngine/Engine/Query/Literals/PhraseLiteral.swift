@@ -23,7 +23,11 @@ class PhraseLiteral: Queriable {
     func getResultsFrom(index: IndexProtocol) -> [QueryResult]? {
         var mergedResults: [QueryResult]
 
-        if let newResults = index.getQueryResultsFor(term: terms[0]) {
+        guard let stemmer = PorterStemmer() else {
+            return nil
+        }
+        
+        if let newResults = index.getQueryResultsFor(stem: stemmer.stem(terms[0]) ,fromTerm: terms[0]) {
             mergedResults = newResults
         }
         else {
@@ -31,7 +35,7 @@ class PhraseLiteral: Queriable {
         }
         
         for i in 1 ..< self.terms.count {
-            if let newResults = index.getQueryResultsFor(term: terms[i]) {
+            if let newResults = index.getQueryResultsFor(stem: stemmer.stem(terms[i]), fromTerm: terms[i]) {
                 mergedResults = positionalMerge(left: mergedResults, right: newResults)
             }
             else {

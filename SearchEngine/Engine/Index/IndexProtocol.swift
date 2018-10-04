@@ -10,7 +10,7 @@ import Foundation
 
 protocol IndexProtocol {
     
-    func getQueryResultsFor(term: String) -> [QueryResult]?
+    func getQueryResultsFor(stem: String, fromTerm: String) -> [QueryResult]?
         
     func getVocabulary() -> [String]
     

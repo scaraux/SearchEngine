@@ -14,7 +14,11 @@ class JsonFileDocument : FileDocument {
     
     var documentId: Int
     
-    var title: String
+    var title: String {
+        get {
+            return getTitle() ?? ""
+        }
+    }
     
     var content: StreamReader?
     
@@ -22,8 +26,21 @@ class JsonFileDocument : FileDocument {
         
         self.fileURL = fileURL
         self.documentId = id
-        self.title = "oo"
         self.content = nil
+    }
+    
+    private func getTitle() -> String? {
+        if let data = NSData(contentsOf: fileURL) {
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: AnyObject] {
+                    return json["author"] as? String
+                }
+            }
+            catch {
+                fatalError("Error: Cannot deserialize json file \(fileURL)")
+            }
+        }
+        return nil
     }
     
     func getContent() -> StreamReader? {

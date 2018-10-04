@@ -8,10 +8,6 @@
 
 import Cocoa
 
-//fileprivate extension Selector {
-//    static let onTableViewRowDoubleClicked = #selector(onTableViewRowDoubleClicked)
-//}
-
 class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
 
     enum TableViewDisplayMode {
@@ -28,6 +24,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var progressBar: NSProgressIndicator!
     @IBOutlet weak var timeElapsedLabel: NSTextField!
+    @IBOutlet weak var resultsLabel: NSTextField!
     
     var engine = Engine()
     var queryResults: [QueryResult]?
@@ -44,18 +41,10 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
         self.queryInput.delegate = self
         self.progressBar.isHidden = true
         self.timeElapsedLabel.isHidden = true
+        self.resultsLabel.stringValue = "0 results"
         self.tableView.sizeLastColumnToFit()
         
         setTableViewMode(to: .QueryResultsMode)
-    
-//        if let stemmer = PorterStemmer()
-//        {
-//            let inputWord = "convenience"
-//            let stemmedWord = stemmer.stem(inputWord)
-//            print(stemmedWord)
-//        }
-        
-        
     }
 
     override var representedObject: Any? {
@@ -91,18 +80,26 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
     }
     
     func onCorpusInitialized(timeElapsed: Double) {
-        self.timeElapsedLabel.isHidden = false
         self.timeElapsedLabel.stringValue = "Time elapsed: \(timeElapsed)"
-        self.progressBar.isHidden = true
     }
     
     func onQueryResulted(results: [QueryResult]?) {
+        if results == nil {
+            return
+        }
         self.queryResults = results
         if self.tableViewMode != .QueryResultsMode {
             setTableViewMode(to: .QueryResultsMode)
         }
+        self.resultsLabel.stringValue = "\(results!.count) results"
         self.tableView.reloadData()
         self.tableView.sizeLastColumnToFit()
+    }
+    
+    func onCorpusIndexedGram(gramNb: Int, totalGrams: Int) {
+        self.progressBar.isHidden = true
+        self.timeElapsedLabel.isHidden = false
+        self.timeElapsedLabel.stringValue = "Indexing \(gramNb)/\(totalGrams)"
     }
     
     private func triggerQuery() -> Void {
@@ -165,7 +162,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
 
     private func openFilePreviewController(queryResult: QueryResult) -> Void {
         var secondaryWindow: NSWindow? = nil
-        let storyboard = NSStoryboard(name: "main", bundle: nil)
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
         let previewController: FilePreviewController = storyboard.instantiateController(withIdentifier: "FilePreviewController") as! FilePreviewController
         previewController.queryData = queryResult
         secondaryWindow = NSWindow(contentViewController: previewController)
@@ -177,7 +174,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
     
     @IBAction func chooseFolderTouchUp(_ sender: Any) {
         if let path = pickBaseFolderWithModal() {
-            self.directoryPathLabel.stringValue = path.absoluteString
+            self.directoryPathLabel.stringValue = "/" + path.lastPathComponent
             self.engine.initCorpus(withPath: path)
         }
     }
@@ -186,11 +183,29 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
         triggerQuery()
     }
     
+    @IBAction func stemWord(_ sender: Any) {
+        let word = self.queryInput.stringValue
+        if word.isEmpty == false {
+            let stem = self.engine.stemWord(word: word)
+            dialogOKCancel(question: "Stem", text: stem)
+            
+        }
+    }
+    
     @IBAction func showVocabulary(_ sender: Any) {
         self.vocabulary = self.engine.getVocabulary()
         self.setTableViewMode(to: .VocabularyMode)
         self.tableView.reloadData()
         self.tableView.sizeLastColumnToFit()
+    }
+    
+    private func dialogOKCancel(question: String, text: String) {
+        let alert = NSAlert()
+        alert.messageText = question
+        alert.informativeText = text
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
     }
 }
 

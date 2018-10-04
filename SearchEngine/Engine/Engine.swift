@@ -12,7 +12,7 @@ class Engine {
     
     private var index: PositionalInvertedIndex
     private var queryParser: BooleanQueryParser
-    private let tagger: NSLinguisticTagger
+    private let stemmer: PorterStemmer
     private var corpus: DocumentCorpusProtocol?
     private var documents: [DocumentProtocol]?
     var delegate: EngineDelegate?
@@ -20,10 +20,11 @@ class Engine {
     init() {
         self.index = PositionalInvertedIndex()
         self.queryParser = BooleanQueryParser()
-        self.tagger = NSLinguisticTagger(tagSchemes: [.lemma], options: 0)
+        self.stemmer = PorterStemmer()!
     }
     
     func execQuery(queryString: String) -> Void {
+        
         let query: Queriable? = queryParser.parseQuery(query: queryString)
 
         if var results: [QueryResult] = query?.getResultsFrom(index: self.index) {
@@ -34,11 +35,18 @@ class Engine {
         self.delegate?.onQueryResulted(results: nil)
     }
     
+    func getVocabulary() -> [String] {
+        return self.index.getVocabulary()
+    }
+    
+    func stemWord(word: String) -> String {
+        return self.stemmer.stem(word)
+    }
+    
     func initCorpus(withPath path: URL) -> Void {
         let start = DispatchTime.now()
         
         self.index.clear()
-
 
         guard let corpus = DirectoryCorpus.loadDirectoryCorpus(absolutePath: path) else {
             return
@@ -47,19 +55,17 @@ class Engine {
         self.retrieveDocuments(corpus: corpus) { (documents: [DocumentProtocol]) in
             self.delegate?.onCorpusIndexingStarted(elementsToIndex: documents.count)
             self.indexDocuments(documents: documents, completion: {
-                let end = DispatchTime.now()
-                let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
-                let timeInterval = Double(nanoTime) / 1_000_000_000
-                self.delegate?.onCorpusInitialized(timeElapsed: timeInterval)
+                self.corpus = corpus
+                self.delegate?.onCorpusInitialized(timeElapsed: self.calculateElapsedTime(from: start))
             })
         }
     }
     
-    func getVocabulary() -> [String] {
-        return self.index.getVocabulary()
+    private func calculateElapsedTime(from: DispatchTime) -> Double {
+        let end = DispatchTime.now()
+        let nanoTime = end.uptimeNanoseconds - from.uptimeNanoseconds
+        return Double(nanoTime) / 1_000_000_000
     }
-    
-
     
     private func retrieveDocuments(corpus: DocumentCorpusProtocol, completion: @escaping ([DocumentProtocol]) -> Void) -> Void {
         DispatchQueue.global(qos: .userInteractive).async {
@@ -70,13 +76,12 @@ class Engine {
         }
     }
     
-    
     private func indexDocuments(documents: [DocumentProtocol], completion: @escaping () -> Void) -> Void {
         DispatchQueue.global(qos: .userInteractive).async {
             
-            var tokenProcessor = AdvancedTokenProcessor()
+            let tokenProcessor = AdvancedTokenProcessor()
             
-//            var types = Set<String>()
+            var types = Set<String>()
 
             for document in documents {
                 guard let stream = document.getContent() else {
@@ -87,34 +92,30 @@ class Engine {
                 
                 let tokens = tokenStream.getTokens()
                 for position in 0..<tokens.count {
-//                    print(tokens[position])
-//                    let sanitized = tokenProcessor.processToken(token: tokens[position])
-                    self.index.addTerm(tokens[position], withId: document.documentId, atPosition: position)
+                    let sanitized = tokenProcessor.processToken(token: tokens[position])
+                    types.insert(sanitized)
+                    let stemmed = self.stemWord(word: sanitized)
+                    self.index.addTerm(stemmed, withId: document.documentId, atPosition: position)
                 }
 
                 DispatchQueue.main.async {
                     self.delegate?.onCorpusIndexedOneMoreDocument()
                 }
             }
+            
+            var typeNb = 1
+            for type in types {
+                self.index.kGramIndex.registerGramsFor(type: type)
+                DispatchQueue.main.async {
+                    self.delegate?.onCorpusIndexedGram(gramNb: typeNb, totalGrams: types.count)
+                }
+                typeNb += 1
+            }
+            
             DispatchQueue.main.async {
                 completion()
             }
         }
-    }
-    
-    private func stemWord(word: String) -> String {
-        let options: NSLinguisticTagger.Options = [.omitPunctuation, .omitWhitespace]
-        
-        tagger.string = word
-        
-        let range = NSRange(location: 0, length: word.utf16.count)
-        
-        tagger.enumerateTags(in: range, unit: .word, scheme: .lemma, options: options) { tag, tokenRange, stop in
-            if let lemma = tag?.rawValue {
-                return print(lemma)
-            }
-        }
-        return " "
     }
     
     private func attachDocumentsToResults(results: [QueryResult]) -> [QueryResult] {

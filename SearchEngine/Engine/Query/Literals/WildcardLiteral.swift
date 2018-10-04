@@ -24,12 +24,16 @@ class WildcardLiteral: Queriable {
             return nil
         }
         
-        if let newResults = index.getQueryResultsFor(term: candidates[0]) {
+        guard let stemmer = PorterStemmer() else {
+            return nil
+        }
+        
+        if let newResults = index.getQueryResultsFor(stem: stemmer.stem(candidates[0]), fromTerm: candidates[0]) {
             mergedResults.append(contentsOf: newResults)
         }
         
         for i in 1 ..< candidates.count {
-            if let newResults = index.getQueryResultsFor(term: candidates[i]) {
+            if let newResults = index.getQueryResultsFor(stem: stemmer.stem(candidates[i]), fromTerm: candidates[i]) {
                 mergedResults = orMerge(left: mergedResults, right: newResults)
             }
         }

@@ -91,7 +91,7 @@
                                         <menuItem title="Stem Selected Word" keyEquivalent="s" id="5H2-Y1-Mrl">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
-                                                <action selector="showVocabulary:" target="Ady-hI-5gd" id="Dl5-cE-S9g"/>
+                                                <action selector="stemWord:" target="Ady-hI-5gd" id="fts-9E-eN4"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="esM-YV-gde"/>
@@ -447,11 +447,20 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fbb-9Q-l1B">
+                                        <rect key="frame" x="434" y="415" width="49" height="17"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Results" id="vQ2-aV-hh1">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" red="1" green="0.6514477796" blue="0.18127708779999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="kks-eG-ND3" firstAttribute="leading" secondItem="jV2-HM-cBK" secondAttribute="leading" constant="15" id="27w-zu-4TY"/>
                                     <constraint firstAttribute="trailing" secondItem="dl4-jv-Mbt" secondAttribute="trailing" constant="15" id="376-3X-OML"/>
                                     <constraint firstItem="op4-Xd-QoJ" firstAttribute="top" secondItem="jV2-HM-cBK" secondAttribute="top" constant="10" id="CIz-wE-Dje"/>
+                                    <constraint firstItem="op4-Xd-QoJ" firstAttribute="leading" secondItem="fbb-9Q-l1B" secondAttribute="trailing" constant="10" id="GNe-3Y-PRW"/>
                                     <constraint firstItem="hS9-nA-5gD" firstAttribute="leading" secondItem="yFd-jm-Tdh" secondAttribute="trailing" constant="30" id="GTc-jG-GlC"/>
                                     <constraint firstItem="h9R-CD-7pT" firstAttribute="leading" secondItem="jV2-HM-cBK" secondAttribute="leading" constant="15" id="Jsg-xK-IKI"/>
                                     <constraint firstItem="Izj-SI-KKh" firstAttribute="centerY" secondItem="yFd-jm-Tdh" secondAttribute="centerY" id="Jt5-vl-bP5"/>
@@ -459,6 +468,7 @@
                                     <constraint firstAttribute="trailing" secondItem="Izj-SI-KKh" secondAttribute="trailing" constant="39" id="O6y-kk-Uq8"/>
                                     <constraint firstAttribute="bottom" secondItem="h9R-CD-7pT" secondAttribute="bottom" constant="10" id="UcM-ZK-vf3"/>
                                     <constraint firstItem="dl4-jv-Mbt" firstAttribute="top" secondItem="kks-eG-ND3" secondAttribute="bottom" constant="10" id="ZAp-af-JwB"/>
+                                    <constraint firstItem="op4-Xd-QoJ" firstAttribute="top" secondItem="fbb-9Q-l1B" secondAttribute="bottom" constant="-18" id="ccW-1C-4Je"/>
                                     <constraint firstItem="h9R-CD-7pT" firstAttribute="top" secondItem="dl4-jv-Mbt" secondAttribute="bottom" constant="10" id="eCP-XR-dEQ"/>
                                     <constraint firstItem="Izj-SI-KKh" firstAttribute="leading" secondItem="yFd-jm-Tdh" secondAttribute="trailing" constant="28" id="kyw-4H-A6h"/>
                                     <constraint firstItem="yFd-jm-Tdh" firstAttribute="centerY" secondItem="h9R-CD-7pT" secondAttribute="centerY" id="m7E-1s-LwQ"/>
@@ -480,6 +490,7 @@
                         <outlet property="directoryPathLabel" destination="LrS-LA-J8u" id="gmf-y9-YUd"/>
                         <outlet property="progressBar" destination="Izj-SI-KKh" id="fjk-n7-X1z"/>
                         <outlet property="queryInput" destination="h9R-CD-7pT" id="nAt-RH-0Le"/>
+                        <outlet property="resultsLabel" destination="fbb-9Q-l1B" id="VMX-WI-lwd"/>
                         <outlet property="tableView" destination="TwL-BO-9Cu" id="xV3-sp-6Oe"/>
                         <outlet property="timeElapsedLabel" destination="hS9-nA-5gD" id="VWV-3Q-WGL"/>
                     </connections>
