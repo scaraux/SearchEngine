@@ -9,7 +9,7 @@
 import Foundation
 
 protocol Queriable {
-    
+        
     func getResultsFrom(index: IndexProtocol) -> [QueryResult]?
     
     func toString() -> String

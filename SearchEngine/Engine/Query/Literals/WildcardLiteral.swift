@@ -79,7 +79,6 @@ class WildcardLiteral: Queriable {
         return queryResults
     }
     
-    
     func toString() -> String {
         return self.term
     }

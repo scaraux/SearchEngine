@@ -22,8 +22,6 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
     @IBOutlet weak var directoryPathLabel: NSTextField!
     @IBOutlet weak var queryInput: NSTextField!
     @IBOutlet weak var tableView: NSTableView!
-    @IBOutlet weak var progressBar: NSProgressIndicator!
-    @IBOutlet weak var timeElapsedLabel: NSTextField!
     @IBOutlet weak var resultsLabel: NSTextField!
     
     var engine = Engine()
@@ -39,8 +37,6 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
         self.tableView.dataSource = self
         self.tableView.doubleAction = #selector(onTableViewRowDoubleClicked)
         self.queryInput.delegate = self
-        self.progressBar.isHidden = true
-        self.timeElapsedLabel.isHidden = true
         self.resultsLabel.stringValue = "0 results"
         self.tableView.sizeLastColumnToFit()
         
@@ -67,22 +63,6 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
         return false
     }
     
-    func onCorpusIndexingStarted(elementsToIndex: Int) {
-        self.timeElapsedLabel.isHidden = true
-        self.progressBar.isHidden = false
-        self.progressBar.doubleValue = 0.0
-        self.progressBar.minValue = 0
-        self.progressBar.maxValue = Double(elementsToIndex)
-    }
-    
-    func onCorpusIndexedOneMoreDocument() {
-        self.progressBar.increment(by: 1.0)
-    }
-    
-    func onCorpusInitialized(timeElapsed: Double) {
-        self.timeElapsedLabel.stringValue = "Time elapsed: \(timeElapsed)"
-    }
-    
     func onQueryResulted(results: [QueryResult]?) {
         if results == nil {
             return
@@ -95,13 +75,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
         self.tableView.reloadData()
         self.tableView.sizeLastColumnToFit()
     }
-    
-    func onCorpusIndexedGram(gramNb: Int, totalGrams: Int) {
-        self.progressBar.isHidden = true
-        self.timeElapsedLabel.isHidden = false
-        self.timeElapsedLabel.stringValue = "Indexing \(gramNb)/\(totalGrams)"
-    }
-    
+
     private func triggerQuery() -> Void {
         self.queryResults?.removeAll()
         let queryString = self.queryInput.stringValue
@@ -172,10 +146,19 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
         windowController.showWindow(self)
     }
     
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowCorpusInitView" {
+            if let vc = segue.destinationController as? CorpusLoadViewController {
+                self.engine.initDelegate = vc
+            }
+        }
+    }
+    
     @IBAction func chooseFolderTouchUp(_ sender: Any) {
         if let path = pickBaseFolderWithModal() {
             self.directoryPathLabel.stringValue = "/" + path.lastPathComponent
             self.engine.initCorpus(withPath: path)
+            performSegue(withIdentifier: "ShowCorpusInitView", sender: nil)
         }
     }
     
@@ -188,7 +171,6 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
         if word.isEmpty == false {
             let stem = self.engine.stemWord(word: word)
             dialogOKCancel(question: "Stem", text: stem)
-            
         }
     }
     

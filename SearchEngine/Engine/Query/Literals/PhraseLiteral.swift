@@ -27,7 +27,7 @@ class PhraseLiteral: Queriable {
             return nil
         }
         
-        if let newResults = index.getQueryResultsFor(stem: stemmer.stem(terms[0]) ,fromTerm: terms[0]) {
+        if let newResults = index.getQueryResultsFor(stem: stemmer.stem(terms[0]), fromTerm: terms[0]) {
             mergedResults = newResults
         }
         else {
@@ -93,7 +93,6 @@ class PhraseLiteral: Queriable {
         }
         return false
     }
-    
     
     func toString() -> String {
         return ""

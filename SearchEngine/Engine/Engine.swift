@@ -15,7 +15,9 @@ class Engine {
     private let stemmer: PorterStemmer
     private var corpus: DocumentCorpusProtocol?
     private var documents: [DocumentProtocol]?
+    
     var delegate: EngineDelegate?
+    var initDelegate: EngineInitDelegate?
     
     init() {
         self.index = PositionalInvertedIndex()
@@ -53,10 +55,12 @@ class Engine {
         }
         
         self.retrieveDocuments(corpus: corpus) { (documents: [DocumentProtocol]) in
-            self.delegate?.onCorpusIndexingStarted(elementsToIndex: documents.count)
+            
+            self.initDelegate?.onCorpusDocumentIndexingStarted(documentsToIndex: documents.count)
+            
             self.indexDocuments(documents: documents, completion: {
                 self.corpus = corpus
-                self.delegate?.onCorpusInitialized(timeElapsed: self.calculateElapsedTime(from: start))
+                self.initDelegate?.onCorpusInitialized(timeElapsed: self.calculateElapsedTime(from: start))
             })
         }
     }
@@ -99,16 +103,22 @@ class Engine {
                 }
 
                 DispatchQueue.main.async {
-                    self.delegate?.onCorpusIndexedOneMoreDocument()
+                    self.initDelegate?.onCorpusIndexedDocument(withFileName: document.fileName)
                 }
             }
             
             var typeNb = 1
+            DispatchQueue.main.async {
+                self.initDelegate?.onCorpusGramsIndexingStarted(gramsToIndex: types.count)
+            }
+            
             for type in types {
                 self.index.kGramIndex.registerGramsFor(type: type)
+                
                 DispatchQueue.main.async {
-                    self.delegate?.onCorpusIndexedGram(gramNb: typeNb, totalGrams: types.count)
+                    self.initDelegate?.onCorpusIndexedGram(gramNumber: typeNb)
                 }
+                
                 typeNb += 1
             }
             

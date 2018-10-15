@@ -9,6 +9,8 @@
 import Foundation
 
 class TextFileDocument : FileDocument {
+    
+    var fileName: String
 
     var fileURL: URL
     
@@ -20,6 +22,7 @@ class TextFileDocument : FileDocument {
         self.fileURL = fileURL
         self.documentId = id
         self.title = fileURL.lastPathComponent
+        self.fileName = fileURL.lastPathComponent
     }
 
     func getContent() -> StreamReader? {

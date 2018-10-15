@@ -9,7 +9,7 @@
 import Foundation
 
 class TermLiteral: Queriable {
-    
+
     var term: String
     
     init(term: String) {
@@ -22,7 +22,7 @@ class TermLiteral: Queriable {
         }
         return nil
     }
-    
+
     func toString() -> String {
         return term
     }

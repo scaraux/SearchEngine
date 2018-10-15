@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D014BF3C217414F0003099CD /* CorpusLoadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D014BF3B217414F0003099CD /* CorpusLoadViewController.swift */; };
 		D040E656214C99C900A487F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E655214C99C900A487F5 /* AppDelegate.swift */; };
 		D040E658214C99C900A487F5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E657214C99C900A487F5 /* ViewController.swift */; };
 		D040E65A214C99CB00A487F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D040E659214C99CB00A487F5 /* Assets.xcassets */; };
@@ -29,13 +30,13 @@
 		D04CDA5F21546C99007B8CB2 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04CDA5E21546C99007B8CB2 /* Engine.swift */; };
 		D04CDA6121546DA8007B8CB2 /* EngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04CDA6021546DA8007B8CB2 /* EngineDelegate.swift */; };
 		D0766BBA215AF0AD00F6A9B6 /* QueryResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0766BB9215AF0AD00F6A9B6 /* QueryResult.swift */; };
-		D0AD33692163EAE500139F76 /* KGramIndexProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD33682163EAE500139F76 /* KGramIndexProtocol.swift */; };
+		D0AD33692163EAE500139F76 /* GramIndexProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD33682163EAE500139F76 /* GramIndexProtocol.swift */; };
 		D0AD336D216441F700139F76 /* JsonFileDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD336C216441F700139F76 /* JsonFileDocument.swift */; };
 		D0AD336F216475D700139F76 /* AdvancedTokenProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD336E216475D700139F76 /* AdvancedTokenProcessor.swift */; };
 		D0AD33722165529500139F76 /* MyFile.m in Sources */ = {isa = PBXBuildFile; fileRef = D0AD33712165529500139F76 /* MyFile.m */; };
 		D0AD33922165606500139F76 /* stemming.c in Sources */ = {isa = PBXBuildFile; fileRef = D0AD33912165606500139F76 /* stemming.c */; };
 		D0AD3394216560C500139F76 /* PorterStemmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD3393216560C500139F76 /* PorterStemmer.swift */; };
-		D0D158E6215F035100CE1376 /* KGramIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D158E5215F035100CE1376 /* KGramIndex.swift */; };
+		D0D158E6215F035100CE1376 /* GramIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D158E5215F035100CE1376 /* GramIndex.swift */; };
 		D0D158E82161932800CE1376 /* WildcardLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D158E72161932800CE1376 /* WildcardLiteral.swift */; };
 		D0D158EA2161EFE700CE1376 /* FilePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D158E92161EFE700CE1376 /* FilePreviewController.swift */; };
 		D0FEDE42214F35DE0064B3D5 /* Queriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEDE41214F35DE0064B3D5 /* Queriable.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D014BF3B217414F0003099CD /* CorpusLoadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorpusLoadViewController.swift; sourceTree = "<group>"; };
 		D040E652214C99C900A487F5 /* SearchEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D040E655214C99C900A487F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D040E657214C99C900A487F5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -85,7 +87,7 @@
 		D04CDA5E21546C99007B8CB2 /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		D04CDA6021546DA8007B8CB2 /* EngineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineDelegate.swift; sourceTree = "<group>"; };
 		D0766BB9215AF0AD00F6A9B6 /* QueryResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResult.swift; sourceTree = "<group>"; };
-		D0AD33682163EAE500139F76 /* KGramIndexProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KGramIndexProtocol.swift; sourceTree = "<group>"; };
+		D0AD33682163EAE500139F76 /* GramIndexProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GramIndexProtocol.swift; sourceTree = "<group>"; };
 		D0AD336C216441F700139F76 /* JsonFileDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonFileDocument.swift; sourceTree = "<group>"; };
 		D0AD336E216475D700139F76 /* AdvancedTokenProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedTokenProcessor.swift; sourceTree = "<group>"; };
 		D0AD33702165529500139F76 /* SearchEngine-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SearchEngine-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -93,7 +95,7 @@
 		D0AD33902165605200139F76 /* stemming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stemming.h; sourceTree = "<group>"; };
 		D0AD33912165606500139F76 /* stemming.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stemming.c; sourceTree = "<group>"; };
 		D0AD3393216560C500139F76 /* PorterStemmer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PorterStemmer.swift; sourceTree = "<group>"; };
-		D0D158E5215F035100CE1376 /* KGramIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KGramIndex.swift; sourceTree = "<group>"; };
+		D0D158E5215F035100CE1376 /* GramIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GramIndex.swift; sourceTree = "<group>"; };
 		D0D158E72161932800CE1376 /* WildcardLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WildcardLiteral.swift; sourceTree = "<group>"; };
 		D0D158E92161EFE700CE1376 /* FilePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePreviewController.swift; sourceTree = "<group>"; };
 		D0FEDE41214F35DE0064B3D5 /* Queriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queriable.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 			children = (
 				D040E657214C99C900A487F5 /* ViewController.swift */,
 				D0D158E92161EFE700CE1376 /* FilePreviewController.swift */,
+				D014BF3B217414F0003099CD /* CorpusLoadViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -324,8 +327,8 @@
 		D0D158E4215F031900CE1376 /* Gram */ = {
 			isa = PBXGroup;
 			children = (
-				D0D158E5215F035100CE1376 /* KGramIndex.swift */,
-				D0AD33682163EAE500139F76 /* KGramIndexProtocol.swift */,
+				D0D158E5215F035100CE1376 /* GramIndex.swift */,
+				D0AD33682163EAE500139F76 /* GramIndexProtocol.swift */,
 			);
 			path = Gram;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				D0FEDE42214F35DE0064B3D5 /* Queriable.swift in Sources */,
 				D04CDA5F21546C99007B8CB2 /* Engine.swift in Sources */,
 				D0FEDE4E214F3ABB0064B3D5 /* BooleanQueryParser.swift in Sources */,
+				D014BF3C217414F0003099CD /* CorpusLoadViewController.swift in Sources */,
 				D0D158EA2161EFE700CE1376 /* FilePreviewController.swift in Sources */,
 				D04CDA6121546DA8007B8CB2 /* EngineDelegate.swift in Sources */,
 				D040E68F214CA6C300A487F5 /* DocumentCorpusProtocol.swift in Sources */,
@@ -476,13 +480,13 @@
 				D0AD33722165529500139F76 /* MyFile.m in Sources */,
 				D040E685214CA1FB00A487F5 /* StreamReader.swift in Sources */,
 				D040E67D214C9BAA00A487F5 /* IndexProtocol.swift in Sources */,
-				D0D158E6215F035100CE1376 /* KGramIndex.swift in Sources */,
+				D0D158E6215F035100CE1376 /* GramIndex.swift in Sources */,
 				D04CDA5C21546864007B8CB2 /* PositionalInvertedIndex.swift in Sources */,
 				D040E695214CBC7700A487F5 /* DocumentFactoryProtocol.swift in Sources */,
 				D0AD336F216475D700139F76 /* AdvancedTokenProcessor.swift in Sources */,
 				D0FEDE44214F36140064B3D5 /* TermLiteral.swift in Sources */,
 				D0FEDE48214F38740064B3D5 /* PhraseLiteral.swift in Sources */,
-				D0AD33692163EAE500139F76 /* KGramIndexProtocol.swift in Sources */,
+				D0AD33692163EAE500139F76 /* GramIndexProtocol.swift in Sources */,
 				D0FEDE46214F373E0064B3D5 /* OrQuery.swift in Sources */,
 				D0D158E82161932800CE1376 /* WildcardLiteral.swift in Sources */,
 				D040E656214C99C900A487F5 /* AppDelegate.swift in Sources */,

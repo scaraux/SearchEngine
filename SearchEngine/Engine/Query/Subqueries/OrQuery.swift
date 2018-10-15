@@ -10,7 +10,7 @@ import Foundation
 
 class OrQuery: Queriable {
     
-    private var components: [Queriable]
+    private(set) var components: [Queriable]
 
     init(components: [Queriable]) {
         self.components = [Queriable]()

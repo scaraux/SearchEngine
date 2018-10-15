@@ -8,7 +8,7 @@
 
 import Foundation
 
-class KGramIndex: KGramIndexProtocol {
+class GramIndex: GramIndexProtocol {
     
     struct Constants {
         static let MaximumGramLength = 3
@@ -16,17 +16,21 @@ class KGramIndex: KGramIndexProtocol {
         static let WildcardCharacter = "*"
     }
     
-    private(set) var gramIndex: [String:Set<String>]
+    private(set) var map: [String:Set<String>]
     
     init() {
-        self.gramIndex = [String:Set<String>]()
+        self.map = [String:Set<String>]()
+    }
+    
+    private func withTypes<R>(forGram gram: String, mutations: (inout Set<String>) throws -> R) rethrows -> R {
+        return try mutations(&map[gram, default: []])
     }
     
     func getMatchingCandidatesFor(term: String) -> [String]? {
         var candidates = [String]()
         let grams = getMatchingGramsFor(term: term)!
         
-        if let newCandidates = self.gramIndex[grams[0]] {
+        if let newCandidates = self.map[grams[0]] {
             candidates = Array(newCandidates)
         }
         else {
@@ -34,7 +38,7 @@ class KGramIndex: KGramIndexProtocol {
         }
 
         for i in 1 ..< grams.count {
-            if let newCandidates = self.gramIndex[grams[i]] {
+            if let newCandidates = self.map[grams[i]] {
                 candidates = Array(Set(candidates).intersection(Set(newCandidates)))
             }
             else {
@@ -45,10 +49,9 @@ class KGramIndex: KGramIndexProtocol {
     }
     
     private func addTypeCandidateForGram(gram: String, type: String) -> Void {
-        if self.gramIndex[gram] == nil {
-            self.gramIndex[gram] = Set<String>()
+        withTypes(forGram: gram) { types in
+            types.insert(type)
         }
-        self.gramIndex[gram]!.insert(type)
     }
 
     func registerGramsFor(type: String) -> Void {
@@ -105,7 +108,7 @@ class KGramIndex: KGramIndexProtocol {
                 }
                 // If gram is more than 1 character long, we build a substring
                 if maximumGramLengthForTerm > 1 {
-                    gram = String(subTerm[i..<(i + Constants.MaximumGramLength)])
+                    gram = String(subTerm[i..<(i + maximumGramLengthForTerm)])
                 }
                 // If gram is only one character long, the gram is the character itself
                 else {

@@ -25,6 +25,46 @@ class SearchEngineTests: XCTestCase {
         self.engine = nil
     }
     
+    func testBooleanQueryParser() {
+        let parser = BooleanQueryParser()
+        var result: Queriable
+        
+        let andQuery = "whale ships"
+        result = parser.parseQuery(query: andQuery)!
+        XCTAssertTrue(result is AndQuery)
+        
+        let orQuery = "whale + ships"
+        result = parser.parseQuery(query: orQuery)!
+        XCTAssertTrue(result is OrQuery)
+
+        let phraseLiteralQuery = "\"whale ships\""
+        result = parser.parseQuery(query: phraseLiteralQuery)!
+        XCTAssertTrue(result is PhraseLiteral)
+
+        let wildCardQuery = "wh*e"
+        result = parser.parseQuery(query: wildCardQuery)!
+        XCTAssertTrue(result is WildcardLiteral)
+
+        let combinedQuery = "whale + boat cruise"
+        result = parser.parseQuery(query: combinedQuery)!
+        XCTAssertTrue(result is OrQuery)
+        var rightPartOfOr = (result as! OrQuery).components[1]
+        XCTAssertTrue(rightPartOfOr is AndQuery)
+        XCTAssertTrue((rightPartOfOr as! AndQuery).components.count == 2)
+
+        let complexQuery = "whale + \"is here\" an* sees"
+        result = parser.parseQuery(query: complexQuery)!
+        XCTAssertTrue(result is OrQuery)
+        rightPartOfOr = (result as! OrQuery).components[1]
+        XCTAssertTrue(rightPartOfOr is AndQuery)
+        let leftPartOfAnd = (rightPartOfOr as! AndQuery).components[0]
+        XCTAssertTrue(leftPartOfAnd is PhraseLiteral)
+        let middlePartOfAnd = (rightPartOfOr as! AndQuery).components[1]
+        XCTAssertTrue(middlePartOfAnd is WildcardLiteral)
+        let lastPartOfAnd = (rightPartOfOr as! AndQuery).components.last!
+        XCTAssertTrue(lastPartOfAnd is TermLiteral)
+    }
+    
     func testKGramIndex() {
         let index = KGramIndex()
         gramsRegistration(index: index)
@@ -96,16 +136,4 @@ class SearchEngineTests: XCTestCase {
         XCTAssertTrue(grams!.contains("a"))
         XCTAssertTrue(grams!.contains("d$"))
     }
-    
-    func matchCandidatesForGrams() {
-        let term = "re*ve"
-    }
-    
-//    func testPerformanceExample() {
-//        // This is an example of a performance test case.
-//        self.measure {
-//            // Put the code you want to measure the time of here.
-//        }
-//    }
-    
 }

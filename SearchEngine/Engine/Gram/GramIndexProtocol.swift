@@ -8,8 +8,9 @@
 
 import Foundation
 
-protocol KGramIndexProtocol {
-    func registerGramsFor(type: String) -> Void
-    func getMatchingCandidatesFor(term: String) -> [String]?
+protocol GramIndexProtocol {
     
+    func registerGramsFor(type: String) -> Void
+    
+    func getMatchingCandidatesFor(term: String) -> [String]?
 }

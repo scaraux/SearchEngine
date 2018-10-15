@@ -11,6 +11,8 @@ import Foundation
 protocol DocumentProtocol {
     
     var documentId: Int { get }
+    
+    var fileName: String { get }
 
     var title: String { get }
     
@@ -19,5 +21,4 @@ protocol DocumentProtocol {
     func getLines() -> [String]?
     
     static func getFactory() -> DocumentFactoryProtocol
-
 }

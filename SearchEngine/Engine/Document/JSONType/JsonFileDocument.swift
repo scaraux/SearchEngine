@@ -10,6 +10,8 @@ import Foundation
 
 class JsonFileDocument : FileDocument {
     
+    var fileName: String
+    
     var fileURL: URL
     
     var documentId: Int
@@ -27,6 +29,7 @@ class JsonFileDocument : FileDocument {
         self.fileURL = fileURL
         self.documentId = id
         self.content = nil
+        self.fileName = fileURL.lastPathComponent
     }
     
     private func getTitle() -> String? {

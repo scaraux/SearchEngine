@@ -9,9 +9,18 @@
 import Foundation
 
 protocol EngineDelegate {
-    func onCorpusIndexingStarted(elementsToIndex: Int)
-    func onCorpusIndexedOneMoreDocument()
-    func onCorpusInitialized(timeElapsed: Double)
-    func onCorpusIndexedGram(gramNb: Int, totalGrams: Int)
     func onQueryResulted(results: [QueryResult]?)
+}
+
+protocol EngineInitDelegate {
+    
+    func onCorpusDocumentIndexingStarted(documentsToIndex: Int)
+    
+    func onCorpusGramsIndexingStarted(gramsToIndex: Int)
+    
+    func onCorpusIndexedDocument(withFileName: String)
+    
+    func onCorpusIndexedGram(gramNumber: Int)
+    
+    func onCorpusInitialized(timeElapsed: Double)
 }
