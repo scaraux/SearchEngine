@@ -46,7 +46,7 @@ class PhraseLiteral: Queriable {
         return mergedResults
     }
     
-    func positionalMerge(left: [QueryResult], right: [QueryResult]) -> [QueryResult] {
+    private func positionalMerge(left: [QueryResult], right: [QueryResult]) -> [QueryResult] {
         
         var queryResults = [QueryResult]()
         var i: Int = 0

@@ -11,11 +11,10 @@ import Cocoa
 
 class DirectoryCorpus: DocumentCorpusProtocol {
     
-    let fileManager = FileManager.default
-    
-    var directoryPath: URL
-
-    var corpusSize: Int {
+    private var directoryPath: URL
+    private var factories: [String : DocumentFactoryProtocol]
+    private var documents: [Int : FileDocument]?
+    internal var corpusSize: Int {
         get {
             if documents == nil {
                 documents = readDocuments()
@@ -23,16 +22,29 @@ class DirectoryCorpus: DocumentCorpusProtocol {
             return documents!.count
         }
     }
-    private var factories: [String : DocumentFactoryProtocol]
     
-    private var documents: [Int : FileDocument]?
-
     init(directoryPath: URL) {
         self.factories = [String : DocumentFactoryProtocol]()
         self.directoryPath = directoryPath
     }
     
-    func readDocuments() -> [Int : FileDocument] {
+    internal func getDocuments() -> [DocumentProtocol] {
+        if self.documents == nil {
+            self.documents = readDocuments()
+        }
+        return Array(self.documents!.values).sorted(by: { $0.documentId < $1.documentId })
+    }
+    
+    internal func getDocumentWith(id: Int) -> DocumentProtocol? {
+        return self.documents?[id]
+    }
+    
+    internal func getFileDocumentWith(id: Int) -> FileDocument? {
+        return self.documents?[id]
+    }
+    
+    
+    private func readDocuments() -> [Int : FileDocument] {
         
         var docId = 1
         var docs = [Int : FileDocument]()
@@ -53,32 +65,17 @@ class DirectoryCorpus: DocumentCorpusProtocol {
         return docs
     }
     
-    func getDocuments() -> [DocumentProtocol] {
-        if self.documents == nil {
-            self.documents = readDocuments()
-        }
-        return Array(self.documents!.values).sorted(by: { $0.documentId < $1.documentId })
-    }
-    
-    func getDocumentWith(id: Int) -> DocumentProtocol? {
-        return self.documents?[id]
-    }
-    
-    func getFileDocumentWith(id: Int) -> FileDocument? {
-        return self.documents?[id]
-    }
-    
-    func registerFileDocumentFactoryFor(fileExtension: String, factory: DocumentFactoryProtocol) {
+    private func registerFileDocumentFactoryFor(fileExtension: String, factory: DocumentFactoryProtocol) {
         self.factories[fileExtension] = factory
     }
     
-    func getFileDocumentFactoryFor(fileExtension: String) -> DocumentFactoryProtocol? {
+    private func getFileDocumentFactoryFor(fileExtension: String) -> DocumentFactoryProtocol? {
         return self.factories[fileExtension] ?? nil
     }
     
     private func findFiles() -> [URL]? {
         do {
-            let files = try fileManager.contentsOfDirectory(at: self.directoryPath,
+            let files = try FileManager.default.contentsOfDirectory(at: self.directoryPath,
                                                        includingPropertiesForKeys: nil,
                                                        options: [.skipsHiddenFiles, .skipsPackageDescendants, .skipsSubdirectoryDescendants])
             return files.filter { !$0.hasDirectoryPath }

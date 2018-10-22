@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
+class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
 
     enum TableViewDisplayMode {
         case QueryResultsMode
@@ -63,7 +63,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
         return false
     }
     
-    func onQueryResulted(results: [QueryResult]?) {
+    internal func onQueryResulted(results: [QueryResult]?) {
         if results == nil {
             return
         }
@@ -191,7 +191,7 @@ class ViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
     }
 }
 
-extension ViewController: NSTableViewDelegate, NSTableViewDataSource {
+extension SearchViewController: NSTableViewDelegate, NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         if self.tableViewMode == .QueryResultsMode {

@@ -10,16 +10,15 @@ import Foundation
 
 class PositionalInvertedIndex: IndexProtocol {
     
-    public var map: [String:[Posting]] = [:]
-    public var kGramIndex: GramIndex
-    
-    public var count: Int {
-        get {
-            return self.map.count
-        }
-    }
+    private(set) var map: [String:[Posting]] = [:]
+    private(set) var kGramIndex: GramIndex
 
     init() {
+        self.kGramIndex = GramIndex()
+    }
+    
+    init(withIndex index: [String:[Posting]]) {
+        self.map = index
         self.kGramIndex = GramIndex()
     }
 
@@ -29,6 +28,13 @@ class PositionalInvertedIndex: IndexProtocol {
     
     public func getQueryResultsFor(stem: String, fromTerm: String) -> [QueryResult]? {
         if let postings = self.map[stem] {
+            return postings.map({ QueryResult($0, term: fromTerm) })
+        }
+        return nil
+    }
+    
+    public func getQueryResultsFor(stem: String, fromTerm: String, withDummyMap map: [String:[Posting]]) -> [QueryResult]? {
+        if let postings = map[stem] {
             return postings.map({ QueryResult($0, term: fromTerm) })
         }
         return nil
@@ -51,7 +57,7 @@ class PositionalInvertedIndex: IndexProtocol {
             if let posting = postings.last, posting.documentId == id {
                 posting.addPosition(position)
             } else {
-                postings.append(Posting(withId: id, atPosition: position, forTerm: term))
+                postings.append(Posting(withDocumentId: id, withPosition: position, forTerm: term))
             }
         }
     }

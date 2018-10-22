@@ -26,13 +26,13 @@ class OrQuery: Queriable {
 
         for i in 1 ..< self.components.count {
             if let newResults = self.components[i].getResultsFrom(index: index) {
-                mergedResults = orMerge(left: mergedResults, right: newResults)
+                mergedResults = union(left: mergedResults, right: newResults)
             }
         }
         return mergedResults
     }
     
-    func orMerge(left: [QueryResult], right: [QueryResult]) -> [QueryResult] {
+    func union(left: [QueryResult], right: [QueryResult]) -> [QueryResult] {
         
         var queryResults = [QueryResult]()
         var i: Int = 0

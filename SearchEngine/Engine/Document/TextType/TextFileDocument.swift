@@ -29,10 +29,6 @@ class TextFileDocument : FileDocument {
         return StreamReader(url: self.fileURL)
     }
     
-    func getLines() -> [String]? {
-        return nil
-    }
-    
     static func getFactory() -> DocumentFactoryProtocol {
         return TextFileDocumentFactory()
     }

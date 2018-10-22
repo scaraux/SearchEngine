@@ -9,7 +9,6 @@
 import Foundation
 
 class BasicTokenProcessor : TokenProcessorProtocol {
-    
     func processToken(token: String) -> String {
         return token.lowercased()
     }    

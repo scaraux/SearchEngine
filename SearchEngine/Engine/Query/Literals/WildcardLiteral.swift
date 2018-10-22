@@ -35,13 +35,13 @@ class WildcardLiteral: Queriable {
         
         for i in 1 ..< candidates.count {
             if let newResults = index.getQueryResultsFor(stem: stemmer.stem(candidates[i]), fromTerm: candidates[i]) {
-                mergedResults = orMerge(left: mergedResults, right: newResults)
+                mergedResults = union(left: mergedResults, right: newResults)
             }
         }
         return mergedResults
     }
     
-    func orMerge(left: [QueryResult], right: [QueryResult]) -> [QueryResult] {
+    private func union(left: [QueryResult], right: [QueryResult]) -> [QueryResult] {
         
         var queryResults = [QueryResult]()
         var i: Int = 0

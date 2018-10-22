@@ -16,7 +16,6 @@ class Engine {
     private var queryParser: BooleanQueryParser
     private let stemmer: PorterStemmer
     private var corpus: DocumentCorpusProtocol?
-//    private var documents: [DocumentProtocol]?
     
     var delegate: EngineDelegate?
     var initDelegate: EngineInitDelegate?

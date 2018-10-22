@@ -9,7 +9,5 @@
 import Foundation
 
 protocol TokenProcessorProtocol {
-    
     func processToken(token: String) -> String
-    
 }

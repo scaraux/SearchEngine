@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DiskIndexWriter {
+class DiskIndexWriter: DiskIndexWriterProtocol {
     
     private var postingWriter: PostingWriterProtocol
     
@@ -119,13 +119,10 @@ class DiskIndexWriter {
         return offsets
     }
     
-    
-    public func writeIndex(index: IndexProtocol, atPath url: URL) -> Bool {
+    public func writeIndex(index: IndexProtocol, atPath url: URL) -> Void {
         let vocabulary: [String] = index.getVocabulary()
         
         let postingsOffsets: [Int] = writePostings(vocabulary: vocabulary, url: url, index: index)
         let vocabularyOffsets: [Int] = writeVocabulary(vocabulary: vocabulary, url: url)
-        
-        return true
     }
 }

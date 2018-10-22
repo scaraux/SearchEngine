@@ -9,7 +9,5 @@
 import Foundation
 
 protocol FileDocument : DocumentProtocol {
-    
     var fileURL: URL { get }
-    
 }

@@ -98,7 +98,7 @@ class BooleanQueryParser {
         }
     }
     
-    func findNextSubquery(_ query: String, startIndex: Int) -> StringBounds {
+    private func findNextSubquery(_ query: String, startIndex: Int) -> StringBounds {
         var lengthOut: Int
         var startPosition = startIndex
         
@@ -125,7 +125,7 @@ class BooleanQueryParser {
         return StringBounds(start: startPosition, length: lengthOut)
     }
     
-    func findNextLiteral(subquery: String, startIndex: Int) -> Literal {
+    private func findNextLiteral(subquery: String, startIndex: Int) -> Literal {
         let nextDelimiter: Int
         let subLength: Int = subquery.count
         var isPhrase: Bool = false

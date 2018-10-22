@@ -29,7 +29,7 @@ class AndQuery: Queriable {
         
         for i in 1 ..< self.components.count {
             if let newResults = self.components[i].getResultsFrom(index: index) {
-               mergedResults = andMerge(left: mergedResults, right: newResults)
+               mergedResults = intersection(left: mergedResults, right: newResults)
             }
             else {
                 return nil
@@ -38,7 +38,7 @@ class AndQuery: Queriable {
         return mergedResults
     }
     
-    func andMerge(left: [QueryResult], right: [QueryResult]) -> [QueryResult] {
+    func intersection(left: [QueryResult], right: [QueryResult]) -> [QueryResult] {
         
         var queryResults = [QueryResult]()
         var i: Int = 0
