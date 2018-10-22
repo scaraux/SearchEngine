@@ -8,18 +8,13 @@
 
 import Foundation
 
-class JsonFileDocument : FileDocument {
+class JsonFileDocument: FileDocument {
     
-    var fileName: String
-    var fileURL: URL
-    var documentId: Int
-    var title: String {
-        get {
-            return getTitle() ?? ""
-        }
-    }
-    
-    var content: StreamReader?
+    private(set) var fileName: String
+    private(set) var fileURL: URL
+    private(set) var documentId: Int
+    private(set) var content: StreamReader?
+    var title: String { return getTitle() ?? "" }
     
     init(id: Int, fileURL: URL) {
         
@@ -32,7 +27,9 @@ class JsonFileDocument : FileDocument {
     private func getTitle() -> String? {
         if let data = NSData(contentsOf: fileURL) {
             do {
-                if let json = try JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: AnyObject] {
+                let options = JSONSerialization.ReadingOptions.allowFragments
+                if let json = try JSONSerialization.jsonObject(with: data as Data,
+                                                               options: options) as? [String: AnyObject] {
                     return json["title"] as? String
                 }
             }
@@ -46,7 +43,9 @@ class JsonFileDocument : FileDocument {
     func getContent() -> StreamReader? {
         if let data = NSData(contentsOf: fileURL) {
             do {
-                if let json = try JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: AnyObject] {
+                let options = JSONSerialization.ReadingOptions.allowFragments
+                if let json = try JSONSerialization.jsonObject(with: data as Data,
+                                                               options: options) as? [String: AnyObject] {
                     let contentString = json["body"] as! String
                     return StreamReader(data: contentString.data(using: .utf8)!)
                 }
@@ -63,7 +62,7 @@ class JsonFileDocument : FileDocument {
     }
 }
 
-class JsonFileDocumentFactory : DocumentFactoryProtocol {
+class JsonFileDocumentFactory: DocumentFactoryProtocol {
     func createDocument(_ id: Int, _ fileURL: URL) -> FileDocument {
         return JsonFileDocument(id: id, fileURL: fileURL)
     }

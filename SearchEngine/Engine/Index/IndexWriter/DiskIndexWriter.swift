@@ -27,7 +27,9 @@ class DiskIndexWriter: DiskIndexWriterProtocol {
             do {
                 var isDir: ObjCBool = true
                 if !FileManager.default.fileExists(atPath: url.deletingLastPathComponent().path, isDirectory: &isDir) {
-                    try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
+                    try FileManager.default.createDirectory(at: url.deletingLastPathComponent(),
+                                                            withIntermediateDirectories: true,
+                                                            attributes: nil)
                 }
                 return FileManager.default.createFile(atPath: url.path, contents: nil, attributes: nil)
             } catch {
@@ -119,7 +121,7 @@ class DiskIndexWriter: DiskIndexWriterProtocol {
         return offsets
     }
     
-    public func writeIndex(index: IndexProtocol, atPath url: URL) -> Void {
+    public func writeIndex(index: IndexProtocol, atPath url: URL) {
         let vocabulary: [String] = index.getVocabulary()
         
         let postingsOffsets: [Int] = writePostings(vocabulary: vocabulary, url: url, index: index)

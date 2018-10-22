@@ -8,15 +8,12 @@
 
 import Foundation
 
-class TextFileDocument : FileDocument {
+class TextFileDocument: FileDocument {
     
-    var fileName: String
-
-    var fileURL: URL
-    
-    var documentId: Int
-    
-    var title: String
+    private(set) var fileName: String
+    private(set) var fileURL: URL
+    private(set) var documentId: Int
+    private(set) var title: String
 
     init(id: Int, fileURL: URL) {
         self.fileURL = fileURL
@@ -34,7 +31,7 @@ class TextFileDocument : FileDocument {
     }
 }
 
-class TextFileDocumentFactory : DocumentFactoryProtocol {
+class TextFileDocumentFactory: DocumentFactoryProtocol {
     func createDocument(_ id: Int, _ fileURL: URL) -> FileDocument {
         return TextFileDocument(id: id, fileURL: fileURL)
     }

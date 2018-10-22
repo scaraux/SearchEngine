@@ -20,16 +20,14 @@ class EnglishTokenStream: TokenStreamProtocol {
         var tokens = [String]()
         
         for line in self.reader! {
-            for word in line.components(separatedBy: CharacterSet.whitespacesAndNewlines) {
-                if !word.isEmpty {
-                    tokens.append(word)
-                }
+            for word in line.components(separatedBy: CharacterSet.whitespacesAndNewlines) where !word.isEmpty {
+                tokens.append(word)
             }
         }
         return tokens
     }
     
-    func dispose() -> Void {
+    func dispose() {
         self.reader?.close()
         self.reader = nil
     }

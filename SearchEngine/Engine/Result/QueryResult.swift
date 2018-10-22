@@ -22,13 +22,13 @@ class QueryResult {
         self.matchingForTerms.append(term)
     }
     
-    func addMatchingTerm(_ term: String) -> Void {
+    func addMatchingTerm(_ term: String) {
         if self.matchingForTerms.contains(term) == false {
             self.matchingForTerms.insert(term, at: 0)
         }
     }
     
-    func addMatchingTerms(terms: [String]) -> Void {
+    func addMatchingTerms(terms: [String]) {
         for term in terms {
             if self.matchingForTerms.contains(term) == false {
                 self.matchingForTerms.insert(contentsOf: terms, at: 0)

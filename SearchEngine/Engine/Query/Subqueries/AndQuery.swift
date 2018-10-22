@@ -65,4 +65,3 @@ class AndQuery: Queriable {
         return ""
     }
 }
-

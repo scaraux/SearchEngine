@@ -12,19 +12,17 @@ import Cocoa
 class DirectoryCorpus: DocumentCorpusProtocol {
     
     private var directoryPath: URL
-    private var factories: [String : DocumentFactoryProtocol]
-    private var documents: [Int : FileDocument]?
+    private var factories: [String: DocumentFactoryProtocol]
+    private var documents: [Int: FileDocument]?
     internal var corpusSize: Int {
-        get {
-            if documents == nil {
-                documents = readDocuments()
-            }
-            return documents!.count
+        if documents == nil {
+            documents = readDocuments()
         }
+        return documents!.count
     }
     
     init(directoryPath: URL) {
-        self.factories = [String : DocumentFactoryProtocol]()
+        self.factories = [String: DocumentFactoryProtocol]()
         self.directoryPath = directoryPath
     }
     
@@ -43,11 +41,10 @@ class DirectoryCorpus: DocumentCorpusProtocol {
         return self.documents?[id]
     }
     
-    
-    private func readDocuments() -> [Int : FileDocument] {
+    private func readDocuments() -> [Int: FileDocument] {
         
         var docId = 1
-        var docs = [Int : FileDocument]()
+        var docs = [Int: FileDocument]()
         
         guard let fileURLs = findFiles() else {
             return docs
@@ -77,7 +74,9 @@ class DirectoryCorpus: DocumentCorpusProtocol {
         do {
             let files = try FileManager.default.contentsOfDirectory(at: self.directoryPath,
                                                        includingPropertiesForKeys: nil,
-                                                       options: [.skipsHiddenFiles, .skipsPackageDescendants, .skipsSubdirectoryDescendants])
+                                                       options: [.skipsHiddenFiles,
+                                                                 .skipsPackageDescendants,
+                                                                 .skipsSubdirectoryDescendants])
             return files.filter { !$0.hasDirectoryPath }
         } catch {
             print("Error while enumerating files \(directoryPath.path): \(error.localizedDescription)")

@@ -169,7 +169,9 @@ class BooleanQueryParser {
         }
         // If term is a phrase, add it as PhraseLiteral
         if isPhrase {
-            let phraseTerms = term.replacingOccurrences(of: "\"", with: "", options: NSString.CompareOptions.literal, range: nil)
+            let phraseTerms = term.replacingOccurrences(of: "\"",
+                                                        with: "",
+                                                        options: NSString.CompareOptions.literal, range: nil)
             return Literal(bounds: finalBounds, literal: PhraseLiteral(terms: phraseTerms))
         }
         // Term is regular, add as TermLiteral

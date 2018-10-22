@@ -11,8 +11,8 @@ import Cocoa
 class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
 
     enum TableViewDisplayMode {
-        case QueryResultsMode
-        case VocabularyMode
+        case queryResultsMode
+        case vocabularyMode
     }
     
     struct Constants {
@@ -27,7 +27,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     var engine = Engine()
     var queryResults: [QueryResult]?
     var vocabulary: [String]?
-    var tableViewMode: TableViewDisplayMode = .QueryResultsMode
+    var tableViewMode: TableViewDisplayMode = .queryResultsMode
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +40,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         self.resultsLabel.stringValue = "0 results"
         self.tableView.sizeLastColumnToFit()
         
-        setTableViewMode(to: .QueryResultsMode)
+        setTableViewMode(to: .queryResultsMode)
     }
 
     override var representedObject: Any? {
@@ -56,7 +56,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     }
     
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
-        if (commandSelector == #selector(NSResponder.insertNewline(_:))) {
+        if commandSelector == #selector(NSResponder.insertNewline(_:)) {
             triggerQuery()
             return true
         }
@@ -68,15 +68,15 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
             return
         }
         self.queryResults = results
-        if self.tableViewMode != .QueryResultsMode {
-            setTableViewMode(to: .QueryResultsMode)
+        if self.tableViewMode != .queryResultsMode {
+            setTableViewMode(to: .queryResultsMode)
         }
         self.resultsLabel.stringValue = "\(results!.count) results"
         self.tableView.reloadData()
         self.tableView.sizeLastColumnToFit()
     }
 
-    private func triggerQuery() -> Void {
+    private func triggerQuery() {
         self.queryResults?.removeAll()
         let queryString = self.queryInput.stringValue
         if queryString.isEmpty == false {
@@ -87,7 +87,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         }
     }
     
-    @objc private func onTableViewRowDoubleClicked() -> Void {
+    @objc private func onTableViewRowDoubleClicked() {
         let selectedRow = self.tableView.selectedRow
         guard let relatedQueryResult = self.queryResults?[selectedRow] else {
             return
@@ -95,8 +95,8 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         openFilePreviewController(queryResult: relatedQueryResult)
     }
     
-    private func setTableViewMode(to mode: TableViewDisplayMode) -> Void {
-        if mode == .QueryResultsMode {
+    private func setTableViewMode(to mode: TableViewDisplayMode) {
+        if mode == .queryResultsMode {
             self.tableView.tableColumns[0].headerCell.title = "Id"
             self.tableView.tableColumns[0].width = 50.0
             self.tableView.tableColumns[0].minWidth = 50.0
@@ -106,19 +106,19 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
             self.tableView.tableColumns[1].minWidth = 150.0
             self.tableView.tableColumns[2].isHidden = false
             self.tableView.tableColumns[2].width = 150.0
-            self.tableViewMode = .QueryResultsMode
+            self.tableViewMode = .queryResultsMode
         }
-        else if mode == .VocabularyMode {
+        else if mode == .vocabularyMode {
             self.tableView.tableColumns[0].headerCell.title = "Words"
             self.tableView.tableColumns[0].maxWidth = 500.0
             self.tableView.tableColumns[1].isHidden = true
             self.tableView.tableColumns[2].isHidden = true
-            self.tableViewMode = .VocabularyMode
+            self.tableViewMode = .vocabularyMode
         }
     }
     
     private func pickBaseFolderWithModal() -> URL? {
-        let openPanel = NSOpenPanel();
+        let openPanel = NSOpenPanel()
         openPanel.title = "Select a folder"
         openPanel.message = "Pick a folder"
         openPanel.directoryURL = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)[0]
@@ -127,17 +127,18 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         openPanel.canChooseFiles = false
         openPanel.allowsMultipleSelection = false
         openPanel.canCreateDirectories = false
-        let r = openPanel.runModal()
-        if r == NSApplication.ModalResponse.OK {
+        let ret = openPanel.runModal()
+        if ret == NSApplication.ModalResponse.OK {
             return openPanel.url!
         }
         return nil
     }
 
-    private func openFilePreviewController(queryResult: QueryResult) -> Void {
-        var secondaryWindow: NSWindow? = nil
+    private func openFilePreviewController(queryResult: QueryResult) {
+        var secondaryWindow: NSWindow?
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        let previewController: FilePreviewController = storyboard.instantiateController(withIdentifier: "FilePreviewController") as! FilePreviewController
+        let previewController: FilePreviewController = storyboard.instantiateController(
+            withIdentifier: "FilePreviewController") as! FilePreviewController
         previewController.queryData = queryResult
         secondaryWindow = NSWindow(contentViewController: previewController)
         secondaryWindow?.setContentSize(NSSize(width: 700, height: 1000))
@@ -176,7 +177,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     
     @IBAction func showVocabulary(_ sender: Any) {
         self.vocabulary = self.engine.getVocabulary()
-        self.setTableViewMode(to: .VocabularyMode)
+        self.setTableViewMode(to: .vocabularyMode)
         self.tableView.reloadData()
         self.tableView.sizeLastColumnToFit()
     }
@@ -194,32 +195,35 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
 extension SearchViewController: NSTableViewDelegate, NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        if self.tableViewMode == .QueryResultsMode {
+        if self.tableViewMode == .queryResultsMode {
           return self.queryResults?.count ?? 0
         }
-        else if self.tableViewMode == .VocabularyMode {
+        else if self.tableViewMode == .vocabularyMode {
             guard let vocabularyCount = self.vocabulary?.count else {
                 return 0
             }
-            return vocabularyCount > Constants.maximumVocabularyDisplayed ? Constants.maximumVocabularyDisplayed : vocabularyCount
+            return vocabularyCount > Constants.maximumVocabularyDisplayed ?
+                Constants.maximumVocabularyDisplayed : vocabularyCount
         }
         return 0
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-         if self.tableViewMode == .QueryResultsMode {
+         if self.tableViewMode == .queryResultsMode {
             guard let result = self.queryResults?[row] else {
                 return nil
             }
             if tableColumn == tableView.tableColumns[0] {
-                let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
+                let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier),
+                                              owner: self) as? NSTableCellView
                 cell?.textField?.stringValue = String(result.documentId)
                 return cell
             }
             
             if tableColumn == tableView.tableColumns[1] {
-                let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
+                let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier),
+                                              owner: self) as? NSTableCellView
                 cell?.textField?.stringValue = String(result.document!.title)
                 return cell
             }
@@ -227,12 +231,13 @@ extension SearchViewController: NSTableViewDelegate, NSTableViewDataSource {
             cell?.textField?.stringValue = result.matchingForTerms.compactMap({$0}).joined(separator: " ")
             return cell
         }
-        else if self.tableViewMode == .VocabularyMode {
+        else if self.tableViewMode == .vocabularyMode {
             guard let vocabularyEntry = self.vocabulary?[row] else {
                 return nil
             }
             if tableColumn == tableView.tableColumns[0] {
-                let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
+                let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier),
+                                              owner: self) as? NSTableCellView
                 cell?.textField?.stringValue = String(vocabularyEntry)
                 return cell
             }

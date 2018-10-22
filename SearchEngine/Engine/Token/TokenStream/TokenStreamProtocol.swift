@@ -10,5 +10,5 @@ import Foundation
 
 protocol TokenStreamProtocol {
     func getTokens() -> [String]
-    func dispose() -> Void
+    func dispose()
 }

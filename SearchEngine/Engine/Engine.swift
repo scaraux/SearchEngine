@@ -17,8 +17,8 @@ class Engine {
     private let stemmer: PorterStemmer
     private var corpus: DocumentCorpusProtocol?
     
-    var delegate: EngineDelegate?
-    var initDelegate: EngineInitDelegate?
+    weak var delegate: EngineDelegate?
+    weak var initDelegate: EngineInitDelegate?
     
     init() {
         self.index = PositionalInvertedIndex()
@@ -27,7 +27,7 @@ class Engine {
         self.stemmer = PorterStemmer(withLanguage: .English)!
     }
     
-    func execQuery(queryString: String) -> Void {
+    func execQuery(queryString: String) {
         let query: Queriable? = queryParser.parseQuery(query: queryString)
 
         if var results: [QueryResult] = query?.getResultsFrom(index: self.index) {
@@ -46,7 +46,7 @@ class Engine {
         return self.stemmer.stem(word)
     }
     
-    func initCorpus(withPath path: URL) -> Void {
+    func initCorpus(withPath path: URL) {
         let start = DispatchTime.now()
         
         self.index.clear()
@@ -72,7 +72,8 @@ class Engine {
         return Double(nanoTime) / 1_000_000_000
     }
     
-    private func retrieveDocuments(corpus: DocumentCorpusProtocol, completion: @escaping ([DocumentProtocol]) -> Void) -> Void {
+    private func retrieveDocuments(corpus: DocumentCorpusProtocol,
+                                   completion: @escaping ([DocumentProtocol]) -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
             let docs: [DocumentProtocol] = corpus.getDocuments()
             DispatchQueue.main.async {
@@ -81,7 +82,7 @@ class Engine {
         }
     }
     
-    private func indexDocuments(documents: [DocumentProtocol], completion: @escaping () -> Void) -> Void {
+    private func indexDocuments(documents: [DocumentProtocol], completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
             
             let tokenProcessor = AdvancedTokenProcessor()

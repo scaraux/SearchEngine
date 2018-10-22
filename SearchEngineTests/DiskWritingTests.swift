@@ -5,13 +5,14 @@
 //  Created by Oscar Götting on 10/21/18.
 //  Copyright © 2018 Oscar Götting. All rights reserved.
 //
+// swiftlint:disable function_body_length identifier_name
 
 import XCTest
 @testable import SearchEngine
 
 class DiskWritingTests: XCTestCase {
     
-    var map: [String : [Posting]] = [:]
+    var map: [String: [Posting]] = [:]
 
     override func setUp() {
         super.setUp()
@@ -86,7 +87,7 @@ class DiskWritingTests: XCTestCase {
     
     }
 
-    func testWriteIndex() -> Void {
+    func testWriteIndex() {
         let index: IndexProtocol = PositionalInvertedIndex(withIndex: self.map)
         let writer: DiskIndexWriter = DiskIndexWriter()
         
@@ -95,7 +96,6 @@ class DiskWritingTests: XCTestCase {
         
         writer.writeIndex(index: index, atPath: desktopDir)
     }
-
 
     func testPerformanceExample() {
         // This is an example of a performance test case.

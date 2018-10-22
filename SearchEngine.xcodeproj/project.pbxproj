@@ -224,6 +224,7 @@
 		D040E679214C9B3E00A487F5 /* Token */ = {
 			isa = PBXGroup;
 			children = (
+				D040E688214CA54500A487F5 /* TokenStream */,
 				D040E677214C9B1000A487F5 /* TokenProcessorProtocol.swift */,
 				D040E67A214C9B4B00A487F5 /* BasicTokenProcessor.swift */,
 				D0AD336E216475D700139F76 /* AdvancedTokenProcessor.swift */,
@@ -297,7 +298,6 @@
 				D0FEDE40214F35B60064B3D5 /* Query */,
 				D0957DC3214DC4600096EFA4 /* Extensions */,
 				D040E68D214CA6B100A487F5 /* DocumentCorpus */,
-				D040E688214CA54500A487F5 /* TokenStream */,
 				D040E683214CA1EA00A487F5 /* StreamReader */,
 				D040E680214C9FCA00A487F5 /* Document */,
 				D040E679214C9B3E00A487F5 /* Token */,
@@ -418,6 +418,7 @@
 				D040E64F214C99C900A487F5 /* Frameworks */,
 				D040E650214C99C900A487F5 /* Resources */,
 				36E6C513B2197B217D3004BC /* [CP] Embed Pods Frameworks */,
+				D0412D9C217E72D60051E95A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -572,6 +573,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		D0412D9C217E72D60051E95A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -772,6 +790,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SearchEngine/SearchEngine.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = DBEPTECPFM;
@@ -782,6 +801,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.frenchfalcon.SearchEngine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
@@ -796,6 +816,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SearchEngine/SearchEngine.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = DBEPTECPFM;
@@ -806,6 +827,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.frenchfalcon.SearchEngine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 4.2;

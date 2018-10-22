@@ -16,10 +16,10 @@ class GramIndex: GramIndexProtocol {
         static let WildcardCharacter = "*"
     }
     
-    private(set) var map: [String:Set<String>]
+    private(set) var map: [String: Set<String>]
     
     init() {
-        self.map = [String:Set<String>]()
+        self.map = [String: Set<String>]()
     }
     
     private func withTypes<R>(forGram gram: String, mutations: (inout Set<String>) throws -> R) rethrows -> R {
@@ -48,23 +48,24 @@ class GramIndex: GramIndexProtocol {
         return candidates
     }
     
-    private func addTypeCandidateForGram(gram: String, type: String) -> Void {
-        withTypes(forGram: gram) { types in
+    private func addTypeCandidateForGram(gram: String, type: String) {
+        _ = withTypes(forGram: gram) { types in
             types.insert(type)
         }
     }
 
-    func registerGramsFor(type: String) -> Void {
+    func registerGramsFor(type: String) {
         var i: Int = 0
         // Wrap the term with dollar signs, at beginning and end
         let dollarWrappedType = Constants.DollarSignCharacter + type + Constants.DollarSignCharacter
         // Iterate on type characters
-        while (i < dollarWrappedType.count) {
+        while i < dollarWrappedType.count {
             // Calculate the maximum length to start with, for the grams that will be generated from the type
             // If type length exceeds the maximum gram length we handle in the index, then we will use
             // this maximum length as reference.
             // Otherwise, the maximum gram size for this type will be based on its length
-            var gramSize = dollarWrappedType.count > Constants.MaximumGramLength ? Constants.MaximumGramLength : dollarWrappedType.count
+            var gramSize = dollarWrappedType.count > Constants.MaximumGramLength ?
+                Constants.MaximumGramLength : dollarWrappedType.count
             // Iterate on possible gram sizes
             while gramSize > 0 {
                 var gram: String
@@ -96,12 +97,13 @@ class GramIndex: GramIndexProtocol {
             }
             var i: Int = 0
             // Iterate on subterm characters
-            while (i < subTerm.count) {
+            while i < subTerm.count {
                 var gram: String
                 // Calculate the maximum length for each of the grams we will build from the term
                 // If term length exceeds the maximum gram length we handle in the index, then we will use
                 // this maximum length as reference. Otherwise, the grams will be based on the term length
-                let maximumGramLengthForTerm = subTerm.count >= Constants.MaximumGramLength ? Constants.MaximumGramLength : subTerm.count
+                let maximumGramLengthForTerm = subTerm.count >= Constants.MaximumGramLength ?
+                    Constants.MaximumGramLength : subTerm.count
                 // If we can't find anymore grams of maximum length from i, jump to next subterm
                 if i + maximumGramLengthForTerm > subTerm.count {
                     break

@@ -9,5 +9,5 @@
 import Foundation
 
 protocol DiskIndexWriterProtocol {
-    func writeIndex(index: IndexProtocol, atPath url: URL) -> Void
+    func writeIndex(index: IndexProtocol, atPath url: URL)
 }

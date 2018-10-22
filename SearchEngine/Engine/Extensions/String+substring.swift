@@ -14,22 +14,19 @@ extension String {
         guard count >= location + length else { return nil }
         let start = index(startIndex, offsetBy: location)
         let end = index(startIndex, offsetBy: location + length)
-        return substring(with: start..<end)
+        return String(self[start..<end])
     }
     
     func nextIndexAfter(character: Character, from startPosition: Int) -> Int {
         if startPosition > count {
             return -1
         }
-        for index in startPosition ..< count {
-            if self[index] == character {
-                return index
-            }
+        for index in startPosition ..< count where self[index] == character {
+            return index
         }
         return last == character ? (count - 1) : -1
     }
 }
-
 
 extension StringProtocol {
     

@@ -21,9 +21,7 @@ class Posting {
         self.term = term
     }
     
-    func addPosition(_ position: Int) -> Void {
+    func addPosition(_ position: Int) {
         self.positions.append(position)
     }
 }
-
-

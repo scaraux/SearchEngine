@@ -10,14 +10,14 @@ import Foundation
 
 class PositionalInvertedIndex: IndexProtocol {
     
-    private(set) var map: [String:[Posting]] = [:]
+    private(set) var map: [String: [Posting]] = [:]
     private(set) var kGramIndex: GramIndex
 
     init() {
         self.kGramIndex = GramIndex()
     }
     
-    init(withIndex index: [String:[Posting]]) {
+    init(withIndex index: [String: [Posting]]) {
         self.map = index
         self.kGramIndex = GramIndex()
     }
@@ -33,7 +33,8 @@ class PositionalInvertedIndex: IndexProtocol {
         return nil
     }
     
-    public func getQueryResultsFor(stem: String, fromTerm: String, withDummyMap map: [String:[Posting]]) -> [QueryResult]? {
+    public func getQueryResultsFor(stem: String, fromTerm: String,
+                                   withDummyMap map: [String: [Posting]]) -> [QueryResult]? {
         if let postings = map[stem] {
             return postings.map({ QueryResult($0, term: fromTerm) })
         }
@@ -62,7 +63,7 @@ class PositionalInvertedIndex: IndexProtocol {
         }
     }
     
-    public func clear() -> Void {
+    public func clear() {
         self.map.removeAll()
     }
 }

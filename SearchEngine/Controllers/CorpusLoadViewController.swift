@@ -19,7 +19,7 @@ extension TimeInterval {
     }
 }
 
-class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitDelegate  {
+class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitDelegate {
     
     @IBOutlet weak var procedureDescriptionLabel: NSTextField!
     @IBOutlet weak var currentTaskLabel: NSTextField!
@@ -32,8 +32,8 @@ class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitD
     var totalGramsToIndex: Int = 0
     
     enum InitPhase {
-        case PhaseIndexingDocuments
-        case PhaseIndexingGrams
+        case phaseIndexingDocuments
+        case phaseIndexingGrams
     }
     
     override func viewDidLoad() {
@@ -47,7 +47,11 @@ class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitD
     }
     
     private func runTimer() {
-        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self,   selector: (#selector(CorpusLoadViewController.updateTimer)), userInfo: nil, repeats: true)
+        self.timer = Timer.scheduledTimer(timeInterval: 0.1,
+                                          target: self,
+                                          selector: (#selector(CorpusLoadViewController.updateTimer)),
+                                          userInfo: nil,
+                                          repeats: true)
     }
     
     private func killTimer() {
@@ -69,19 +73,17 @@ class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitD
         return String(format: "Elapsed time: %0.2d:%0.2d:%0.2d", hours, minutes, seconds)
     }
     
-    private func updatePhase(phase: InitPhase) -> Void {
+    private func updatePhase(phase: InitPhase) {
         switch phase {
-        case .PhaseIndexingDocuments:
+        case .phaseIndexingDocuments:
             self.procedureDescriptionLabel.stringValue = "Indexing Documents"
-            break
             
-        case .PhaseIndexingGrams:
+        case .phaseIndexingGrams:
             self.procedureDescriptionLabel.stringValue = "Indexing K-Grams"
-            break
         }
     }
     
-    private func resetProgressBar(scaledTo value: Int) -> Void {
+    private func resetProgressBar(scaledTo value: Int) {
         self.progressBar.doubleValue = 0.0
         self.progressBar.minValue = 0
         self.progressBar.maxValue = Double(value)
@@ -92,13 +94,13 @@ class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitD
     }
     
     internal func onCorpusDocumentIndexingStarted(documentsToIndex: Int) {
-        updatePhase(phase: .PhaseIndexingDocuments)
+        updatePhase(phase: .phaseIndexingDocuments)
         resetProgressBar(scaledTo: documentsToIndex)
     }
     
     internal func onCorpusGramsIndexingStarted(gramsToIndex: Int) {
         self.totalGramsToIndex = gramsToIndex
-        updatePhase(phase: .PhaseIndexingGrams)
+        updatePhase(phase: .phaseIndexingGrams)
         resetProgressBar(scaledTo: gramsToIndex)
     }
     

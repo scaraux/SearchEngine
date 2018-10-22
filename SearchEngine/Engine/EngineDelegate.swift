@@ -8,19 +8,14 @@
 
 import Foundation
 
-protocol EngineDelegate {
+protocol EngineDelegate: class {
     func onQueryResulted(results: [QueryResult]?)
 }
 
-protocol EngineInitDelegate {
-    
+protocol EngineInitDelegate: class {
     func onCorpusDocumentIndexingStarted(documentsToIndex: Int)
-    
     func onCorpusGramsIndexingStarted(gramsToIndex: Int)
-    
     func onCorpusIndexedDocument(withFileName: String)
-    
     func onCorpusIndexedGram(gramNumber: Int)
-    
     func onCorpusInitialized(timeElapsed: Double)
 }

@@ -16,11 +16,9 @@ class AdvancedTokenProcessor: TokenProcessorProtocol {
         for ascii in token.utf8 {
             if ascii > 47 && ascii < 58 {
                 result.append(String(UnicodeScalar(UInt8(ascii))))
-            }
-            else if ascii > 64 && ascii < 91 {
+            } else if ascii > 64 && ascii < 91 {
                 result.append(String(UnicodeScalar(UInt8(ascii + 32))))
-            }
-            else if ascii > 96 && ascii < 123 {
+            } else if ascii > 96 && ascii < 123 {
                 result.append(String(UnicodeScalar(UInt8(ascii))))
             }
         }

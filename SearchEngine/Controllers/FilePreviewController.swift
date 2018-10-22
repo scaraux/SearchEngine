@@ -35,7 +35,7 @@ class FilePreviewController: NSViewController {
         }
     }
     
-    func setupText() -> Void {
+    func setupText() {
         guard let query = self.queryData else {
             return
         }
@@ -45,7 +45,7 @@ class FilePreviewController: NSViewController {
         
         let attributes = [NSAttributedString.Key.foregroundColor: NSColor.white]
         let attributedContent = NSMutableAttributedString(string: content, attributes: attributes)
-        let area = NSMakeRange(0, attributedContent.length)
+        let area = NSRange(location: 0, length: attributedContent.length)
         let font = NSFont.systemFont(ofSize: 15.0, weight: NSFont.Weight.light)
         
         attributedContent.addAttribute(NSAttributedString.Key.font, value: font, range: area)
@@ -54,13 +54,17 @@ class FilePreviewController: NSViewController {
             var range = NSRange(location: 0, length: attributedContent.length)
             let inputLength = attributedContent.string.count
 
-            while (range.location != NSNotFound) {
-                range = (content as NSString).range(of: term, options: [NSString.CompareOptions.caseInsensitive], range: range)
-                if (range.location != NSNotFound) {
+            while range.location != NSNotFound {
+                range = (content as NSString).range(of: term,
+                                                    options: [NSString.CompareOptions.caseInsensitive],
+                                                    range: range)
+                if range.location != NSNotFound {
                     attributedContent.addAttributes([NSAttributedString.Key.foregroundColor: NSColor.black,
-                                                     NSAttributedString.Key.backgroundColor: NSColor.orange], range: range)
+                                                     NSAttributedString.Key.backgroundColor: NSColor.orange],
+                                                    range: range)
 
-                    range = NSRange(location: range.location + range.length, length: inputLength - (range.location + range.length))
+                    range = NSRange(location: range.location + range.length,
+                                    length: inputLength - (range.location + range.length))
                 }
             }
         }
