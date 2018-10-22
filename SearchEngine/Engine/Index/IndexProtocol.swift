@@ -11,7 +11,9 @@ import Foundation
 protocol IndexProtocol {
     
     func getQueryResultsFor(stem: String, fromTerm: String) -> [QueryResult]?
-        
+    
+    func getPostingsFor(stem: String) -> [Posting]?
+    
     func getVocabulary() -> [String]
     
     func getKGramIndex() -> GramIndexProtocol

@@ -27,21 +27,26 @@ class PositionalInvertedIndex: IndexProtocol {
         return try mutations(&map[term, default: []])
     }
     
-    func getQueryResultsFor(stem: String, fromTerm: String) -> [QueryResult]? {
+    public func getQueryResultsFor(stem: String, fromTerm: String) -> [QueryResult]? {
         if let postings = self.map[stem] {
             return postings.map({ QueryResult($0, term: fromTerm) })
         }
         return nil
     }
     
-    func getKGramIndex() -> GramIndexProtocol {
+    public func getPostingsFor(stem: String) -> [Posting]? {
+        return self.map[stem]
+    }
+    
+    public func getKGramIndex() -> GramIndexProtocol {
         return self.kGramIndex
     }
     
-    func getVocabulary() -> [String] {
+    public func getVocabulary() -> [String] {
         return Array(self.map.keys).sorted(by: <)
     }
-    func addTerm(_ term: String, withId id: Int, atPosition position: Int) {
+    
+    public func addTerm(_ term: String, withId id: Int, atPosition position: Int) {
         withPostings(forTerm: term) { postings in
             if let posting = postings.last, posting.documentId == id {
                 posting.addPosition(position)
@@ -51,7 +56,7 @@ class PositionalInvertedIndex: IndexProtocol {
         }
     }
     
-    func clear() -> Void {
+    public func clear() -> Void {
         self.map.removeAll()
     }
 }

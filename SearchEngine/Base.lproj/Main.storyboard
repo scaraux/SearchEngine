@@ -255,6 +255,16 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Z7y-zd-xY3" userLabel="Close">
+                                <rect key="frame" x="14" y="10" width="75" height="32"/>
+                                <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="V10-M9-ESl">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <connections>
+                                        <action selector="closeButtonTUI:" target="aKf-FJ-Rol" id="Meo-KW-cHt"/>
+                                    </connections>
+                                </buttonCell>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="3af-oS-MJv" secondAttribute="trailing" constant="20" id="Jf0-1k-LVP"/>
@@ -264,11 +274,14 @@
                             <constraint firstAttribute="trailing" secondItem="Alf-1C-nMo" secondAttribute="trailing" constant="20" id="ji0-0I-Qnd"/>
                             <constraint firstItem="Alf-1C-nMo" firstAttribute="top" secondItem="1Kh-YK-jWW" secondAttribute="bottom" constant="8" id="kDQ-Vf-dVe"/>
                             <constraint firstItem="3af-oS-MJv" firstAttribute="top" secondItem="LJr-9E-3PG" secondAttribute="top" constant="14" id="mBF-a4-d9N"/>
+                            <constraint firstItem="Z7y-zd-xY3" firstAttribute="leading" secondItem="LJr-9E-3PG" secondAttribute="leading" constant="20" id="qwN-Ul-SNP"/>
                             <constraint firstItem="Alf-1C-nMo" firstAttribute="leading" secondItem="LJr-9E-3PG" secondAttribute="leading" constant="20" id="sY4-6T-idy"/>
+                            <constraint firstAttribute="bottom" secondItem="Z7y-zd-xY3" secondAttribute="bottom" constant="17" id="vUS-Hj-r8B"/>
                             <constraint firstItem="KHd-2K-zLQ" firstAttribute="leading" secondItem="LJr-9E-3PG" secondAttribute="leading" constant="20" id="x8P-ER-zJW"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="closeButton" destination="V10-M9-ESl" id="9m1-dJ-5KR"/>
                         <outlet property="currentTaskLabel" destination="1Kh-YK-jWW" id="Wcw-dJ-xgg"/>
                         <outlet property="elapsedTimeLabel" destination="3af-oS-MJv" id="ScP-fy-OaP"/>
                         <outlet property="procedureDescriptionLabel" destination="KHd-2K-zLQ" id="vTU-Qr-oOp"/>

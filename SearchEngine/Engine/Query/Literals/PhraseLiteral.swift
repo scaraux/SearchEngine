@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PorterStemmer2
 
 class PhraseLiteral: Queriable {
 
@@ -21,9 +22,9 @@ class PhraseLiteral: Queriable {
     }
     
     func getResultsFrom(index: IndexProtocol) -> [QueryResult]? {
-        var mergedResults: [QueryResult]
+        var mergedResults: [QueryResult] = []
 
-        guard let stemmer = PorterStemmer() else {
+        guard let stemmer = PorterStemmer(withLanguage: .English) else {
             return nil
         }
         

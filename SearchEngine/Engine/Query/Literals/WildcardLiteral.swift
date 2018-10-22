@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PorterStemmer2
 
 class WildcardLiteral: Queriable {
 
@@ -24,7 +25,7 @@ class WildcardLiteral: Queriable {
             return nil
         }
         
-        guard let stemmer = PorterStemmer() else {
+        guard let stemmer = PorterStemmer(withLanguage: .English) else {
             return nil
         }
         

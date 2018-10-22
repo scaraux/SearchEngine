@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PorterStemmer2
 
 class TermLiteral: Queriable {
 
@@ -17,7 +18,7 @@ class TermLiteral: Queriable {
     }
     
     func getResultsFrom(index: IndexProtocol) -> [QueryResult]? {
-        if let stemmer = PorterStemmer() {
+        if let stemmer = PorterStemmer(withLanguage: .English) {
             return index.getQueryResultsFor(stem: stemmer.stem(self.term), fromTerm: self.term)
         }
         return nil

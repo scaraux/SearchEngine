@@ -25,8 +25,9 @@ class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitD
     @IBOutlet weak var currentTaskLabel: NSTextField!
     @IBOutlet weak var elapsedTimeLabel: NSTextField!
     @IBOutlet weak var progressBar: NSProgressIndicator!
+    @IBOutlet weak var closeButton: NSButtonCell!
     
-    var timer = Timer()
+    var timer: Timer?
     var milliseconds: Double = 0.0
     var totalGramsToIndex: Int = 0
     
@@ -38,13 +39,19 @@ class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.closeButton.isEnabled = false
+        self.closeButton.isTransparent = true
         self.procedureDescriptionLabel.stringValue = "Indexing Documents"
         
         runTimer()
     }
     
-    func runTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self,   selector: (#selector(CorpusLoadViewController.updateTimer)), userInfo: nil, repeats: true)
+    private func runTimer() {
+        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self,   selector: (#selector(CorpusLoadViewController.updateTimer)), userInfo: nil, repeats: true)
+    }
+    
+    private func killTimer() {
+        self.timer = nil
     }
     
     @objc func updateTimer() {
@@ -52,7 +59,7 @@ class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitD
         self.elapsedTimeLabel.stringValue = stringFromTimeInterval(interval: TimeInterval(milliseconds)) as String
     }
     
-    func stringFromTimeInterval(interval: TimeInterval) -> String {
+    private func stringFromTimeInterval(interval: TimeInterval) -> String {
         let ti = NSInteger(interval)
 //        let ms = Int((interval % 1) * 1000)
         let seconds = ti % 60
@@ -62,7 +69,7 @@ class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitD
         return String(format: "Elapsed time: %0.2d:%0.2d:%0.2d", hours, minutes, seconds)
     }
     
-    func updatePhase(phase: InitPhase) -> Void {
+    private func updatePhase(phase: InitPhase) -> Void {
         switch phase {
         case .PhaseIndexingDocuments:
             self.procedureDescriptionLabel.stringValue = "Indexing Documents"
@@ -74,38 +81,47 @@ class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitD
         }
     }
     
-    func resetProgressBar(scaledTo value: Int) -> Void {
+    private func resetProgressBar(scaledTo value: Int) -> Void {
         self.progressBar.doubleValue = 0.0
         self.progressBar.minValue = 0
         self.progressBar.maxValue = Double(value)
     }
     
-    func popoverShouldClose(_ popover: NSPopover) -> Bool {
+    private func popoverShouldClose(_ popover: NSPopover) -> Bool {
         return false
     }
     
-    func onCorpusDocumentIndexingStarted(documentsToIndex: Int) {
+    internal func onCorpusDocumentIndexingStarted(documentsToIndex: Int) {
         updatePhase(phase: .PhaseIndexingDocuments)
         resetProgressBar(scaledTo: documentsToIndex)
     }
     
-    func onCorpusGramsIndexingStarted(gramsToIndex: Int) {
+    internal func onCorpusGramsIndexingStarted(gramsToIndex: Int) {
         self.totalGramsToIndex = gramsToIndex
         updatePhase(phase: .PhaseIndexingGrams)
         resetProgressBar(scaledTo: gramsToIndex)
     }
     
-    func onCorpusIndexedDocument(withFileName fileName: String) {
+    internal func onCorpusIndexedDocument(withFileName fileName: String) {
         self.currentTaskLabel.stringValue = "Indexed file \(fileName)"
         self.progressBar.increment(by: 1.0)
     }
     
-    func onCorpusIndexedGram(gramNumber: Int) {
-        self.currentTaskLabel.stringValue = "Indexed Gran \(gramNumber)/\(self.totalGramsToIndex)"
+    internal func onCorpusIndexedGram(gramNumber: Int) {
+        self.currentTaskLabel.stringValue = "Indexed Gram \(gramNumber)/\(self.totalGramsToIndex)"
         self.progressBar.increment(by: 1.0)
     }
     
-    func onCorpusInitialized(timeElapsed: Double) {
+    internal func onCorpusInitialized(timeElapsed: Double) {
+        self.timer?.invalidate()
+        self.timer = nil
+        self.progressBar.isHidden = true
+        
+        self.closeButton.isTransparent = false
+        self.closeButton.isEnabled = true
+    }
+    
+    @IBAction func closeButtonTUI(_ sender: Any) {
         self.dismiss(nil)
     }
 }

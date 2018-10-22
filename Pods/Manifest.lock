@@ -1,0 +1,21 @@
+PODS:
+  - PorterStemmer2 (0.1.0)
+
+DEPENDENCIES:
+  - PorterStemmer2 (from `https://github.com/scaraux/Swift-Porter-Stemmer-2.git`)
+
+EXTERNAL SOURCES:
+  PorterStemmer2:
+    :git: https://github.com/scaraux/Swift-Porter-Stemmer-2.git
+
+CHECKOUT OPTIONS:
+  PorterStemmer2:
+    :commit: 0fb6709950a27842818eff6c72815366b13786ed
+    :git: https://github.com/scaraux/Swift-Porter-Stemmer-2.git
+
+SPEC CHECKSUMS:
+  PorterStemmer2: 6df20d36f522f863cff899190db0100ccc08205e
+
+PODFILE CHECKSUM: 16385e479ea9e324d308cb0ef038a8ae5352c3fe
+
+COCOAPODS: 1.6.0.beta.1

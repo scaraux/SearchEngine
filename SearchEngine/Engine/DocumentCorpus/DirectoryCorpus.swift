@@ -78,7 +78,10 @@ class DirectoryCorpus: DocumentCorpusProtocol {
     
     private func findFiles() -> [URL]? {
         do {
-            return try fileManager.contentsOfDirectory(at: self.directoryPath, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
+            let files = try fileManager.contentsOfDirectory(at: self.directoryPath,
+                                                       includingPropertiesForKeys: nil,
+                                                       options: [.skipsHiddenFiles, .skipsPackageDescendants, .skipsSubdirectoryDescendants])
+            return files.filter { !$0.hasDirectoryPath }
         } catch {
             print("Error while enumerating files \(directoryPath.path): \(error.localizedDescription)")
             return nil

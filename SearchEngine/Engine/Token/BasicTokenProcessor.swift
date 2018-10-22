@@ -11,8 +11,6 @@ import Foundation
 class BasicTokenProcessor : TokenProcessorProtocol {
     
     func processToken(token: String) -> String {
-//        return token.alphaNumeric.lowercased()
-        return token
-    }
-    
+        return token.lowercased()
+    }    
 }
