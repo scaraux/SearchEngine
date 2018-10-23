@@ -1,5 +1,9 @@
 # Search Engine
 
+<p align="center">
+    <img src="Screenshots/SearchEngine-screenshots-10-22-18.png" width="700" alt="Search Engine Preview"/>
+</p>
+
 This project has been built for educational purposes, and **fun !**
 It is actually part of a graduate-level computer science class : Search Engine Technology.
 
