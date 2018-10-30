@@ -21,7 +21,7 @@ class DiskIndexWriter: DiskIndexWriterProtocol {
         let finalURL = url.appendingPathComponent(DiskConstants.indexDirectoryName, isDirectory: true)
             .appendingPathComponent(DiskConstants.postingsDiskFileName)
         // Create binary file
-        guard let binaryFile = BinaryFile.createBinaryFile(atPath: finalURL) else {
+        guard let binaryFile = BinaryFile.createBinaryFile(atPath: finalURL, for: .writing) else {
             fatalError("Could not open binary file to write postings.")
         }
         // The data object that will hold the bytes to be written to the file
@@ -41,7 +41,6 @@ class DiskIndexWriter: DiskIndexWriterProtocol {
             // Write data object to file
             binaryFile.write(data: data)
         }
-        binaryFile.read(chunkSize: 4096)
         // Close file
         binaryFile.dispose()
         return binaryFile.offsets
@@ -52,7 +51,7 @@ class DiskIndexWriter: DiskIndexWriterProtocol {
         let finalURL = url.appendingPathComponent(DiskConstants.indexDirectoryName, isDirectory: true)
             .appendingPathComponent(DiskConstants.vocabularyDiskFileName)
         // Create binary file
-        guard let binaryFile = BinaryFile.createBinaryFile(atPath: finalURL) else {
+        guard let binaryFile = BinaryFile.createBinaryFile(atPath: finalURL, for: .writing) else {
             fatalError("Could not open binary file to write postings.")
         }
         // The data object that will hold the bytes to be written to the file
@@ -66,7 +65,6 @@ class DiskIndexWriter: DiskIndexWriterProtocol {
             // Write data object to file
             binaryFile.write(data: data)
         }
-        binaryFile.read(chunkSize: 4096)
         // Close file
         binaryFile.dispose()
         return binaryFile.offsets
@@ -77,21 +75,21 @@ class DiskIndexWriter: DiskIndexWriterProtocol {
         let finalURL = url.appendingPathComponent(DiskConstants.indexDirectoryName, isDirectory: true)
             .appendingPathComponent(DiskConstants.tableDiskFileName)
         // Create binary file
-        guard let binaryFile = BinaryFile.createBinaryFile(atPath: finalURL) else {
+        guard let binaryFile = BinaryFile.createBinaryFile(atPath: finalURL, for: .writing) else {
             fatalError("Could not open binary fi le to write postings.")
         }
         
-//        for i in 0..<vocabularyOffsets.count {
-//            var termOffset: Int64 = vocabularyOffsets[i]
-//            let termOffsetData: Data =  Data(bytes: &termOffset, count: MemoryLayout.size(ofValue: termOffset))
-//
-//            var postingOffset: Int64 = postingsOffsets[i]
-//            let postingOffsetData: Data =  Data(bytes: &postingOffset, count: MemoryLayout.size(ofValue: postingsOffsets))
-//
-//            binaryFile.write(data: termOffsetData)
-//            binaryFile.write(data: postingOffsetData)
-//        }
-        binaryFile.read(chunkSize: 4096)
+        for i in 0..<vocabularyOffsets.count {
+            var termOffset: Int64 = vocabularyOffsets[i]
+            let termOffsetData: Data =  Data(bytes: &termOffset, count: MemoryLayout.size(ofValue: termOffset))
+
+            var postingOffset: Int64 = postingsOffsets[i]
+            let postingOffsetData: Data =  Data(bytes: &postingOffset,
+                                                count: MemoryLayout.size(ofValue: postingsOffsets))
+
+            binaryFile.write(data: termOffsetData)
+            binaryFile.write(data: postingOffsetData)
+        }
         // Close file
         binaryFile.dispose()
     }

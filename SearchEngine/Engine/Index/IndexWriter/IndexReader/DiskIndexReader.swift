@@ -14,7 +14,11 @@ class DiskIndexReader {
     private var vocabulary: BinaryFile
     private var table: BinaryFile
     
+    private var url: URL
+    
     init(atPath url: URL) throws {
+        
+        self.url = url
         
         let postingsFileURL = url.appendingPathComponent(DiskConstants.indexDirectoryName, isDirectory: true)
             .appendingPathComponent(DiskConstants.postingsDiskFileName)
@@ -25,9 +29,9 @@ class DiskIndexReader {
         let tableFileURL = url.appendingPathComponent(DiskConstants.indexDirectoryName, isDirectory: true)
             .appendingPathComponent(DiskConstants.tableDiskFileName)
         
-        try postings = BinaryFile(atPath: postingsFileURL)
-        try vocabulary = BinaryFile(atPath: vocabularyFileURL)
-        try table = BinaryFile(atPath: tableFileURL)
+        try self.postings = BinaryFile(atPath: postingsFileURL)
+        try self.vocabulary = BinaryFile(atPath: vocabularyFileURL)
+        try self.table = BinaryFile(atPath: tableFileURL)
     }
     
     deinit {
@@ -37,9 +41,7 @@ class DiskIndexReader {
     }
     
     public func getPostings(forTerm term: String) {
-//        binarySearchTerm(term)
-        
-        table.read(chunkSize: 4096)
+        binarySearchTerm(term)
     }
     
     private func binarySearchTerm(_ term: String) -> Int64 {
@@ -50,15 +52,15 @@ class DiskIndexReader {
 //        while startMarker <= endMarker {
             let middle = (startMarker + endMarker) / 2
         
-            table.move(toOffset: middle)
+            table.move(toOffset: (len - 1) * 16)
             let data: Data = table.read(chunkSize: 16)
+        
+            let first = data.subdata(in: 0..<8)
 
-            var offset : UInt32 = data.withUnsafeBytes { $0.pointee }
+            var offset : UInt32 = first.withUnsafeBytes { $0.pointee }
             
             print(offset)
 //        }
-        
-        
         return 0
     }
 }

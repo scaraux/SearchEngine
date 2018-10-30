@@ -5,28 +5,46 @@
 //  Created by Oscar Götting on 10/29/18.
 //  Copyright © 2018 Oscar Götting. All rights reserved.
 //
+// swiftlint:disable nesting implicit_getter
 
 import Foundation
 
 class BinaryFile {
     
-    private(set) var handle: FileHandle?
+    private var handle: FileHandle?
     private var url: URL
     private var currentOffset: Int64 = 0
     private(set) var offsets: [Int64] = []
+    
+    struct BinaryFileOptions {
+        enum FileDescriptorMode {
+            case reading
+            case writing
+            case updating
+        }
+    }
     
     var size: UInt64 {
         get {
             return self.fileSize(forURL: self.url)
         }
     }
-
-    init(atPath url: URL) throws {
+    
+    init(atPath url: URL, for mode: BinaryFileOptions.FileDescriptorMode = .reading) throws {
         self.url = url
-        self.handle = try FileHandle(forWritingTo: url)
+    
+        switch mode {
+        case .reading:
+            self.handle = try FileHandle(forReadingFrom: url)
+        case .writing:
+            self.handle = try FileHandle(forWritingTo: url)
+        case .updating:
+            self.handle = try FileHandle(forUpdating: url)
+        }
     }
     
-    public static func createBinaryFile(atPath url: URL) -> BinaryFile? {
+    public static func createBinaryFile(atPath url: URL,
+                                        for mode: BinaryFileOptions.FileDescriptorMode = .reading) -> BinaryFile? {
         if !FileManager.default.fileExists(atPath: url.path) {
             do {
                 var isDir: ObjCBool = true
@@ -43,7 +61,7 @@ class BinaryFile {
             }
         }
         do {
-            return try BinaryFile(atPath: url)
+            return try BinaryFile(atPath: url, for: mode)
         } catch let error as NSError {
             print(error.description)
             return nil

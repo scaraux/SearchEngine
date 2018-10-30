@@ -41,6 +41,11 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         self.tableView.sizeLastColumnToFit()
         
         setTableViewMode(to: .queryResultsMode)
+        
+        let url = URL(fileURLWithPath: "/Users/rakso/Desktop/CECS/Corpus/MobyDick/", isDirectory: true)
+        if let testindex = DiskPositionalIndex(atPath: url) {
+            testindex.getPostingsFor(stem: "the")
+        }
     }
     
     override func keyDown(with event: NSEvent) {
