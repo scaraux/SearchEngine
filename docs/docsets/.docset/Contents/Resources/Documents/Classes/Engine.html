@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Engine Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/Engine" class="dashAnchor"></a>
+    <a title="Engine Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (7% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Engine Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AdvancedTokenProcessor.html">AdvancedTokenProcessor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AndQuery.html">AndQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AppDelegate.html">AppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BasicTokenProcessor.html">BasicTokenProcessor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooleanQueryParser.html">BooleanQueryParser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooleanQueryParser/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooleanQueryParser/StringBounds.html">– StringBounds</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooleanQueryParser/Literal.html">– Literal</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CorpusLoadViewController.html">CorpusLoadViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CorpusLoadViewController/InitPhase.html">– InitPhase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DirectoryCorpus.html">DirectoryCorpus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DiskIndexWriter.html">DiskIndexWriter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DiskIndexWriter/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Engine.html">Engine</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EnglishTokenStream.html">EnglishTokenStream</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FilePreviewController.html">FilePreviewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FilePreviewController/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GramIndex.html">GramIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GramIndex/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JsonFileDocument.html">JsonFileDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JsonFileDocumentFactory.html">JsonFileDocumentFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/OrQuery.html">OrQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PhraseLiteral.html">PhraseLiteral</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PositionalInvertedIndex.html">PositionalInvertedIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Posting.html">Posting</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PostingWriter.html">PostingWriter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/QueryResult.html">QueryResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SearchViewController.html">SearchViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SearchViewController/TableViewDisplayMode.html">– TableViewDisplayMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SearchViewController/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StreamReader.html">StreamReader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TermLiteral.html">TermLiteral</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TextFileDocument.html">TextFileDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TextFileDocumentFactory.html">TextFileDocumentFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WildcardLiteral.html">WildcardLiteral</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/StringProtocol.html">StringProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Substring.html">Substring</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/TimeInterval.html">TimeInterval</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/DiskIndexWriterProtocol.html">DiskIndexWriterProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DocumentCorpusProtocol.html">DocumentCorpusProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DocumentFactoryProtocol.html">DocumentFactoryProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DocumentProtocol.html">DocumentProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/EngineDelegate.html">EngineDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/EngineInitDelegate.html">EngineInitDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FileDocument.html">FileDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/GramIndexProtocol.html">GramIndexProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IndexProtocol.html">IndexProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PostingWriterProtocol.html">PostingWriterProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Queriable.html">Queriable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TokenProcessorProtocol.html">TokenProcessorProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TokenStreamProtocol.html">TokenStreamProtocol</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Engine</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Engine</span></code></pre>
+
+                </div>
+              </div>
+            <p>The search engine core object</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine0B0C5index33_E21068181E870FC96297C7305F400B34LLAA23PositionalInvertedIndexCvp"></a>
+                    <a name="//apple_ref/swift/Property/index" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine0B0C5index33_E21068181E870FC96297C7305F400B34LLAA23PositionalInvertedIndexCvp">index</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The index that contains associations between terms and postings</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">index</span><span class="p">:</span> <span class="kt"><a href="../Classes/PositionalInvertedIndex.html">PositionalInvertedIndex</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine0B0C11indexWriter33_E21068181E870FC96297C7305F400B34LLAA09DiskIndexD0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/indexWriter" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine0B0C11indexWriter33_E21068181E870FC96297C7305F400B34LLAA09DiskIndexD0Cvp">indexWriter</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Module that writes the index to the file system</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">indexWriter</span><span class="p">:</span> <span class="kt"><a href="../Classes/DiskIndexWriter.html">DiskIndexWriter</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine0B0C11queryParser33_E21068181E870FC96297C7305F400B34LLAA012BooleanQueryD0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/queryParser" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine0B0C11queryParser33_E21068181E870FC96297C7305F400B34LLAA012BooleanQueryD0Cvp">queryParser</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Parses queries to build a boolean, executable representation of it</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">queryParser</span><span class="p">:</span> <span class="kt"><a href="../Classes/BooleanQueryParser.html">BooleanQueryParser</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/stemmer" class="dashAnchor"></a>
+                    <a class="token" href="#/">stemmer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Stems terms</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">let</span> <span class="nv">stemmer</span><span class="p">:</span> <span class="kt">PorterStemmer</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine0B0C6corpus33_E21068181E870FC96297C7305F400B34LLAA22DocumentCorpusProtocol_pSgvp"></a>
+                    <a name="//apple_ref/swift/Property/corpus" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine0B0C6corpus33_E21068181E870FC96297C7305F400B34LLAA22DocumentCorpusProtocol_pSgvp">corpus</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Contains all documents relative to the index</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">corpus</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DocumentCorpusProtocol.html">DocumentCorpusProtocol</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine0B0C8delegateAA0B8Delegate_pSgXwvp"></a>
+                    <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine0B0C8delegateAA0B8Delegate_pSgXwvp">delegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/EngineDelegate.html">EngineDelegate</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine0B0C12initDelegateAA0b4InitD0_pSgXwvp"></a>
+                    <a name="//apple_ref/swift/Property/initDelegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine0B0C12initDelegateAA0b4InitD0_pSgXwvp">initDelegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">initDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/EngineInitDelegate.html">EngineInitDelegate</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine0B0CACycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine0B0CACycfc">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Constructor</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine0B0C9execQuery11queryStringySS_tF"></a>
+                    <a name="//apple_ref/swift/Method/execQuery(queryString:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine0B0C9execQuery11queryStringySS_tF">execQuery(queryString:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Executes a query</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">execQuery</span><span class="p">(</span><span class="nv">queryString</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>queryString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The query as a string</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine0B0C13getVocabularySaySSGyF"></a>
+                    <a name="//apple_ref/swift/Method/getVocabulary()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine0B0C13getVocabularySaySSGyF">getVocabulary()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the complete vocabulary for the indexed directory</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getVocabulary</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>the vocabulary as a string array</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine0B0C8stemWord4wordS2S_tF"></a>
+                    <a name="//apple_ref/swift/Method/stemWord(word:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine0B0C8stemWord4wordS2S_tF">stemWord(word:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the stem for a given term</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">stemWord</span><span class="p">(</span><span class="nv">word</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>word</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The word to be stemmed</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The word&rsquo;s stem</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine0B0C10initCorpus8withPathy10Foundation3URLV_tF"></a>
+                    <a name="//apple_ref/swift/Method/initCorpus(withPath:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine0B0C10initCorpus8withPathy10Foundation3URLV_tF">initCorpus(withPath:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes the engine with a corpus at a given path</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">initCorpus</span><span class="p">(</span><span class="n">withPath</span> <span class="nv">path</span><span class="p">:</span> <span class="kt">URL</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>path</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Is the corpus path</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine0B0C20calculateElapsedTime33_E21068181E870FC96297C7305F400B34LL4fromSd8Dispatch0mE0V_tF"></a>
+                    <a name="//apple_ref/swift/Method/calculateElapsedTime(from:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine0B0C20calculateElapsedTime33_E21068181E870FC96297C7305F400B34LL4fromSd8Dispatch0mE0V_tF">calculateElapsedTime(from:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Calculates elapsed time from a timestamp</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">calculateElapsedTime</span><span class="p">(</span><span class="n">from</span> <span class="nv">startTime</span><span class="p">:</span> <span class="kt">DispatchTime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Double</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>startTime</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>is the timestamp reference</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>the difference as a double</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine0B0C17retrieveDocuments33_E21068181E870FC96297C7305F400B34LL6corpus10completionyAA22DocumentCorpusProtocol_p_ySayAA0mO0_pGctF"></a>
+                    <a name="//apple_ref/swift/Method/retrieveDocuments(corpus:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine0B0C17retrieveDocuments33_E21068181E870FC96297C7305F400B34LL6corpus10completionyAA22DocumentCorpusProtocol_p_ySayAA0mO0_pGctF">retrieveDocuments(corpus:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves all documents asynchronously</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">retrieveDocuments</span><span class="p">(</span><span class="nv">corpus</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DocumentCorpusProtocol.html">DocumentCorpusProtocol</a></span><span class="p">,</span>
+                               <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">([</span><span class="kt"><a href="../Protocols/DocumentProtocol.html">DocumentProtocol</a></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>corpus</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The corpus object containing data about documents</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The completion handle that notifies when documents are ready to be indexed</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine0B0C14indexDocuments33_E21068181E870FC96297C7305F400B34LL9documents10completionySayAA16DocumentProtocol_pG_yyctF"></a>
+                    <a name="//apple_ref/swift/Method/indexDocuments(documents:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine0B0C14indexDocuments33_E21068181E870FC96297C7305F400B34LL9documents10completionySayAA16DocumentProtocol_pG_yyctF">indexDocuments(documents:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indexes all documents, by registering them in the map
+One document is processed at a time. Its content is read using
+a StreamReader, that produces a stream of tokens.
+Every token is processed, sanitized, stemmed, and added to the map.
+When all documents have been indexed, all unic terms are registered in the
+gram index.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">indexDocuments</span><span class="p">(</span><span class="nv">documents</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/DocumentProtocol.html">DocumentProtocol</a></span><span class="p">],</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>documents</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>All the documents to be indexed</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The completion handler that notifies when documents are indexed</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine0B0C24attachDocumentsToResults33_E21068181E870FC96297C7305F400B34LL7resultsSayAA11QueryResultCGAI_tF"></a>
+                    <a name="//apple_ref/swift/Method/attachDocumentsToResults(results:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine0B0C24attachDocumentsToResults33_E21068181E870FC96297C7305F400B34LL7resultsSayAA11QueryResultCGAI_tF">attachDocumentsToResults(results:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Attaches the document back to each result</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">attachDocumentsToResults</span><span class="p">(</span><span class="nv">results</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/QueryResult.html">QueryResult</a></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/QueryResult.html">QueryResult</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>results</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The results generated by a query</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The sames results containing their respective document</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-10-23)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

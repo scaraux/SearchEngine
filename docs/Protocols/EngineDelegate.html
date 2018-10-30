@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>EngineDelegate Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/EngineDelegate" class="dashAnchor"></a>
+    <a title="EngineDelegate Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (7% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        EngineDelegate Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AdvancedTokenProcessor.html">AdvancedTokenProcessor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AndQuery.html">AndQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AppDelegate.html">AppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BasicTokenProcessor.html">BasicTokenProcessor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooleanQueryParser.html">BooleanQueryParser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooleanQueryParser/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooleanQueryParser/StringBounds.html">– StringBounds</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooleanQueryParser/Literal.html">– Literal</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CorpusLoadViewController.html">CorpusLoadViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CorpusLoadViewController/InitPhase.html">– InitPhase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DirectoryCorpus.html">DirectoryCorpus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DiskIndexWriter.html">DiskIndexWriter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DiskIndexWriter/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Engine.html">Engine</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EnglishTokenStream.html">EnglishTokenStream</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FilePreviewController.html">FilePreviewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FilePreviewController/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GramIndex.html">GramIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GramIndex/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JsonFileDocument.html">JsonFileDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JsonFileDocumentFactory.html">JsonFileDocumentFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/OrQuery.html">OrQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PhraseLiteral.html">PhraseLiteral</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PositionalInvertedIndex.html">PositionalInvertedIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Posting.html">Posting</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PostingWriter.html">PostingWriter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/QueryResult.html">QueryResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SearchViewController.html">SearchViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SearchViewController/TableViewDisplayMode.html">– TableViewDisplayMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SearchViewController/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StreamReader.html">StreamReader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TermLiteral.html">TermLiteral</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TextFileDocument.html">TextFileDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TextFileDocumentFactory.html">TextFileDocumentFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WildcardLiteral.html">WildcardLiteral</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/StringProtocol.html">StringProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Substring.html">Substring</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/TimeInterval.html">TimeInterval</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/DiskIndexWriterProtocol.html">DiskIndexWriterProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DocumentCorpusProtocol.html">DocumentCorpusProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DocumentFactoryProtocol.html">DocumentFactoryProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DocumentProtocol.html">DocumentProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/EngineDelegate.html">EngineDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/EngineInitDelegate.html">EngineInitDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FileDocument.html">FileDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/GramIndexProtocol.html">GramIndexProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IndexProtocol.html">IndexProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PostingWriterProtocol.html">PostingWriterProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Queriable.html">Queriable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TokenProcessorProtocol.html">TokenProcessorProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TokenStreamProtocol.html">TokenStreamProtocol</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>EngineDelegate</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">protocol</span> <span class="kt">EngineDelegate</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine0B8DelegateP15onQueryResulted7resultsySayAA0E6ResultCGSg_tF"></a>
+                    <a name="//apple_ref/swift/Method/onQueryResulted(results:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine0B8DelegateP15onQueryResulted7resultsySayAA0E6ResultCGSg_tF">onQueryResulted(results:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">onQueryResulted</span><span class="p">(</span><span class="nv">results</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/QueryResult.html">QueryResult</a></span><span class="p">]?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-10-23)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

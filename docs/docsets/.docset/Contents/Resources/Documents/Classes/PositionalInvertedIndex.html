@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>PositionalInvertedIndex Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/PositionalInvertedIndex" class="dashAnchor"></a>
+    <a title="PositionalInvertedIndex Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (7% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        PositionalInvertedIndex Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AdvancedTokenProcessor.html">AdvancedTokenProcessor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AndQuery.html">AndQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AppDelegate.html">AppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BasicTokenProcessor.html">BasicTokenProcessor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooleanQueryParser.html">BooleanQueryParser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooleanQueryParser/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooleanQueryParser/StringBounds.html">– StringBounds</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooleanQueryParser/Literal.html">– Literal</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CorpusLoadViewController.html">CorpusLoadViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CorpusLoadViewController/InitPhase.html">– InitPhase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DirectoryCorpus.html">DirectoryCorpus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DiskIndexWriter.html">DiskIndexWriter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DiskIndexWriter/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Engine.html">Engine</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EnglishTokenStream.html">EnglishTokenStream</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FilePreviewController.html">FilePreviewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FilePreviewController/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GramIndex.html">GramIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GramIndex/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JsonFileDocument.html">JsonFileDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JsonFileDocumentFactory.html">JsonFileDocumentFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/OrQuery.html">OrQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PhraseLiteral.html">PhraseLiteral</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PositionalInvertedIndex.html">PositionalInvertedIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Posting.html">Posting</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PostingWriter.html">PostingWriter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/QueryResult.html">QueryResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SearchViewController.html">SearchViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SearchViewController/TableViewDisplayMode.html">– TableViewDisplayMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SearchViewController/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StreamReader.html">StreamReader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TermLiteral.html">TermLiteral</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TextFileDocument.html">TextFileDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TextFileDocumentFactory.html">TextFileDocumentFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WildcardLiteral.html">WildcardLiteral</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/StringProtocol.html">StringProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Substring.html">Substring</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/TimeInterval.html">TimeInterval</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/DiskIndexWriterProtocol.html">DiskIndexWriterProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DocumentCorpusProtocol.html">DocumentCorpusProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DocumentFactoryProtocol.html">DocumentFactoryProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DocumentProtocol.html">DocumentProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/EngineDelegate.html">EngineDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/EngineInitDelegate.html">EngineInitDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FileDocument.html">FileDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/GramIndexProtocol.html">GramIndexProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IndexProtocol.html">IndexProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PostingWriterProtocol.html">PostingWriterProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Queriable.html">Queriable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TokenProcessorProtocol.html">TokenProcessorProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TokenStreamProtocol.html">TokenStreamProtocol</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>PositionalInvertedIndex</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">PositionalInvertedIndex</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/IndexProtocol.html">IndexProtocol</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine23PositionalInvertedIndexC3mapSDySSSayAA7PostingCGGvp"></a>
+                    <a name="//apple_ref/swift/Property/map" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine23PositionalInvertedIndexC3mapSDySSSayAA7PostingCGGvp">map</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">map</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/Posting.html">Posting</a></span><span class="p">]]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine23PositionalInvertedIndexC05kGramE0AA0fE0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/kGramIndex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine23PositionalInvertedIndexC05kGramE0AA0fE0Cvp">kGramIndex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">kGramIndex</span><span class="p">:</span> <span class="kt"><a href="../Classes/GramIndex.html">GramIndex</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine23PositionalInvertedIndexCACycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine23PositionalInvertedIndexCACycfc">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine23PositionalInvertedIndexC04withE0ACSDySSSayAA7PostingCGG_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(withIndex:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine23PositionalInvertedIndexC04withE0ACSDySSSayAA7PostingCGG_tcfc">init(withIndex:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="n">withIndex</span> <span class="nv">index</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/Posting.html">Posting</a></span><span class="p">]])</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine23PositionalInvertedIndexC12withPostings33_EE7850EC153BA58C7696A4A2F7FC6066LL7forTerm9mutationsxSS_xSayAA7PostingCGzKXEtKlF"></a>
+                    <a name="//apple_ref/swift/Method/withPostings(forTerm:mutations:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine23PositionalInvertedIndexC12withPostings33_EE7850EC153BA58C7696A4A2F7FC6066LL7forTerm9mutationsxSS_xSayAA7PostingCGzKXEtKlF">withPostings(forTerm:mutations:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="n">withPostings</span><span class="o">&lt;</span><span class="kt">R</span><span class="o">&gt;</span><span class="p">(</span><span class="n">forTerm</span> <span class="nv">term</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">mutations</span><span class="p">:</span> <span class="p">(</span><span class="k">inout</span> <span class="p">[</span><span class="kt"><a href="../Classes/Posting.html">Posting</a></span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">R</span><span class="p">)</span> <span class="k">rethrows</span> <span class="o">-&gt;</span> <span class="kt">R</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine23PositionalInvertedIndexC18getQueryResultsFor4stem8fromTermSayAA0G6ResultCGSgSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/getQueryResultsFor(stem:fromTerm:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine23PositionalInvertedIndexC18getQueryResultsFor4stem8fromTermSayAA0G6ResultCGSgSS_SStF">getQueryResultsFor(stem:fromTerm:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getQueryResultsFor</span><span class="p">(</span><span class="nv">stem</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">fromTerm</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/QueryResult.html">QueryResult</a></span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine23PositionalInvertedIndexC18getQueryResultsFor4stem8fromTerm12withDummyMapSayAA0G6ResultCGSgSS_SSSDySSSayAA7PostingCGGtF"></a>
+                    <a name="//apple_ref/swift/Method/getQueryResultsFor(stem:fromTerm:withDummyMap:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine23PositionalInvertedIndexC18getQueryResultsFor4stem8fromTerm12withDummyMapSayAA0G6ResultCGSgSS_SSSDySSSayAA7PostingCGGtF">getQueryResultsFor(stem:fromTerm:withDummyMap:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getQueryResultsFor</span><span class="p">(</span><span class="nv">stem</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">fromTerm</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+                               <span class="n">withDummyMap</span> <span class="nv">map</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/Posting.html">Posting</a></span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/QueryResult.html">QueryResult</a></span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine23PositionalInvertedIndexC14getPostingsFor4stemSayAA7PostingCGSgSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/getPostingsFor(stem:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine23PositionalInvertedIndexC14getPostingsFor4stemSayAA7PostingCGSgSS_tF">getPostingsFor(stem:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getPostingsFor</span><span class="p">(</span><span class="nv">stem</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/Posting.html">Posting</a></span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine23PositionalInvertedIndexC08getKGramE0AA04GramE8Protocol_pyF"></a>
+                    <a name="//apple_ref/swift/Method/getKGramIndex()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine23PositionalInvertedIndexC08getKGramE0AA04GramE8Protocol_pyF">getKGramIndex()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getKGramIndex</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/GramIndexProtocol.html">GramIndexProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine23PositionalInvertedIndexC13getVocabularySaySSGyF"></a>
+                    <a name="//apple_ref/swift/Method/getVocabulary()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine23PositionalInvertedIndexC13getVocabularySaySSGyF">getVocabulary()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getVocabulary</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine23PositionalInvertedIndexC7addTerm_6withId10atPositionySS_S2itF"></a>
+                    <a name="//apple_ref/swift/Method/addTerm(_:withId:atPosition:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine23PositionalInvertedIndexC7addTerm_6withId10atPositionySS_S2itF">addTerm(_:withId:atPosition:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addTerm</span><span class="p">(</span><span class="n">_</span> <span class="nv">term</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">atPosition</span> <span class="nv">position</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine23PositionalInvertedIndexC5clearyyF"></a>
+                    <a name="//apple_ref/swift/Method/clear()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine23PositionalInvertedIndexC5clearyyF">clear()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">clear</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-10-23)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

@@ -179,37 +179,37 @@
             <objects>
                 <viewController storyboardIdentifier="FilePreviewController" id="q3f-Ww-nNs" customClass="FilePreviewController" customModule="SearchEngine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="eFh-ln-jJT">
-                        <rect key="frame" x="0.0" y="0.0" width="457" height="304"/>
+                        <rect key="frame" x="0.0" y="0.0" width="659" height="725"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4v-KZ-Cl5">
-                                <rect key="frame" x="0.0" y="0.0" width="457" height="304"/>
+                                <rect key="frame" x="0.0" y="0.0" width="902" height="1421"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="glT-Pb-vGQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="457" height="304"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="902" height="1421"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="LiU-zB-V4N">
-                                            <rect key="frame" x="0.0" y="0.0" width="457" height="304"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="902" height="1421"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="457" height="304"/>
-                                            <size key="maxSize" width="457" height="10000000"/>
+                                            <size key="minSize" width="902" height="1421"/>
+                                            <size key="maxSize" width="902" height="10000000"/>
                                             <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
                                     </subviews>
                                 </clipView>
                                 <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="aYT-hB-WQ6">
-                                    <rect key="frame" x="441" y="0.0" width="16" height="304"/>
+                                    <rect key="frame" x="886" y="0.0" width="16" height="1421"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="O4v-KZ-Cl5" firstAttribute="leading" secondItem="eFh-ln-jJT" secondAttribute="leading" id="8LM-zP-Eoj"/>
-                            <constraint firstItem="O4v-KZ-Cl5" firstAttribute="top" secondItem="eFh-ln-jJT" secondAttribute="top" id="O9Z-fX-b37"/>
+                            <constraint firstItem="O4v-KZ-Cl5" firstAttribute="top" secondItem="eFh-ln-jJT" secondAttribute="top" constant="-696" id="O9Z-fX-b37"/>
                             <constraint firstAttribute="bottom" secondItem="O4v-KZ-Cl5" secondAttribute="bottom" id="Rcx-yJ-0mH"/>
-                            <constraint firstAttribute="trailing" secondItem="O4v-KZ-Cl5" secondAttribute="trailing" id="mvL-7m-tKa"/>
+                            <constraint firstAttribute="trailing" secondItem="O4v-KZ-Cl5" secondAttribute="trailing" constant="-243" id="mvL-7m-tKa"/>
                         </constraints>
                     </view>
                     <connections>
@@ -218,7 +218,7 @@
                 </viewController>
                 <customObject id="Pa2-Zz-BH3" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="597" y="250"/>
+            <point key="canvasLocation" x="831" y="352"/>
         </scene>
         <!--Corpus Load View Controller-->
         <scene sceneID="CRd-JJ-ICc">
@@ -546,6 +546,7 @@
                         <outlet property="resultsLabel" destination="fbb-9Q-l1B" id="VMX-WI-lwd"/>
                         <outlet property="tableView" destination="TwL-BO-9Cu" id="xV3-sp-6Oe"/>
                         <segue destination="aKf-FJ-Rol" kind="popover" identifier="ShowCorpusInitView" popoverAnchorView="op4-Xd-QoJ" popoverBehavior="t" preferredEdge="maxY" id="j7D-nU-7Mr"/>
+                        <segue destination="q3f-Ww-nNs" kind="popover" identifier="ShowFilePreviewView" popoverBehavior="t" preferredEdge="maxY" id="G2x-0J-lMH"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

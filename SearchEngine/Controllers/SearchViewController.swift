@@ -26,6 +26,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     
     var engine = Engine()
     var queryResults: [QueryResult]?
+    var selectedQueryResult: QueryResult?
     var vocabulary: [String]?
     var tableViewMode: TableViewDisplayMode = .queryResultsMode
     

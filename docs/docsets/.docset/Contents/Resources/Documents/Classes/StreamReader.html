@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>StreamReader Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/StreamReader" class="dashAnchor"></a>
+    <a title="StreamReader Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (7% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        StreamReader Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AdvancedTokenProcessor.html">AdvancedTokenProcessor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AndQuery.html">AndQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AppDelegate.html">AppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BasicTokenProcessor.html">BasicTokenProcessor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooleanQueryParser.html">BooleanQueryParser</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooleanQueryParser/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooleanQueryParser/StringBounds.html">– StringBounds</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BooleanQueryParser/Literal.html">– Literal</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CorpusLoadViewController.html">CorpusLoadViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CorpusLoadViewController/InitPhase.html">– InitPhase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DirectoryCorpus.html">DirectoryCorpus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DiskIndexWriter.html">DiskIndexWriter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DiskIndexWriter/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Engine.html">Engine</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EnglishTokenStream.html">EnglishTokenStream</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FilePreviewController.html">FilePreviewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FilePreviewController/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GramIndex.html">GramIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GramIndex/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JsonFileDocument.html">JsonFileDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JsonFileDocumentFactory.html">JsonFileDocumentFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/OrQuery.html">OrQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PhraseLiteral.html">PhraseLiteral</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PositionalInvertedIndex.html">PositionalInvertedIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Posting.html">Posting</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PostingWriter.html">PostingWriter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/QueryResult.html">QueryResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SearchViewController.html">SearchViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SearchViewController/TableViewDisplayMode.html">– TableViewDisplayMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SearchViewController/Constants.html">– Constants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StreamReader.html">StreamReader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TermLiteral.html">TermLiteral</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TextFileDocument.html">TextFileDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TextFileDocumentFactory.html">TextFileDocumentFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WildcardLiteral.html">WildcardLiteral</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/StringProtocol.html">StringProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Substring.html">Substring</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/TimeInterval.html">TimeInterval</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/DiskIndexWriterProtocol.html">DiskIndexWriterProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DocumentCorpusProtocol.html">DocumentCorpusProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DocumentFactoryProtocol.html">DocumentFactoryProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DocumentProtocol.html">DocumentProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/EngineDelegate.html">EngineDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/EngineInitDelegate.html">EngineInitDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FileDocument.html">FileDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/GramIndexProtocol.html">GramIndexProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IndexProtocol.html">IndexProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PostingWriterProtocol.html">PostingWriterProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Queriable.html">Queriable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TokenProcessorProtocol.html">TokenProcessorProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TokenStreamProtocol.html">TokenStreamProtocol</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>StreamReader</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">StreamReader</span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine12StreamReaderC8encodingSS10FoundationE8EncodingVvp"></a>
+                    <a name="//apple_ref/swift/Property/encoding" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine12StreamReaderC8encodingSS10FoundationE8EncodingVvp">encoding</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">encoding</span><span class="p">:</span> <span class="kt">String</span><span class="o">.</span><span class="kt">Encoding</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine12StreamReaderC9chunkSizeSivp"></a>
+                    <a name="//apple_ref/swift/Property/chunkSize" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine12StreamReaderC9chunkSizeSivp">chunkSize</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">chunkSize</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine12StreamReaderC10fileHandleSo06NSFileF0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/fileHandle" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine12StreamReaderC10fileHandleSo06NSFileF0CSgvp">fileHandle</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">fileHandle</span><span class="p">:</span> <span class="kt">FileHandle</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine12StreamReaderC4data10Foundation4DataVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/data" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine12StreamReaderC4data10Foundation4DataVSgvp">data</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine12StreamReaderC9delimData10Foundation0F0Vvp"></a>
+                    <a name="//apple_ref/swift/Property/delimData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine12StreamReaderC9delimData10Foundation0F0Vvp">delimData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">delimData</span><span class="p">:</span> <span class="kt">Data</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine12StreamReaderC6buffer10Foundation4DataVvp"></a>
+                    <a name="//apple_ref/swift/Property/buffer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine12StreamReaderC6buffer10Foundation4DataVvp">buffer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">buffer</span><span class="p">:</span> <span class="kt">Data</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine12StreamReaderC5atEofSbvp"></a>
+                    <a name="//apple_ref/swift/Property/atEof" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine12StreamReaderC5atEofSbvp">atEof</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">atEof</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine12StreamReaderC4path9delimiter8encoding9chunkSizeACSgSS_S2S10FoundationE8EncodingVSitcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(path:delimiter:encoding:chunkSize:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine12StreamReaderC4path9delimiter8encoding9chunkSizeACSgSS_S2S10FoundationE8EncodingVSitcfc">init(path:delimiter:encoding:chunkSize:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">?(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">delimiter</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"</span><span class="se">\r\n</span><span class="s">"</span><span class="p">,</span> <span class="nv">encoding</span><span class="p">:</span> <span class="kt">String</span><span class="o">.</span><span class="kt">Encoding</span> <span class="o">=</span> <span class="o">.</span><span class="n">utf8</span><span class="p">,</span>
+      <span class="nv">chunkSize</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">4096</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine12StreamReaderC3url9delimiter8encoding9chunkSizeACSg10Foundation3URLV_S2SAIE8EncodingVSitcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(url:delimiter:encoding:chunkSize:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine12StreamReaderC3url9delimiter8encoding9chunkSizeACSg10Foundation3URLV_S2SAIE8EncodingVSitcfc">init(url:delimiter:encoding:chunkSize:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">?(</span><span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">delimiter</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"</span><span class="se">\r\n</span><span class="s">"</span><span class="p">,</span> <span class="nv">encoding</span><span class="p">:</span> <span class="kt">String</span><span class="o">.</span><span class="kt">Encoding</span> <span class="o">=</span> <span class="o">.</span><span class="n">utf8</span><span class="p">,</span>
+      <span class="nv">chunkSize</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">4096</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine12StreamReaderC4data9delimiter8encoding9chunkSizeACSg10Foundation4DataV_S2SAIE8EncodingVSitcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(data:delimiter:encoding:chunkSize:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine12StreamReaderC4data9delimiter8encoding9chunkSizeACSg10Foundation4DataV_S2SAIE8EncodingVSitcfc">init(data:delimiter:encoding:chunkSize:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">?(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span> <span class="nv">delimiter</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"</span><span class="se">\r\n</span><span class="s">"</span><span class="p">,</span> <span class="nv">encoding</span><span class="p">:</span> <span class="kt">String</span><span class="o">.</span><span class="kt">Encoding</span> <span class="o">=</span> <span class="o">.</span><span class="n">utf8</span><span class="p">,</span>
+      <span class="nv">chunkSize</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">4096</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine12StreamReaderCfd"></a>
+                    <a name="//apple_ref/swift/Method/deinit" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine12StreamReaderCfd">deinit</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">deinit</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine12StreamReaderC8readData33_0BA0C9BAC76F67D04D01093062706776LL10Foundation0F0VyF"></a>
+                    <a name="//apple_ref/swift/Method/readData()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine12StreamReaderC8readData33_0BA0C9BAC76F67D04D01093062706776LL10Foundation0F0VyF">readData()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">readData</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Data</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine12StreamReaderC8nextLineSSSgyF"></a>
+                    <a name="//apple_ref/swift/Method/nextLine()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine12StreamReaderC8nextLineSSSgyF">nextLine()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return next line, or nil on EOF.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">nextLine</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine12StreamReaderC6rewindyyF"></a>
+                    <a name="//apple_ref/swift/Method/rewind()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine12StreamReaderC6rewindyyF">rewind()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Start reading from the beginning of file.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">rewind</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:12SearchEngine12StreamReaderC5closeyyF"></a>
+                    <a name="//apple_ref/swift/Method/close()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:12SearchEngine12StreamReaderC5closeyyF">close()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Close the underlying file. No reading must be done after calling this method.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">close</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ST12makeIterator0B0QzyF"></a>
+                    <a name="//apple_ref/swift/Method/makeIterator()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ST12makeIterator0B0QzyF">makeIterator()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">makeIterator</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AnyIterator</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-10-23)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

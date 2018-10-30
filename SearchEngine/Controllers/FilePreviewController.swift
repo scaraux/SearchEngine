@@ -15,11 +15,15 @@ class FilePreviewController: NSViewController {
     var fileDocument: FileDocument?
     var queryData: QueryResult?
     
+    private struct Constants {
+        static let higlightTextAttributes =
+            [NSAttributedString.Key.foregroundColor: NSColor.black,
+             NSAttributedString.Key.backgroundColor: NSColor.systemPink]
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.textView.isEditable = false
-
         setupText()
     }
     
@@ -29,8 +33,7 @@ class FilePreviewController: NSViewController {
         }
         do {
             return try String(contentsOf: file.fileURL, encoding: String.Encoding.utf8)
-        }
-        catch {
+        } catch {
             fatalError("Cannot read data from file \(file.fileURL)")
         }
     }
@@ -51,18 +54,17 @@ class FilePreviewController: NSViewController {
         attributedContent.addAttribute(NSAttributedString.Key.font, value: font, range: area)
         
         for term in query.matchingForTerms {
+            let word = " " + term + " "
             var range = NSRange(location: 0, length: attributedContent.length)
             let inputLength = attributedContent.string.count
 
             while range.location != NSNotFound {
-                range = (content as NSString).range(of: term,
+                range = (content as NSString).range(of: word,
                                                     options: [NSString.CompareOptions.caseInsensitive],
                                                     range: range)
                 if range.location != NSNotFound {
-                    attributedContent.addAttributes([NSAttributedString.Key.foregroundColor: NSColor.black,
-                                                     NSAttributedString.Key.backgroundColor: NSColor.orange],
-                                                    range: range)
-
+                    let finalRange = NSRange(location: range.location + 1, length: range.length - 2)
+                    attributedContent.addAttributes(Constants.higlightTextAttributes, range: finalRange)
                     range = NSRange(location: range.location + range.length,
                                     length: inputLength - (range.location + range.length))
                 }

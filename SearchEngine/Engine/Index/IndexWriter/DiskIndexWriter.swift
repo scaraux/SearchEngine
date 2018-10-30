@@ -16,6 +16,7 @@ class DiskIndexWriter: DiskIndexWriterProtocol {
         static let indexDirectoryName = "index"
         static let postingsDiskFileName = "postings.bin"
         static let vocabularyDiskFileName = "vocab.bin"
+        static let vocabTableDiskFileName = "vocab_table.bin"
     }
     
     init() {
@@ -39,11 +40,13 @@ class DiskIndexWriter: DiskIndexWriterProtocol {
         return true
     }
     
-    private func writePostings(vocabulary: [String], url: URL, index: IndexProtocol) -> [Int] {
+    private func writePostings<T: FixedWidthInteger>(vocabulary: [String], url: URL, index: IndexProtocol) -> [T] {
         // The file handle to write data in file as OutputStream
         var fileHandle: FileHandle
         // The offset list that contains the positions for every representedterm
-        var offsets: [Int] = [0]
+        var offsets: [T] = []
+        // Current offset from byte zero
+        var offsetFromZero: T = 0
         // The URL of the binary file that holds the postings data
         let postingsFileURL = url.appendingPathComponent(Constants.indexDirectoryName, isDirectory: true)
             .appendingPathComponent(Constants.postingsDiskFileName)
@@ -73,21 +76,22 @@ class DiskIndexWriter: DiskIndexWriterProtocol {
             data = Data(fromArray: binaryRepresentation)
             // Write data object to file
             fileHandle.write(data)
-            // If not first term, append offset
-            if i != 0 {
-                offsets.append(data.count)
-            }
+            // Append offset
+            offsets.append(offsetFromZero)
+            offsetFromZero += T(data.count)
         }
         // Close file
         fileHandle.closeFile()
         return offsets
     }
     
-    private func writeVocabulary(vocabulary: [String], url: URL) -> [Int] {
+    private func writeVocabulary<T: FixedWidthInteger>(vocabulary: [String], url: URL) -> [T] {
         // The file handle to write data in file as OutputStream
         var fileHandle: FileHandle
         // The offset list that contains the positions for every representedterm
-        var offsets: [Int] = [0]
+        var offsets: [T] = []
+        // Current offset from byte zero
+        var offsetFromZero: T = 0
         // The URL of the binary file that holds the postings data
         let vocabularyFileURL = url.appendingPathComponent(Constants.indexDirectoryName, isDirectory: true)
             .appendingPathComponent(Constants.vocabularyDiskFileName)
@@ -111,20 +115,50 @@ class DiskIndexWriter: DiskIndexWriterProtocol {
             data = term.data(using: .utf8)!
             // Write data object to file
             fileHandle.write(data)
-            // If not first term, append offset
-            if i != 0 {
-                offsets.append(data.count)
-            }
+            // Append offset
+            offsets.append(offsetFromZero)
+            offsetFromZero += T(data.count)
         }
         // Close file
         fileHandle.closeFile()
         return offsets
     }
     
+    private func writeVocabTable<T: FixedWidthInteger>(vocabularyOffsets: [T], postingsOffsets: [T], url: URL) {
+        // The file handle to write data in file as OutputStream
+        var fileHandle: FileHandle
+        // The URL of the binary file that holds the postings data
+        let vocabTableFileURL = url.appendingPathComponent(Constants.indexDirectoryName, isDirectory: true)
+            .appendingPathComponent(Constants.vocabTableDiskFileName)
+        // Check if the binary file exists or craete it
+        guard createFile(atPath: vocabTableFileURL) else {
+            fatalError("Could not open binary file to write postings.")
+        }
+        // Initialize the file handle to the file
+        do {
+            fileHandle = try FileHandle(forWritingTo: vocabTableFileURL)
+        } catch {
+            fatalError("Could not open binary file to write postings.")
+        }
+        // Iterate over all terms in vocabulary
+        for i in 0..<vocabularyOffsets.count {
+            var wordGap = vocabularyOffsets[i].bigEndian
+            var postingsGap = postingsOffsets[i].bigEndian
+            let wordGapData = Data(bytes: &wordGap, count: MemoryLayout.size(ofValue: wordGap))
+            let postingsGapData = Data(bytes: &postingsGap, count: MemoryLayout.size(ofValue: postingsGap))
+
+            fileHandle.write(wordGapData)
+            fileHandle.write(postingsGapData)
+        }
+        // Close file
+        fileHandle.closeFile()
+    }
+    
     public func writeIndex(index: IndexProtocol, atPath url: URL) {
         let vocabulary: [String] = index.getVocabulary()
         
-        let postingsOffsets: [Int] = writePostings(vocabulary: vocabulary, url: url, index: index)
-        let vocabularyOffsets: [Int] = writeVocabulary(vocabulary: vocabulary, url: url)
+        let postingsOffsets: [Int32] = writePostings(vocabulary: vocabulary, url: url, index: index)
+        let vocabularyOffsets: [Int32] = writeVocabulary(vocabulary: vocabulary, url: url)
+        writeVocabTable(vocabularyOffsets: vocabularyOffsets, postingsOffsets: postingsOffsets, url: url)
     }
 }

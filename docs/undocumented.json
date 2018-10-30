@@ -1,0 +1,2049 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/AppDelegate.swift",
+      "line": 12,
+      "symbol": "AppDelegate",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/AppDelegate.swift",
+      "line": 14,
+      "symbol": "AppDelegate.applicationDidFinishLaunching(aNotification:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/AppDelegate.swift",
+      "line": 18,
+      "symbol": "AppDelegate.applicationWillTerminate(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 13,
+      "symbol": "TimeInterval.format()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 22,
+      "symbol": "CorpusLoadViewController",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 24,
+      "symbol": "CorpusLoadViewController.procedureDescriptionLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 25,
+      "symbol": "CorpusLoadViewController.currentTaskLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 26,
+      "symbol": "CorpusLoadViewController.elapsedTimeLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 27,
+      "symbol": "CorpusLoadViewController.progressBar",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 28,
+      "symbol": "CorpusLoadViewController.closeButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 30,
+      "symbol": "CorpusLoadViewController.timer",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 31,
+      "symbol": "CorpusLoadViewController.milliseconds",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 32,
+      "symbol": "CorpusLoadViewController.totalGramsToIndex",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 34,
+      "symbol": "CorpusLoadViewController.InitPhase",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 35,
+      "symbol": "CorpusLoadViewController.InitPhase.phaseIndexingDocuments",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 36,
+      "symbol": "CorpusLoadViewController.InitPhase.phaseIndexingGrams",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 39,
+      "symbol": "CorpusLoadViewController.viewDidLoad()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 49,
+      "symbol": "CorpusLoadViewController.runTimer()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 57,
+      "symbol": "CorpusLoadViewController.killTimer()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 61,
+      "symbol": "CorpusLoadViewController.updateTimer()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 66,
+      "symbol": "CorpusLoadViewController.stringFromTimeInterval(interval:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 76,
+      "symbol": "CorpusLoadViewController.updatePhase(phase:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 86,
+      "symbol": "CorpusLoadViewController.resetProgressBar(scaledTo:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 92,
+      "symbol": "CorpusLoadViewController.popoverShouldClose(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 96,
+      "symbol": "CorpusLoadViewController.onCorpusDocumentIndexingStarted(documentsToIndex:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 101,
+      "symbol": "CorpusLoadViewController.onCorpusGramsIndexingStarted(gramsToIndex:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 107,
+      "symbol": "CorpusLoadViewController.onCorpusIndexedDocument(withFileName:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 112,
+      "symbol": "CorpusLoadViewController.onCorpusIndexedGram(gramNumber:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 117,
+      "symbol": "CorpusLoadViewController.onCorpusInitialized(timeElapsed:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/CorpusLoadViewController.swift",
+      "line": 126,
+      "symbol": "CorpusLoadViewController.closeButtonTUI(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/FilePreviewController.swift",
+      "line": 11,
+      "symbol": "FilePreviewController",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/FilePreviewController.swift",
+      "line": 13,
+      "symbol": "FilePreviewController.textView",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/FilePreviewController.swift",
+      "line": 15,
+      "symbol": "FilePreviewController.fileDocument",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/FilePreviewController.swift",
+      "line": 16,
+      "symbol": "FilePreviewController.queryData",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/FilePreviewController.swift",
+      "line": 18,
+      "symbol": "FilePreviewController.Constants",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/FilePreviewController.swift",
+      "line": 19,
+      "symbol": "FilePreviewController.Constants.higlightTextAttributes",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/FilePreviewController.swift",
+      "line": 24,
+      "symbol": "FilePreviewController.viewDidLoad()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/FilePreviewController.swift",
+      "line": 30,
+      "symbol": "FilePreviewController.getFileData()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/FilePreviewController.swift",
+      "line": 41,
+      "symbol": "FilePreviewController.setupText()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": null,
+      "symbol": "SearchViewController",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 11,
+      "symbol": "SearchViewController",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 13,
+      "symbol": "SearchViewController.TableViewDisplayMode",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 14,
+      "symbol": "SearchViewController.TableViewDisplayMode.queryResultsMode",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 15,
+      "symbol": "SearchViewController.TableViewDisplayMode.vocabularyMode",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 18,
+      "symbol": "SearchViewController.Constants",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 19,
+      "symbol": "SearchViewController.Constants.maximumVocabularyDisplayed",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 22,
+      "symbol": "SearchViewController.directoryPathLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 23,
+      "symbol": "SearchViewController.queryInput",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 24,
+      "symbol": "SearchViewController.tableView",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 25,
+      "symbol": "SearchViewController.resultsLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 27,
+      "symbol": "SearchViewController.engine",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 28,
+      "symbol": "SearchViewController.queryResults",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 29,
+      "symbol": "SearchViewController.selectedQueryResult",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 30,
+      "symbol": "SearchViewController.vocabulary",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 31,
+      "symbol": "SearchViewController.tableViewMode",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 33,
+      "symbol": "SearchViewController.viewDidLoad()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 47,
+      "symbol": "SearchViewController.representedObject",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 53,
+      "symbol": "SearchViewController.keyDown(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 59,
+      "symbol": "SearchViewController.control(_:textView:doCommandBy:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 67,
+      "symbol": "SearchViewController.onQueryResulted(results:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 80,
+      "symbol": "SearchViewController.triggerQuery()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 91,
+      "symbol": "SearchViewController.onTableViewRowDoubleClicked()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 99,
+      "symbol": "SearchViewController.setTableViewMode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 121,
+      "symbol": "SearchViewController.pickBaseFolderWithModal()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 138,
+      "symbol": "SearchViewController.openFilePreviewController(queryResult:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 151,
+      "symbol": "SearchViewController.prepare(for:sender:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 159,
+      "symbol": "SearchViewController.chooseFolderTouchUp(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 167,
+      "symbol": "SearchViewController.queryTouchUp(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 171,
+      "symbol": "SearchViewController.stemWord(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 179,
+      "symbol": "SearchViewController.showVocabulary(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 186,
+      "symbol": "SearchViewController.dialogOKCancel(question:text:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 198,
+      "symbol": "SearchViewController.numberOfRows(in:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Controllers/SearchViewController.swift",
+      "line": 212,
+      "symbol": "SearchViewController.tableView(_:viewFor:row:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/DocumentFactory/DocumentFactoryProtocol.swift",
+      "line": 11,
+      "symbol": "DocumentFactoryProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/DocumentFactory/DocumentFactoryProtocol.swift",
+      "line": 12,
+      "symbol": "DocumentFactoryProtocol.createDocument(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/DocumentProtocol.swift",
+      "line": 11,
+      "symbol": "DocumentProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/DocumentProtocol.swift",
+      "line": 13,
+      "symbol": "DocumentProtocol.documentId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/DocumentProtocol.swift",
+      "line": 15,
+      "symbol": "DocumentProtocol.fileName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/DocumentProtocol.swift",
+      "line": 17,
+      "symbol": "DocumentProtocol.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/DocumentProtocol.swift",
+      "line": 19,
+      "symbol": "DocumentProtocol.getContent()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/DocumentProtocol.swift",
+      "line": 21,
+      "symbol": "DocumentProtocol.getFactory()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/FileDocument.swift",
+      "line": 11,
+      "symbol": "FileDocument",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/FileDocument.swift",
+      "line": 12,
+      "symbol": "FileDocument.fileURL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/JSONType/JsonFileDocument.swift",
+      "line": 11,
+      "symbol": "JsonFileDocument",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/JSONType/JsonFileDocument.swift",
+      "line": 13,
+      "symbol": "JsonFileDocument.fileName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/JSONType/JsonFileDocument.swift",
+      "line": 14,
+      "symbol": "JsonFileDocument.fileURL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/JSONType/JsonFileDocument.swift",
+      "line": 15,
+      "symbol": "JsonFileDocument.documentId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/JSONType/JsonFileDocument.swift",
+      "line": 16,
+      "symbol": "JsonFileDocument.content",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/JSONType/JsonFileDocument.swift",
+      "line": 17,
+      "symbol": "JsonFileDocument.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/JSONType/JsonFileDocument.swift",
+      "line": 19,
+      "symbol": "JsonFileDocument.init(id:fileURL:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/JSONType/JsonFileDocument.swift",
+      "line": 27,
+      "symbol": "JsonFileDocument.getTitle()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/JSONType/JsonFileDocument.swift",
+      "line": 43,
+      "symbol": "JsonFileDocument.getContent()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/JSONType/JsonFileDocument.swift",
+      "line": 60,
+      "symbol": "JsonFileDocument.getFactory()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/JSONType/JsonFileDocument.swift",
+      "line": 65,
+      "symbol": "JsonFileDocumentFactory",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/JSONType/JsonFileDocument.swift",
+      "line": 66,
+      "symbol": "JsonFileDocumentFactory.createDocument(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/TextType/TextFileDocument.swift",
+      "line": 11,
+      "symbol": "TextFileDocument",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/TextType/TextFileDocument.swift",
+      "line": 13,
+      "symbol": "TextFileDocument.fileName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/TextType/TextFileDocument.swift",
+      "line": 14,
+      "symbol": "TextFileDocument.fileURL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/TextType/TextFileDocument.swift",
+      "line": 15,
+      "symbol": "TextFileDocument.documentId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/TextType/TextFileDocument.swift",
+      "line": 16,
+      "symbol": "TextFileDocument.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/TextType/TextFileDocument.swift",
+      "line": 18,
+      "symbol": "TextFileDocument.init(id:fileURL:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/TextType/TextFileDocument.swift",
+      "line": 25,
+      "symbol": "TextFileDocument.getContent()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/TextType/TextFileDocument.swift",
+      "line": 29,
+      "symbol": "TextFileDocument.getFactory()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/TextType/TextFileDocument.swift",
+      "line": 34,
+      "symbol": "TextFileDocumentFactory",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Document/TextType/TextFileDocument.swift",
+      "line": 35,
+      "symbol": "TextFileDocumentFactory.createDocument(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DirectoryCorpus.swift",
+      "line": 12,
+      "symbol": "DirectoryCorpus",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DirectoryCorpus.swift",
+      "line": 14,
+      "symbol": "DirectoryCorpus.directoryPath",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DirectoryCorpus.swift",
+      "line": 15,
+      "symbol": "DirectoryCorpus.factories",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DirectoryCorpus.swift",
+      "line": 16,
+      "symbol": "DirectoryCorpus.documents",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DirectoryCorpus.swift",
+      "line": 17,
+      "symbol": "DirectoryCorpus.corpusSize",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DirectoryCorpus.swift",
+      "line": 24,
+      "symbol": "DirectoryCorpus.init(directoryPath:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DirectoryCorpus.swift",
+      "line": 29,
+      "symbol": "DirectoryCorpus.getDocuments()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DirectoryCorpus.swift",
+      "line": 36,
+      "symbol": "DirectoryCorpus.getDocumentWith(id:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DirectoryCorpus.swift",
+      "line": 40,
+      "symbol": "DirectoryCorpus.getFileDocumentWith(id:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DirectoryCorpus.swift",
+      "line": 44,
+      "symbol": "DirectoryCorpus.readDocuments()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DirectoryCorpus.swift",
+      "line": 65,
+      "symbol": "DirectoryCorpus.registerFileDocumentFactoryFor(fileExtension:factory:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DirectoryCorpus.swift",
+      "line": 69,
+      "symbol": "DirectoryCorpus.getFileDocumentFactoryFor(fileExtension:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DirectoryCorpus.swift",
+      "line": 73,
+      "symbol": "DirectoryCorpus.findFiles()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DirectoryCorpus.swift",
+      "line": 87,
+      "symbol": "DirectoryCorpus.loadDirectoryCorpus(absolutePath:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DocumentCorpusProtocol.swift",
+      "line": 11,
+      "symbol": "DocumentCorpusProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DocumentCorpusProtocol.swift",
+      "line": 13,
+      "symbol": "DocumentCorpusProtocol.corpusSize",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DocumentCorpusProtocol.swift",
+      "line": 15,
+      "symbol": "DocumentCorpusProtocol.getDocuments()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DocumentCorpusProtocol.swift",
+      "line": 17,
+      "symbol": "DocumentCorpusProtocol.getDocumentWith(id:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/DocumentCorpus/DocumentCorpusProtocol.swift",
+      "line": 19,
+      "symbol": "DocumentCorpusProtocol.getFileDocumentWith(id:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Engine.swift",
+      "line": 25,
+      "symbol": "Engine.delegate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Engine.swift",
+      "line": 27,
+      "symbol": "Engine.initDelegate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/EngineDelegate.swift",
+      "line": 11,
+      "symbol": "EngineDelegate",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/EngineDelegate.swift",
+      "line": 12,
+      "symbol": "EngineDelegate.onQueryResulted(results:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/EngineDelegate.swift",
+      "line": 15,
+      "symbol": "EngineInitDelegate",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/EngineDelegate.swift",
+      "line": 16,
+      "symbol": "EngineInitDelegate.onCorpusDocumentIndexingStarted(documentsToIndex:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/EngineDelegate.swift",
+      "line": 17,
+      "symbol": "EngineInitDelegate.onCorpusGramsIndexingStarted(gramsToIndex:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/EngineDelegate.swift",
+      "line": 18,
+      "symbol": "EngineInitDelegate.onCorpusIndexedDocument(withFileName:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/EngineDelegate.swift",
+      "line": 19,
+      "symbol": "EngineInitDelegate.onCorpusIndexedGram(gramNumber:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/EngineDelegate.swift",
+      "line": 20,
+      "symbol": "EngineInitDelegate.onCorpusInitialized(timeElapsed:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Extensions/Data+IntArray.swift",
+      "line": 13,
+      "symbol": "Data.init(fromArray:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Extensions/Data+IntArray.swift",
+      "line": 18,
+      "symbol": "Data.toArray(type:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Extensions/String+substring.swift",
+      "line": 13,
+      "symbol": "String.substring(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Extensions/String+substring.swift",
+      "line": 20,
+      "symbol": "String.nextIndexAfter(character:from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Extensions/String+substring.swift",
+      "line": 33,
+      "symbol": "StringProtocol.string",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Extensions/String+substring.swift",
+      "line": 35,
+      "symbol": "StringProtocol.subscript(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.subscript",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Extensions/String+substring.swift",
+      "line": 39,
+      "symbol": "StringProtocol.subscript(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.subscript",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Extensions/String+substring.swift",
+      "line": 43,
+      "symbol": "StringProtocol.subscript(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.subscript",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Extensions/String+substring.swift",
+      "line": 48,
+      "symbol": "StringProtocol.subscript(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.subscript",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Extensions/String+substring.swift",
+      "line": 51,
+      "symbol": "StringProtocol.subscript(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.subscript",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Extensions/String+substring.swift",
+      "line": 54,
+      "symbol": "StringProtocol.subscript(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.subscript",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Extensions/String+substring.swift",
+      "line": 59,
+      "symbol": "Substring.string",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Gram/GramIndex.swift",
+      "line": 11,
+      "symbol": "GramIndex",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Gram/GramIndex.swift",
+      "line": 13,
+      "symbol": "GramIndex.Constants",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Gram/GramIndex.swift",
+      "line": 14,
+      "symbol": "GramIndex.Constants.MaximumGramLength",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Gram/GramIndex.swift",
+      "line": 15,
+      "symbol": "GramIndex.Constants.DollarSignCharacter",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Gram/GramIndex.swift",
+      "line": 16,
+      "symbol": "GramIndex.Constants.WildcardCharacter",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Gram/GramIndex.swift",
+      "line": 19,
+      "symbol": "GramIndex.map",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Gram/GramIndex.swift",
+      "line": 21,
+      "symbol": "GramIndex.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Gram/GramIndex.swift",
+      "line": 25,
+      "symbol": "GramIndex.withTypes(forGram:mutations:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Gram/GramIndex.swift",
+      "line": 29,
+      "symbol": "GramIndex.getMatchingCandidatesFor(term:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Gram/GramIndex.swift",
+      "line": 51,
+      "symbol": "GramIndex.addTypeCandidateForGram(gram:type:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Gram/GramIndex.swift",
+      "line": 57,
+      "symbol": "GramIndex.registerGramsFor(type:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Gram/GramIndex.swift",
+      "line": 85,
+      "symbol": "GramIndex.getMatchingGramsFor(term:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Gram/GramIndexProtocol.swift",
+      "line": 11,
+      "symbol": "GramIndexProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Gram/GramIndexProtocol.swift",
+      "line": 12,
+      "symbol": "GramIndexProtocol.registerGramsFor(type:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Gram/GramIndexProtocol.swift",
+      "line": 13,
+      "symbol": "GramIndexProtocol.getMatchingCandidatesFor(term:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexProtocol.swift",
+      "line": 11,
+      "symbol": "IndexProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexProtocol.swift",
+      "line": 12,
+      "symbol": "IndexProtocol.getQueryResultsFor(stem:fromTerm:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexProtocol.swift",
+      "line": 13,
+      "symbol": "IndexProtocol.getPostingsFor(stem:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexProtocol.swift",
+      "line": 14,
+      "symbol": "IndexProtocol.getVocabulary()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexProtocol.swift",
+      "line": 15,
+      "symbol": "IndexProtocol.getKGramIndex()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexProtocol.swift",
+      "line": 16,
+      "symbol": "IndexProtocol.clear()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/DiskIndexWriter.swift",
+      "line": 11,
+      "symbol": "DiskIndexWriter",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/DiskIndexWriter.swift",
+      "line": 13,
+      "symbol": "DiskIndexWriter.postingWriter",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/DiskIndexWriter.swift",
+      "line": 15,
+      "symbol": "DiskIndexWriter.Constants",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/DiskIndexWriter.swift",
+      "line": 16,
+      "symbol": "DiskIndexWriter.Constants.indexDirectoryName",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/DiskIndexWriter.swift",
+      "line": 17,
+      "symbol": "DiskIndexWriter.Constants.postingsDiskFileName",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/DiskIndexWriter.swift",
+      "line": 18,
+      "symbol": "DiskIndexWriter.Constants.vocabularyDiskFileName",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/DiskIndexWriter.swift",
+      "line": 19,
+      "symbol": "DiskIndexWriter.Constants.vocabTableDiskFileName",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/DiskIndexWriter.swift",
+      "line": 22,
+      "symbol": "DiskIndexWriter.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/DiskIndexWriter.swift",
+      "line": 26,
+      "symbol": "DiskIndexWriter.createFile(atPath:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/DiskIndexWriter.swift",
+      "line": 43,
+      "symbol": "DiskIndexWriter.writePostings(vocabulary:url:index:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/DiskIndexWriter.swift",
+      "line": 88,
+      "symbol": "DiskIndexWriter.writeVocabulary(vocabulary:url:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/DiskIndexWriter.swift",
+      "line": 127,
+      "symbol": "DiskIndexWriter.writeVocabTable(vocabularyOffsets:postingsOffsets:url:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/DiskIndexWriter.swift",
+      "line": 157,
+      "symbol": "DiskIndexWriter.writeIndex(index:atPath:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/DiskIndexWriterProtocol.swift",
+      "line": 11,
+      "symbol": "DiskIndexWriterProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/DiskIndexWriterProtocol.swift",
+      "line": 12,
+      "symbol": "DiskIndexWriterProtocol.writeIndex(index:atPath:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/PostingWriter/PostingWriter.swift",
+      "line": 11,
+      "symbol": "PostingWriter",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/PostingWriter/PostingWriter.swift",
+      "line": 13,
+      "symbol": "PostingWriter.getBinaryRepresentation(forPostings:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/PostingWriter/PostingWriterProtocol.swift",
+      "line": 11,
+      "symbol": "PostingWriterProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/IndexWriter/PostingWriter/PostingWriterProtocol.swift",
+      "line": 12,
+      "symbol": "PostingWriterProtocol.getBinaryRepresentation(forPostings:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/PositionalInvertedIndex.swift",
+      "line": 11,
+      "symbol": "PositionalInvertedIndex",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/PositionalInvertedIndex.swift",
+      "line": 13,
+      "symbol": "PositionalInvertedIndex.map",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/PositionalInvertedIndex.swift",
+      "line": 14,
+      "symbol": "PositionalInvertedIndex.kGramIndex",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/PositionalInvertedIndex.swift",
+      "line": 16,
+      "symbol": "PositionalInvertedIndex.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/PositionalInvertedIndex.swift",
+      "line": 20,
+      "symbol": "PositionalInvertedIndex.init(withIndex:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/PositionalInvertedIndex.swift",
+      "line": 25,
+      "symbol": "PositionalInvertedIndex.withPostings(forTerm:mutations:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/PositionalInvertedIndex.swift",
+      "line": 29,
+      "symbol": "PositionalInvertedIndex.getQueryResultsFor(stem:fromTerm:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/PositionalInvertedIndex.swift",
+      "line": 36,
+      "symbol": "PositionalInvertedIndex.getQueryResultsFor(stem:fromTerm:withDummyMap:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/PositionalInvertedIndex.swift",
+      "line": 44,
+      "symbol": "PositionalInvertedIndex.getPostingsFor(stem:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/PositionalInvertedIndex.swift",
+      "line": 48,
+      "symbol": "PositionalInvertedIndex.getKGramIndex()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/PositionalInvertedIndex.swift",
+      "line": 52,
+      "symbol": "PositionalInvertedIndex.getVocabulary()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/PositionalInvertedIndex.swift",
+      "line": 56,
+      "symbol": "PositionalInvertedIndex.addTerm(_:withId:atPosition:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Index/PositionalInvertedIndex.swift",
+      "line": 66,
+      "symbol": "PositionalInvertedIndex.clear()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Posting/Posting.swift",
+      "line": 11,
+      "symbol": "Posting",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Posting/Posting.swift",
+      "line": 13,
+      "symbol": "Posting.documentId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Posting/Posting.swift",
+      "line": 14,
+      "symbol": "Posting.positions",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Posting/Posting.swift",
+      "line": 15,
+      "symbol": "Posting.term",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Posting/Posting.swift",
+      "line": 17,
+      "symbol": "Posting.init(withDocumentId:withPosition:forTerm:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Posting/Posting.swift",
+      "line": 24,
+      "symbol": "Posting.addPosition(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/PhraseLiteral.swift",
+      "line": 12,
+      "symbol": "PhraseLiteral",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/PhraseLiteral.swift",
+      "line": 14,
+      "symbol": "PhraseLiteral.terms",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/PhraseLiteral.swift",
+      "line": 16,
+      "symbol": "PhraseLiteral.init(terms:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/PhraseLiteral.swift",
+      "line": 20,
+      "symbol": "PhraseLiteral.init(terms:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/PhraseLiteral.swift",
+      "line": 24,
+      "symbol": "PhraseLiteral.getResultsFrom(index:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/PhraseLiteral.swift",
+      "line": 49,
+      "symbol": "PhraseLiteral.positionalMerge(left:right:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/PhraseLiteral.swift",
+      "line": 74,
+      "symbol": "PhraseLiteral.isFollowed(left:right:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/PhraseLiteral.swift",
+      "line": 98,
+      "symbol": "PhraseLiteral.toString()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/TermLiteral.swift",
+      "line": 12,
+      "symbol": "TermLiteral",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/TermLiteral.swift",
+      "line": 14,
+      "symbol": "TermLiteral.term",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/TermLiteral.swift",
+      "line": 16,
+      "symbol": "TermLiteral.init(term:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/TermLiteral.swift",
+      "line": 20,
+      "symbol": "TermLiteral.getResultsFrom(index:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/TermLiteral.swift",
+      "line": 27,
+      "symbol": "TermLiteral.toString()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/WildcardLiteral.swift",
+      "line": 12,
+      "symbol": "WildcardLiteral",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/WildcardLiteral.swift",
+      "line": 14,
+      "symbol": "WildcardLiteral.term",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/WildcardLiteral.swift",
+      "line": 16,
+      "symbol": "WildcardLiteral.init(term:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/WildcardLiteral.swift",
+      "line": 20,
+      "symbol": "WildcardLiteral.getResultsFrom(index:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/WildcardLiteral.swift",
+      "line": 44,
+      "symbol": "WildcardLiteral.union(left:right:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Literals/WildcardLiteral.swift",
+      "line": 83,
+      "symbol": "WildcardLiteral.toString()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 11,
+      "symbol": "BooleanQueryParser",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 13,
+      "symbol": "BooleanQueryParser.Constants",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 14,
+      "symbol": "BooleanQueryParser.Constants.DoubleQuoteCharacter",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 15,
+      "symbol": "BooleanQueryParser.Constants.WildCardCharacter",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 16,
+      "symbol": "BooleanQueryParser.Constants.SpaceCharacter",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 17,
+      "symbol": "BooleanQueryParser.Constants.PlusCharacter",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 20,
+      "symbol": "BooleanQueryParser.StringBounds",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 22,
+      "symbol": "BooleanQueryParser.StringBounds.start",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 23,
+      "symbol": "BooleanQueryParser.StringBounds.length",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 25,
+      "symbol": "BooleanQueryParser.StringBounds.init(start:length:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 31,
+      "symbol": "BooleanQueryParser.Literal",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 33,
+      "symbol": "BooleanQueryParser.Literal.stringBounds",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 34,
+      "symbol": "BooleanQueryParser.Literal.literalComponent",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 36,
+      "symbol": "BooleanQueryParser.Literal.init(bounds:literal:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 42,
+      "symbol": "BooleanQueryParser.parseQuery(query:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 101,
+      "symbol": "BooleanQueryParser.findNextSubquery(_:startIndex:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Parser/BooleanQueryParser.swift",
+      "line": 128,
+      "symbol": "BooleanQueryParser.findNextLiteral(subquery:startIndex:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Queriable.swift",
+      "line": 11,
+      "symbol": "Queriable",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Queriable.swift",
+      "line": 12,
+      "symbol": "Queriable.getResultsFrom(index:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Queriable.swift",
+      "line": 13,
+      "symbol": "Queriable.toString()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Subqueries/AndQuery.swift",
+      "line": 11,
+      "symbol": "AndQuery",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Subqueries/AndQuery.swift",
+      "line": 13,
+      "symbol": "AndQuery.components",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Subqueries/AndQuery.swift",
+      "line": 15,
+      "symbol": "AndQuery.init(components:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Subqueries/AndQuery.swift",
+      "line": 20,
+      "symbol": "AndQuery.getResultsFrom(index:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Subqueries/AndQuery.swift",
+      "line": 41,
+      "symbol": "AndQuery.intersection(left:right:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Subqueries/AndQuery.swift",
+      "line": 64,
+      "symbol": "AndQuery.toString()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Subqueries/OrQuery.swift",
+      "line": 11,
+      "symbol": "OrQuery",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Subqueries/OrQuery.swift",
+      "line": 13,
+      "symbol": "OrQuery.components",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Subqueries/OrQuery.swift",
+      "line": 15,
+      "symbol": "OrQuery.init(components:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Subqueries/OrQuery.swift",
+      "line": 20,
+      "symbol": "OrQuery.getResultsFrom(index:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Subqueries/OrQuery.swift",
+      "line": 35,
+      "symbol": "OrQuery.union(left:right:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Query/Subqueries/OrQuery.swift",
+      "line": 74,
+      "symbol": "OrQuery.toString()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Result/QueryResult.swift",
+      "line": 11,
+      "symbol": "QueryResult",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Result/QueryResult.swift",
+      "line": 13,
+      "symbol": "QueryResult.documentId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Result/QueryResult.swift",
+      "line": 14,
+      "symbol": "QueryResult.document",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Result/QueryResult.swift",
+      "line": 15,
+      "symbol": "QueryResult.posting",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Result/QueryResult.swift",
+      "line": 16,
+      "symbol": "QueryResult.matchingForTerms",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Result/QueryResult.swift",
+      "line": 18,
+      "symbol": "QueryResult.init(_:term:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Result/QueryResult.swift",
+      "line": 25,
+      "symbol": "QueryResult.addMatchingTerm(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Result/QueryResult.swift",
+      "line": 31,
+      "symbol": "QueryResult.addMatchingTerms(terms:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/StreamReader/StreamReader.swift",
+      "line": null,
+      "symbol": "StreamReader",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/StreamReader/StreamReader.swift",
+      "line": 3,
+      "symbol": "StreamReader",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/StreamReader/StreamReader.swift",
+      "line": 5,
+      "symbol": "StreamReader.encoding",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/StreamReader/StreamReader.swift",
+      "line": 6,
+      "symbol": "StreamReader.chunkSize",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/StreamReader/StreamReader.swift",
+      "line": 7,
+      "symbol": "StreamReader.fileHandle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/StreamReader/StreamReader.swift",
+      "line": 8,
+      "symbol": "StreamReader.data",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/StreamReader/StreamReader.swift",
+      "line": 9,
+      "symbol": "StreamReader.delimData",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/StreamReader/StreamReader.swift",
+      "line": 10,
+      "symbol": "StreamReader.buffer",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/StreamReader/StreamReader.swift",
+      "line": 11,
+      "symbol": "StreamReader.atEof",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/StreamReader/StreamReader.swift",
+      "line": 13,
+      "symbol": "StreamReader.init(path:delimiter:encoding:chunkSize:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/StreamReader/StreamReader.swift",
+      "line": 28,
+      "symbol": "StreamReader.init(url:delimiter:encoding:chunkSize:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/StreamReader/StreamReader.swift",
+      "line": 43,
+      "symbol": "StreamReader.init(data:delimiter:encoding:chunkSize:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/StreamReader/StreamReader.swift",
+      "line": 58,
+      "symbol": "StreamReader.deinit",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/StreamReader/StreamReader.swift",
+      "line": 62,
+      "symbol": "StreamReader.readData()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Token/AdvancedTokenProcessor.swift",
+      "line": 11,
+      "symbol": "AdvancedTokenProcessor",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Token/AdvancedTokenProcessor.swift",
+      "line": 13,
+      "symbol": "AdvancedTokenProcessor.processToken(token:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Token/BasicTokenProcessor.swift",
+      "line": 11,
+      "symbol": "BasicTokenProcessor",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Token/BasicTokenProcessor.swift",
+      "line": 12,
+      "symbol": "BasicTokenProcessor.processToken(token:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Token/TokenProcessorProtocol.swift",
+      "line": 11,
+      "symbol": "TokenProcessorProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Token/TokenProcessorProtocol.swift",
+      "line": 12,
+      "symbol": "TokenProcessorProtocol.processToken(token:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Token/TokenStream/EnglishTokenStream.swift",
+      "line": 11,
+      "symbol": "EnglishTokenStream",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Token/TokenStream/EnglishTokenStream.swift",
+      "line": 13,
+      "symbol": "EnglishTokenStream.reader",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Token/TokenStream/EnglishTokenStream.swift",
+      "line": 15,
+      "symbol": "EnglishTokenStream.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Token/TokenStream/EnglishTokenStream.swift",
+      "line": 19,
+      "symbol": "EnglishTokenStream.getTokens()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Token/TokenStream/EnglishTokenStream.swift",
+      "line": 30,
+      "symbol": "EnglishTokenStream.dispose()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Token/TokenStream/TokenStreamProtocol.swift",
+      "line": 11,
+      "symbol": "TokenStreamProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Token/TokenStream/TokenStreamProtocol.swift",
+      "line": 12,
+      "symbol": "TokenStreamProtocol.getTokens()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/rakso/Projects/SearchEngine/SearchEngine/Engine/Token/TokenStream/TokenStreamProtocol.swift",
+      "line": 13,
+      "symbol": "TokenStreamProtocol.dispose()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/rakso/Projects/SearchEngine"
+}
