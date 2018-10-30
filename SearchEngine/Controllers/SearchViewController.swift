@@ -42,12 +42,6 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         
         setTableViewMode(to: .queryResultsMode)
     }
-
-    override var representedObject: Any? {
-        didSet {
-        
-        }
-    }
     
     override func keyDown(with event: NSEvent) {
         if (event.characters?.contains("\r"))! {

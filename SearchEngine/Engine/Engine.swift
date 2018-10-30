@@ -62,7 +62,16 @@ class Engine {
                 self.corpus = corpus
                 self.initDelegate?.onCorpusInitialized(timeElapsed: self.calculateElapsedTime(from: start))
                 self.indexWriter.writeIndex(index: self.index, atPath: path)
+                
+//                self.testDisk(path: path)
             })
+        }
+    
+    }
+    
+    private func testDisk(path: URL) {
+        if let testindex = DiskPositionalIndex(atPath: path) {
+            testindex.getPostingsFor(stem: "the")
         }
     }
     
