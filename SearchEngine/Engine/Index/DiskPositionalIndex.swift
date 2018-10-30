@@ -12,12 +12,12 @@ class DiskPositionalIndex: IndexProtocol {
     
     private(set) var map: [String: [Posting]] = [:]
     private(set) var kGramIndex: GramIndex
-    private var diskReader: DiskIndexReader
+    private var diskReader: DiskIndexReader<Int64>
     
     init?(atPath url: URL) {
         self.kGramIndex = GramIndex()
         do {
-            self.diskReader = try DiskIndexReader(atPath: url)
+            self.diskReader = try DiskIndexReader(atPath: url, offsetsEncodedWithType: Int64.self)
         } catch let error as NSError {
             print(error.description)
             return nil

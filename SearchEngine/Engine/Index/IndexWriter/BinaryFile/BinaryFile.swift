@@ -74,11 +74,12 @@ class BinaryFile {
         self.currentOffset += Int64(data.count)
     }
     
-    public func move(toOffset offset: UInt64) {
-        self.handle!.seek(toFileOffset: offset)
+    public func read(chunkSize: Int) -> Data {
+        return self.handle!.readData(ofLength: chunkSize)
     }
     
-    public func read(chunkSize: Int) -> Data {
+    public func readAt(offset: UInt64, chunkSize: Int) -> Data {
+        self.handle!.seek(toFileOffset: offset)
         return self.handle!.readData(ofLength: chunkSize)
     }
     
