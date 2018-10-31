@@ -8,15 +8,22 @@
 
 import Foundation
 
-class DiskIndexWriter: DiskIndexWriterProtocol {
+class DiskIndexWriter<T: FixedWidthInteger>: DiskIndexWriterProtocol {
     
-    private var postingWriter: PostingWriterProtocol
-
-    init() {
-        self.postingWriter = PostingWriter()
+    private var postingsUtility: PostingsDiskUtility<T>
+    
+    init(usingEncoding integerType: T.Type) {
+        self.postingsUtility = PostingsDiskUtility(type: integerType)
     }
     
-    private func writePostings(vocabulary: [String], url: URL, index: IndexProtocol) -> [Int64] {
+    public func writeIndex(index: IndexProtocol, atPath url: URL) {
+        let vocabulary: [String] = index.getVocabulary()
+        let postingsOffsets: [Int64] = writePostings(vocabulary, url, index)
+        let vocabularyOffsets: [Int64] = writeVocabulary(vocabulary, url)
+        writeTable(vocabularyOffsets, postingsOffsets, url)
+    }
+    
+    private func writePostings(_ vocabulary: [String], _ url: URL, _ index: IndexProtocol) -> [Int64] {
         // The URL of the binary file that holds the postings data
         let finalURL = url.appendingPathComponent(DiskConstants.indexDirectoryName, isDirectory: true)
             .appendingPathComponent(DiskConstants.postingsDiskFileName)
@@ -35,7 +42,7 @@ class DiskIndexWriter: DiskIndexWriterProtocol {
                 fatalError("Error while generating postings binary file.")
             }
             // Generate a binary representation of the term's postings list with 4 bytes integer list
-            let binaryRepresentation: [Int32] = self.postingWriter.getBinaryRepresentation(forPostings: postings)
+            let binaryRepresentation: [T] = self.postingsUtility.getBinaryRepresentation(forPostings: postings)
             // Convert integers to Data object
             data = Data(fromArray: binaryRepresentation)
             // Write data object to file
@@ -46,7 +53,7 @@ class DiskIndexWriter: DiskIndexWriterProtocol {
         return binaryFile.offsets
     }
     
-    private func writeVocabulary(vocabulary: [String], url: URL) -> [Int64] {
+    private func writeVocabulary(_ vocabulary: [String], _ url: URL) -> [Int64] {
         // The URL of the binary file that holds the postings data
         let finalURL = url.appendingPathComponent(DiskConstants.indexDirectoryName, isDirectory: true)
             .appendingPathComponent(DiskConstants.vocabularyDiskFileName)
@@ -70,7 +77,7 @@ class DiskIndexWriter: DiskIndexWriterProtocol {
         return binaryFile.offsets
     }
     
-    private func writeTable(vocabularyOffsets: [Int64], postingsOffsets: [Int64], url: URL) {
+    private func writeTable(_ vocabularyOffsets: [Int64], _ postingsOffsets: [Int64], _ url: URL) {
         // The URL of the binary file that holds the postings data
         let finalURL = url.appendingPathComponent(DiskConstants.indexDirectoryName, isDirectory: true)
             .appendingPathComponent(DiskConstants.tableDiskFileName)
@@ -92,13 +99,5 @@ class DiskIndexWriter: DiskIndexWriterProtocol {
         }
         // Close file
         binaryFile.dispose()
-    }
-
-    public func writeIndex(index: IndexProtocol, atPath url: URL) {
-        let vocabulary: [String] = index.getVocabulary()
-        
-        let postingsOffsets: [Int64] = writePostings(vocabulary: vocabulary, url: url, index: index)
-        let vocabularyOffsets: [Int64] = writeVocabulary(vocabulary: vocabulary, url: url)
-        writeTable(vocabularyOffsets: vocabularyOffsets, postingsOffsets: postingsOffsets, url: url)
     }
 }

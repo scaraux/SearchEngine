@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		BE6A3FB8C00C33E03236DAF5 /* Pods_SearchEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F8E2203351C32D1E818474 /* Pods_SearchEngine.framework */; };
 		D014BF3C217414F0003099CD /* CorpusLoadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D014BF3B217414F0003099CD /* CorpusLoadViewController.swift */; };
-		D0272E9B2188329D001B43DA /* DiskIndexReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0272E9A2188329D001B43DA /* DiskIndexReader.swift */; };
+		D0272E9B2188329D001B43DA /* DiskIndexUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0272E9A2188329D001B43DA /* DiskIndexUtility.swift */; };
 		D0272E9D21883316001B43DA /* DiskConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0272E9C21883316001B43DA /* DiskConstants.swift */; };
 		D040E656214C99C900A487F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E655214C99C900A487F5 /* AppDelegate.swift */; };
 		D040E658214C99C900A487F5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E657214C99C900A487F5 /* SearchViewController.swift */; };
@@ -31,7 +31,7 @@
 		D040E695214CBC7700A487F5 /* DocumentFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E694214CBC7700A487F5 /* DocumentFactoryProtocol.swift */; };
 		D0412D8F217BE5CE0051E95A /* DiskIndexWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D8E217BE5CE0051E95A /* DiskIndexWriter.swift */; };
 		D0412D93217D4A6F0051E95A /* PostingWriterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D92217D4A6F0051E95A /* PostingWriterProtocol.swift */; };
-		D0412D95217D4AD10051E95A /* PostingWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D94217D4AD10051E95A /* PostingWriter.swift */; };
+		D0412D95217D4AD10051E95A /* PostingsDiskUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D94217D4AD10051E95A /* PostingsDiskUtility.swift */; };
 		D0412D97217D4DEF0051E95A /* Data+IntArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D96217D4DEF0051E95A /* Data+IntArray.swift */; };
 		D0412D99217DACEA0051E95A /* DiskWritingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D98217DACEA0051E95A /* DiskWritingTests.swift */; };
 		D0412D9B217DB50F0051E95A /* DiskIndexWriterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D9A217DB50F0051E95A /* DiskIndexWriterProtocol.swift */; };
@@ -75,7 +75,7 @@
 		7402D41F75C113016102494C /* Pods-SearchEngineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchEngineTests.release.xcconfig"; path = "Target Support Files/Pods-SearchEngineTests/Pods-SearchEngineTests.release.xcconfig"; sourceTree = "<group>"; };
 		C17DC276B5FF73796E153C58 /* Pods-SearchEngineTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchEngineTests.debug.xcconfig"; path = "Target Support Files/Pods-SearchEngineTests/Pods-SearchEngineTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D014BF3B217414F0003099CD /* CorpusLoadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorpusLoadViewController.swift; sourceTree = "<group>"; };
-		D0272E9A2188329D001B43DA /* DiskIndexReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskIndexReader.swift; sourceTree = "<group>"; };
+		D0272E9A2188329D001B43DA /* DiskIndexUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskIndexUtility.swift; sourceTree = "<group>"; };
 		D0272E9C21883316001B43DA /* DiskConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskConstants.swift; sourceTree = "<group>"; };
 		D040E652214C99C900A487F5 /* SearchEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D040E655214C99C900A487F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 		D040E694214CBC7700A487F5 /* DocumentFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentFactoryProtocol.swift; sourceTree = "<group>"; };
 		D0412D8E217BE5CE0051E95A /* DiskIndexWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskIndexWriter.swift; sourceTree = "<group>"; };
 		D0412D92217D4A6F0051E95A /* PostingWriterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingWriterProtocol.swift; sourceTree = "<group>"; };
-		D0412D94217D4AD10051E95A /* PostingWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingWriter.swift; sourceTree = "<group>"; };
+		D0412D94217D4AD10051E95A /* PostingsDiskUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingsDiskUtility.swift; sourceTree = "<group>"; };
 		D0412D96217D4DEF0051E95A /* Data+IntArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+IntArray.swift"; sourceTree = "<group>"; };
 		D0412D98217DACEA0051E95A /* DiskWritingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskWritingTests.swift; sourceTree = "<group>"; };
 		D0412D9A217DB50F0051E95A /* DiskIndexWriterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskIndexWriterProtocol.swift; sourceTree = "<group>"; };
@@ -179,7 +179,7 @@
 		D0272E992188328C001B43DA /* IndexReader */ = {
 			isa = PBXGroup;
 			children = (
-				D0272E9A2188329D001B43DA /* DiskIndexReader.swift */,
+				D0272E9A2188329D001B43DA /* DiskIndexUtility.swift */,
 			);
 			path = IndexReader;
 			sourceTree = "<group>";
@@ -239,7 +239,7 @@
 		D040E676214C9A5900A487F5 /* Index */ = {
 			isa = PBXGroup;
 			children = (
-				D0412D90217D4A3F0051E95A /* IndexWriter */,
+				D0412D90217D4A3F0051E95A /* Disk */,
 				D040E67C214C9BAA00A487F5 /* IndexProtocol.swift */,
 				D04CDA5B21546864007B8CB2 /* PositionalInvertedIndex.swift */,
 				D0D933F521882011006A59DE /* DiskPositionalIndex.swift */,
@@ -296,7 +296,7 @@
 			path = DocumentCorpus;
 			sourceTree = "<group>";
 		};
-		D0412D90217D4A3F0051E95A /* IndexWriter */ = {
+		D0412D90217D4A3F0051E95A /* Disk */ = {
 			isa = PBXGroup;
 			children = (
 				D0272E9C21883316001B43DA /* DiskConstants.swift */,
@@ -305,14 +305,14 @@
 				D0D933FB21882859006A59DE /* BinaryFile */,
 				D0412D91217D4A500051E95A /* PostingWriter */,
 			);
-			path = IndexWriter;
+			path = Disk;
 			sourceTree = "<group>";
 		};
 		D0412D91217D4A500051E95A /* PostingWriter */ = {
 			isa = PBXGroup;
 			children = (
 				D0412D92217D4A6F0051E95A /* PostingWriterProtocol.swift */,
-				D0412D94217D4AD10051E95A /* PostingWriter.swift */,
+				D0412D94217D4AD10051E95A /* PostingsDiskUtility.swift */,
 			);
 			path = PostingWriter;
 			sourceTree = "<group>";
@@ -656,11 +656,11 @@
 				D040E67D214C9BAA00A487F5 /* IndexProtocol.swift in Sources */,
 				D0D158E6215F035100CE1376 /* GramIndex.swift in Sources */,
 				D04CDA5C21546864007B8CB2 /* PositionalInvertedIndex.swift in Sources */,
-				D0412D95217D4AD10051E95A /* PostingWriter.swift in Sources */,
+				D0412D95217D4AD10051E95A /* PostingsDiskUtility.swift in Sources */,
 				D040E695214CBC7700A487F5 /* DocumentFactoryProtocol.swift in Sources */,
 				D0AD336F216475D700139F76 /* AdvancedTokenProcessor.swift in Sources */,
 				D0FEDE44214F36140064B3D5 /* TermLiteral.swift in Sources */,
-				D0272E9B2188329D001B43DA /* DiskIndexReader.swift in Sources */,
+				D0272E9B2188329D001B43DA /* DiskIndexUtility.swift in Sources */,
 				D0FEDE48214F38740064B3D5 /* PhraseLiteral.swift in Sources */,
 				D0AD33692163EAE500139F76 /* GramIndexProtocol.swift in Sources */,
 				D0FEDE46214F373E0064B3D5 /* OrQuery.swift in Sources */,

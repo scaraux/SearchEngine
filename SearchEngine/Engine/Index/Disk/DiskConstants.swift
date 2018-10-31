@@ -11,4 +11,10 @@ public struct DiskConstants {
     static let postingsDiskFileName = "postings.bin"
     static let vocabularyDiskFileName = "vocab.bin"
     static let tableDiskFileName = "vocab_table.bin"
+    
+    enum FileDescriptorMode {
+        case reading
+        case writing
+        case updating
+    }
 }

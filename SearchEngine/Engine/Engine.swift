@@ -12,7 +12,7 @@ import PorterStemmer2
 class Engine {
     
     private var index: PositionalInvertedIndex
-    private var indexWriter: DiskIndexWriter
+    private var indexWriter: DiskIndexWriter<Int32>
     private var queryParser: BooleanQueryParser
     private let stemmer: PorterStemmer
     private var corpus: DocumentCorpusProtocol?
@@ -22,7 +22,7 @@ class Engine {
     
     init() {
         self.index = PositionalInvertedIndex()
-        self.indexWriter = DiskIndexWriter()
+        self.indexWriter = DiskIndexWriter(usingEncoding: Int32.self)
         self.queryParser = BooleanQueryParser()
         self.stemmer = PorterStemmer(withLanguage: .English)!
     }

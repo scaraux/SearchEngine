@@ -8,9 +8,11 @@
 
 import Foundation
 
-class PostingWriter: PostingWriterProtocol {
+class PostingsDiskUtility<T: FixedWidthInteger> {
     
-    func getBinaryRepresentation<T: FixedWidthInteger>(forPostings postings: [Posting]) -> [T] {
+    init(type: T.Type) {}
+    
+    func getBinaryRepresentation(forPostings postings: [Posting]) -> [T] {
         var representation = [T]()
         let dft: T = T(postings.count)
         
@@ -29,5 +31,9 @@ class PostingWriter: PostingWriterProtocol {
             }
         }
         return representation
+    }
+    
+    func getRepresentationFromBinary(data: Data) -> [Posting] {
+        return []
     }
 }

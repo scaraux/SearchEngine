@@ -8,15 +8,16 @@
 
 import Foundation
 
-class DiskIndexReader<T: FixedWidthInteger> {
+class DiskIndexUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
     
     private var postings: BinaryFile
     private var vocabulary: BinaryFile
     private var table: BinaryFile
+    
     private var valueByteLength: Int
     private var url: URL
 
-    init(atPath url: URL, offsetsEncodedWithType type: T.Type) throws {
+    init(atPath url: URL, fileMode mode: DiskConstants.FileDescriptorMode, encodingType _: T.Type, offsetsEncodedWithType _: U.Type) throws {
         
         self.url = url
         self.valueByteLength = MemoryLayout<T>.size
@@ -30,9 +31,9 @@ class DiskIndexReader<T: FixedWidthInteger> {
         let tableFileURL = url.appendingPathComponent(DiskConstants.indexDirectoryName, isDirectory: true)
             .appendingPathComponent(DiskConstants.tableDiskFileName)
         
-        try self.postings = BinaryFile(atPath: postingsFileURL)
-        try self.vocabulary = BinaryFile(atPath: vocabularyFileURL)
-        try self.table = BinaryFile(atPath: tableFileURL)
+        try self.postings = BinaryFile(atPath: postingsFileURL, for: mode)
+        try self.vocabulary = BinaryFile(atPath: vocabularyFileURL, for: mode)
+        try self.table = BinaryFile(atPath: tableFileURL, for: mode)
     }
     
     deinit {
@@ -42,25 +43,25 @@ class DiskIndexReader<T: FixedWidthInteger> {
     }
     
     public func getPostings(forTerm term: String) {
-        let postingsOffset: T = binarySearchTerm(term)
+        let postingsOffset: U = binarySearchTerm(term)
         if postingsOffset != -1 {
             print(postingsOffset)
         }
     
     }
     
-    private func binarySearchTerm(_ target: String) -> T {
+    private func binarySearchTerm(_ target: String) -> U {
         // The size of a complete chunk (two rows, 4 values)
         let chunkSize = self.valueByteLength * 2
         // Number of chunks in binary file, (total bytes divided by chunk size)
         let totalChunks: UInt64 = self.table.size / UInt64(chunkSize)
         // Current term offset in vocabulary file, as Fixed Width Integer
-        var termVocabOffset: T
+        var termVocabOffset: U
         // Current term offset in postings file, as Fixed Width Integer
-        var termPostingsOffset: T
+        var termPostingsOffset: U
         // Current term's next term offset in vocabulary file
         // as Fixed Width Integer, to calculate term size
-        var nextTermOffset: T
+        var nextTermOffset: U
         // Current term length
         var termLength: Int
         // A marker to beginning of file
@@ -74,13 +75,14 @@ class DiskIndexReader<T: FixedWidthInteger> {
             // Compute the middle offset in file
             let middle = (startMarker + endMarker) / 2
             // Read a chunk containing two terms
-            chunk = table.readAt(offset: (middle - 1) * UInt64(chunkSize), chunkSize: chunkSize * 2)
+            chunk = table.readAt(offset: middle * UInt64(chunkSize), chunkSize: chunkSize * 2)
             // Retrieve offset of term in vocabulary file
             termVocabOffset = chunk.subdata(in: 0..<self.valueByteLength).withUnsafeBytes { $0.pointee }
             // Retrieve offset of term's postings in postings file
             termPostingsOffset = chunk.subdata(in: self.valueByteLength..<chunkSize).withUnsafeBytes { $0.pointee }
             // Retrieve offset of next term
-            nextTermOffset = chunk.subdata(in: (self.valueByteLength * 2)..<(chunkSize*2)).withUnsafeBytes { $0.pointee }
+            // TODO: Handle last item
+            nextTermOffset = chunk.subdata(in: (self.valueByteLength * 2)..<(chunkSize * 2)).withUnsafeBytes { $0.pointee }
             // Calculate term length by substracting next term offset to current term offset
             termLength = Int(nextTermOffset - termVocabOffset)
             // Read term in vocabulary file, from offset
@@ -89,6 +91,7 @@ class DiskIndexReader<T: FixedWidthInteger> {
             guard let term = String(bytes: chunk, encoding: .utf8) else {
                 return -1
             }
+            print("\(term) \(startMarker) \(endMarker)")
             // If term if target, return postings offset
             if term == target {
                 return termPostingsOffset

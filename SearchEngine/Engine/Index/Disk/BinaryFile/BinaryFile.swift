@@ -16,21 +16,13 @@ class BinaryFile {
     private var currentOffset: Int64 = 0
     private(set) var offsets: [Int64] = []
     
-    struct BinaryFileOptions {
-        enum FileDescriptorMode {
-            case reading
-            case writing
-            case updating
-        }
-    }
-    
     var size: UInt64 {
         get {
             return self.fileSize(forURL: self.url)
         }
     }
     
-    init(atPath url: URL, for mode: BinaryFileOptions.FileDescriptorMode = .reading) throws {
+    init(atPath url: URL, for mode: DiskConstants.FileDescriptorMode = .reading) throws {
         self.url = url
     
         switch mode {
@@ -44,7 +36,7 @@ class BinaryFile {
     }
     
     public static func createBinaryFile(atPath url: URL,
-                                        for mode: BinaryFileOptions.FileDescriptorMode = .reading) -> BinaryFile? {
+                                        for mode: DiskConstants.FileDescriptorMode = .reading) -> BinaryFile? {
         if !FileManager.default.fileExists(atPath: url.path) {
             do {
                 var isDir: ObjCBool = true
