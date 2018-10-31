@@ -13,9 +13,6 @@ class DiskIndexUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
     private var postingsFile: BinaryFile
     private var vocabularyFile: BinaryFile
     private var tableFile: BinaryFile
-    
-    private var postingsUtility: DiskPostingsUtility<T>
-    
     private var valueByteLength: Int
     private var url: URL
 
@@ -24,8 +21,6 @@ class DiskIndexUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
         
         self.url = url
         self.valueByteLength = MemoryLayout<U>.size
-        
-        self.postingsUtility = DiskPostingsUtility(type: postingsEncoding)
         
         let postingsFileURL = url.appendingPathComponent(DiskConstants.indexDirectoryName, isDirectory: true)
             .appendingPathComponent(DiskConstants.postingsDiskFileName)
@@ -47,9 +42,50 @@ class DiskIndexUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
         self.tableFile.dispose()
     }
     
-    private func writePostings(_ vocabulary: [String], _ index: IndexProtocol) -> [Int64] {
-        // The data object that will hold the bytes to be written to the file
+    private func getBinaryRepresentation(forPostings postings: [Posting]) -> Data {
+        // A Integer byte array, of desired size T
+        var bytes = [T]()
+        // The frequency of the term within corpus, or how many documents contains it
+        let dft: T = T(postings.count)
+        // Add dft to array
+        bytes.append(dft)
+        // Iterate over all postings
+        for posting in postings {
+            // Convert Id of current document to Integer of desired size
+            let id: T = T(posting.documentId)
+            // Convert the frequency of the term within document to Integer of desired size
+            let tftd: T = T(posting.positions.count)
+            // Add id to array
+            bytes.append(id) //.littleendian
+            // Add tftd to array
+            bytes.append(tftd) //.littleendian
+            // Iterate over all positions
+            for position in posting.positions {
+                // Convert position to Integer of desired size
+                let position: T = T(position)
+                // Add position to array
+                bytes.append(position) //.littleendian
+            }
+        }
+        // Return bytes as Data object
+        return Data(fromArray: bytes)
+    }
+    
+    private func getPostingsAtOffset(atOffset offset: UInt64) -> [Posting] {
+        let chunkSize: Int = 16
+        
         var data: Data
+        while true {
+            data = self.postingsFile.readAt(offset: offset, chunkSize: chunkSize)
+            
+            let integerData: [T] = data.toArray(type: T.self)
+            
+            print(integerData)
+        }
+        return []
+    }
+    
+    private func writePostings(_ vocabulary: [String], _ index: IndexProtocol) -> [Int64] {
         // Iterate over all terms in vocabulary
         for i in 0..<vocabulary.count {
             // Retrieve the term
@@ -58,10 +94,8 @@ class DiskIndexUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
             guard let postings: [Posting] = index.getPostingsFor(stem: term) else {
                 fatalError("Error while generating postings binary file.")
             }
-            // Generate a binary representation of the term's postings list with 4 bytes integer list
-            let binaryRepresentation: [T] = self.postingsUtility.getBinaryRepresentation(forPostings: postings)
-            // Convert integers to Data object
-            data = Data(fromArray: binaryRepresentation)
+            // Generate a binary representation of the term's postings list as a Data object
+            let data: Data = getBinaryRepresentation(forPostings: postings)
             // Write data object to file
             self.postingsFile.write(data: data)
         }
@@ -139,7 +173,7 @@ class DiskIndexUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
             guard let term = String(bytes: chunk, encoding: .utf8) else {
                 return -1
             }
-            print("\(term) \(startMarker) \(endMarker)")
+//            print("\(term) \(startMarker) \(endMarker)")
             // If term if target, return postings offset
             if term == target {
                 return termPostingsOffset
@@ -159,7 +193,7 @@ class DiskIndexUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
     public func getPostings(forTerm term: String) {
         let postingsOffset: U = binarySearchTerm(term)
         if postingsOffset != -1 {
-            print(postingsOffset)
+            var postings: [Posting] = getPostingsAtOffset(atOffset: UInt64(postingsOffset))
         }
     }
     

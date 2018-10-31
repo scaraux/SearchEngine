@@ -41,11 +41,6 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         self.tableView.sizeLastColumnToFit()
         
         setTableViewMode(to: .queryResultsMode)
-        
-        let url = URL(fileURLWithPath: "/Users/rakso/Desktop/CECS/Corpus/MobyDick/", isDirectory: true)
-        if let testindex = DiskPositionalIndex(atPath: url) {
-            let postings = testindex.getPostingsFor(stem: "the")
-        }
     }
     
     override func keyDown(with event: NSEvent) {
@@ -154,16 +149,35 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         }
     }
     
-    @IBAction func chooseFolderTouchUp(_ sender: Any) {
+    private func dialogOKCancel(question: String, text: String) {
+        let alert = NSAlert()
+        alert.messageText = question
+        alert.informativeText = text
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
+    }
+}
+
+extension SearchViewController {
+    
+    @IBAction func queryTouchUp(_ sender: Any) {
+        triggerQuery()
+    }
+    
+    @IBAction func newEnvironment(_ sender: Any) {
         if let path = pickBaseFolderWithModal() {
             self.directoryPathLabel.stringValue = "/" + path.lastPathComponent
-            self.engine.initCorpus(withPath: path)
+            self.engine.newEnvironment(withPath: path)
             performSegue(withIdentifier: "ShowCorpusInitView", sender: nil)
         }
     }
     
-    @IBAction func queryTouchUp(_ sender: Any) {
-        triggerQuery()
+    @IBAction func openEnvironment(_ sender: Any) {
+        if let path = pickBaseFolderWithModal() {
+            self.directoryPathLabel.stringValue = "/" + path.lastPathComponent
+            self.engine.loadEnvironment(withPath: path)
+        }
     }
     
     @IBAction func stemWord(_ sender: Any) {
@@ -179,15 +193,6 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         self.setTableViewMode(to: .vocabularyMode)
         self.tableView.reloadData()
         self.tableView.sizeLastColumnToFit()
-    }
-    
-    private func dialogOKCancel(question: String, text: String) {
-        let alert = NSAlert()
-        alert.messageText = question
-        alert.informativeText = text
-        alert.alertStyle = .warning
-        alert.addButton(withTitle: "OK")
-        alert.runModal()
     }
 }
 

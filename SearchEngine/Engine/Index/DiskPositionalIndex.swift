@@ -8,23 +8,15 @@
 
 import Foundation
 
-class DiskPositionalIndex: IndexProtocol {
+class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProtocol {
     
     private(set) var map: [String: [Posting]] = [:]
     private(set) var kGramIndex: GramIndex
-    private var diskIndexUtility: DiskIndexUtility<Int32, Int64>
+    private var diskIndexUtility: DiskIndexUtility<T, U>
     
-    init?(atPath url: URL) {
+    init(atPath url: URL, utility: DiskIndexUtility<T, U>) {
         self.kGramIndex = GramIndex()
-        do {
-            self.diskIndexUtility = try DiskIndexUtility(atPath: url,
-                                                   fileMode: .reading,
-                                                   postingsEncoding: Int32.self,
-                                                   offsetsEncoding: Int64.self)
-        } catch let error as NSError {
-            print(error.description)
-            return nil
-        }
+        self.diskIndexUtility = utility
     }
     
     func getQueryResultsFor(stem: String, fromTerm: String) -> [QueryResult]? {
