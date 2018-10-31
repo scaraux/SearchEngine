@@ -29,12 +29,9 @@
 		D040E691214CA72500A487F5 /* DirectoryCorpus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E690214CA72500A487F5 /* DirectoryCorpus.swift */; };
 		D040E693214CA93400A487F5 /* FileDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E692214CA93400A487F5 /* FileDocument.swift */; };
 		D040E695214CBC7700A487F5 /* DocumentFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E694214CBC7700A487F5 /* DocumentFactoryProtocol.swift */; };
-		D0412D8F217BE5CE0051E95A /* DiskIndexWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D8E217BE5CE0051E95A /* DiskIndexWriter.swift */; };
-		D0412D93217D4A6F0051E95A /* PostingWriterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D92217D4A6F0051E95A /* PostingWriterProtocol.swift */; };
-		D0412D95217D4AD10051E95A /* PostingsDiskUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D94217D4AD10051E95A /* PostingsDiskUtility.swift */; };
+		D0412D95217D4AD10051E95A /* DiskPostingsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D94217D4AD10051E95A /* DiskPostingsUtility.swift */; };
 		D0412D97217D4DEF0051E95A /* Data+IntArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D96217D4DEF0051E95A /* Data+IntArray.swift */; };
 		D0412D99217DACEA0051E95A /* DiskWritingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D98217DACEA0051E95A /* DiskWritingTests.swift */; };
-		D0412D9B217DB50F0051E95A /* DiskIndexWriterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D9A217DB50F0051E95A /* DiskIndexWriterProtocol.swift */; };
 		D04CDA5C21546864007B8CB2 /* PositionalInvertedIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04CDA5B21546864007B8CB2 /* PositionalInvertedIndex.swift */; };
 		D04CDA5F21546C99007B8CB2 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04CDA5E21546C99007B8CB2 /* Engine.swift */; };
 		D04CDA6121546DA8007B8CB2 /* EngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04CDA6021546DA8007B8CB2 /* EngineDelegate.swift */; };
@@ -100,12 +97,9 @@
 		D040E690214CA72500A487F5 /* DirectoryCorpus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryCorpus.swift; sourceTree = "<group>"; };
 		D040E692214CA93400A487F5 /* FileDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDocument.swift; sourceTree = "<group>"; };
 		D040E694214CBC7700A487F5 /* DocumentFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentFactoryProtocol.swift; sourceTree = "<group>"; };
-		D0412D8E217BE5CE0051E95A /* DiskIndexWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskIndexWriter.swift; sourceTree = "<group>"; };
-		D0412D92217D4A6F0051E95A /* PostingWriterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingWriterProtocol.swift; sourceTree = "<group>"; };
-		D0412D94217D4AD10051E95A /* PostingsDiskUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingsDiskUtility.swift; sourceTree = "<group>"; };
+		D0412D94217D4AD10051E95A /* DiskPostingsUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskPostingsUtility.swift; sourceTree = "<group>"; };
 		D0412D96217D4DEF0051E95A /* Data+IntArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+IntArray.swift"; sourceTree = "<group>"; };
 		D0412D98217DACEA0051E95A /* DiskWritingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskWritingTests.swift; sourceTree = "<group>"; };
-		D0412D9A217DB50F0051E95A /* DiskIndexWriterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskIndexWriterProtocol.swift; sourceTree = "<group>"; };
 		D04CDA5B21546864007B8CB2 /* PositionalInvertedIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionalInvertedIndex.swift; sourceTree = "<group>"; };
 		D04CDA5E21546C99007B8CB2 /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		D04CDA6021546DA8007B8CB2 /* EngineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineDelegate.swift; sourceTree = "<group>"; };
@@ -167,21 +161,12 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		D0272E982188327E001B43DA /* IndexWriter */ = {
-			isa = PBXGroup;
-			children = (
-				D0412D8E217BE5CE0051E95A /* DiskIndexWriter.swift */,
-				D0412D9A217DB50F0051E95A /* DiskIndexWriterProtocol.swift */,
-			);
-			path = IndexWriter;
-			sourceTree = "<group>";
-		};
-		D0272E992188328C001B43DA /* IndexReader */ = {
+		D0272E992188328C001B43DA /* DiskIndexUtility */ = {
 			isa = PBXGroup;
 			children = (
 				D0272E9A2188329D001B43DA /* DiskIndexUtility.swift */,
 			);
-			path = IndexReader;
+			path = DiskIndexUtility;
 			sourceTree = "<group>";
 		};
 		D040E649214C99C900A487F5 = {
@@ -300,21 +285,19 @@
 			isa = PBXGroup;
 			children = (
 				D0272E9C21883316001B43DA /* DiskConstants.swift */,
-				D0272E992188328C001B43DA /* IndexReader */,
-				D0272E982188327E001B43DA /* IndexWriter */,
+				D0272E992188328C001B43DA /* DiskIndexUtility */,
 				D0D933FB21882859006A59DE /* BinaryFile */,
-				D0412D91217D4A500051E95A /* PostingWriter */,
+				D0412D91217D4A500051E95A /* DiskPostingsUtility */,
 			);
 			path = Disk;
 			sourceTree = "<group>";
 		};
-		D0412D91217D4A500051E95A /* PostingWriter */ = {
+		D0412D91217D4A500051E95A /* DiskPostingsUtility */ = {
 			isa = PBXGroup;
 			children = (
-				D0412D92217D4A6F0051E95A /* PostingWriterProtocol.swift */,
-				D0412D94217D4AD10051E95A /* PostingsDiskUtility.swift */,
+				D0412D94217D4AD10051E95A /* DiskPostingsUtility.swift */,
 			);
-			path = PostingWriter;
+			path = DiskPostingsUtility;
 			sourceTree = "<group>";
 		};
 		D04CDA5D21546C90007B8CB2 /* Engine */ = {
@@ -634,9 +617,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0412D9B217DB50F0051E95A /* DiskIndexWriterProtocol.swift in Sources */,
 				D0272E9D21883316001B43DA /* DiskConstants.swift in Sources */,
-				D0412D8F217BE5CE0051E95A /* DiskIndexWriter.swift in Sources */,
 				D0766BBA215AF0AD00F6A9B6 /* QueryResult.swift in Sources */,
 				D0FEDE42214F35DE0064B3D5 /* Queriable.swift in Sources */,
 				D04CDA5F21546C99007B8CB2 /* Engine.swift in Sources */,
@@ -645,7 +626,6 @@
 				D0D158EA2161EFE700CE1376 /* FilePreviewController.swift in Sources */,
 				D04CDA6121546DA8007B8CB2 /* EngineDelegate.swift in Sources */,
 				D040E68F214CA6C300A487F5 /* DocumentCorpusProtocol.swift in Sources */,
-				D0412D93217D4A6F0051E95A /* PostingWriterProtocol.swift in Sources */,
 				D040E658214C99C900A487F5 /* SearchViewController.swift in Sources */,
 				D040E67B214C9B4B00A487F5 /* BasicTokenProcessor.swift in Sources */,
 				D0AD336D216441F700139F76 /* JsonFileDocument.swift in Sources */,
@@ -656,7 +636,7 @@
 				D040E67D214C9BAA00A487F5 /* IndexProtocol.swift in Sources */,
 				D0D158E6215F035100CE1376 /* GramIndex.swift in Sources */,
 				D04CDA5C21546864007B8CB2 /* PositionalInvertedIndex.swift in Sources */,
-				D0412D95217D4AD10051E95A /* PostingsDiskUtility.swift in Sources */,
+				D0412D95217D4AD10051E95A /* DiskPostingsUtility.swift in Sources */,
 				D040E695214CBC7700A487F5 /* DocumentFactoryProtocol.swift in Sources */,
 				D0AD336F216475D700139F76 /* AdvancedTokenProcessor.swift in Sources */,
 				D0FEDE44214F36140064B3D5 /* TermLiteral.swift in Sources */,

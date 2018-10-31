@@ -5,7 +5,7 @@
 //  Created by Oscar Götting on 10/29/18.
 //  Copyright © 2018 Oscar Götting. All rights reserved.
 //
-// swiftlint:disable nesting implicit_getter
+// swiftlint:disable implicit_getter
 
 import Foundation
 
@@ -36,28 +36,17 @@ class BinaryFile {
     }
     
     public static func createBinaryFile(atPath url: URL,
-                                        for mode: DiskConstants.FileDescriptorMode = .reading) -> BinaryFile? {
+                                        for mode: DiskConstants.FileDescriptorMode = .reading) throws -> BinaryFile {
         if !FileManager.default.fileExists(atPath: url.path) {
-            do {
-                var isDir: ObjCBool = true
-                if !FileManager.default.fileExists(atPath: url.deletingLastPathComponent().path, isDirectory: &isDir) {
-                    try FileManager.default.createDirectory(at: url.deletingLastPathComponent(),
-                                                            withIntermediateDirectories: true,
-                                                            attributes: nil)
-                }
-                if !FileManager.default.createFile(atPath: url.path, contents: nil, attributes: nil) {
-                    return nil
-                }
-            } catch {
-                return nil
+            var isDir: ObjCBool = true
+            if !FileManager.default.fileExists(atPath: url.deletingLastPathComponent().path, isDirectory: &isDir) {
+                try FileManager.default.createDirectory(at: url.deletingLastPathComponent(),
+                                                        withIntermediateDirectories: true,
+                                                        attributes: nil)
             }
+            FileManager.default.createFile(atPath: url.path, contents: nil, attributes: nil)
         }
-        do {
-            return try BinaryFile(atPath: url, for: mode)
-        } catch let error as NSError {
-            print(error.description)
-            return nil
-        }
+        return try BinaryFile(atPath: url, for: mode)
     }
     
     public func write(data: Data) {

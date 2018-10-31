@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PostingsDiskUtility<T: FixedWidthInteger> {
+class DiskPostingsUtility<T: FixedWidthInteger> {
     
     init(type: T.Type) {}
     

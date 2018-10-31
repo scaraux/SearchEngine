@@ -44,7 +44,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         
         let url = URL(fileURLWithPath: "/Users/rakso/Desktop/CECS/Corpus/MobyDick/", isDirectory: true)
         if let testindex = DiskPositionalIndex(atPath: url) {
-            testindex.getPostingsFor(stem: "zone")
+            let postings = testindex.getPostingsFor(stem: "the")
         }
     }
     

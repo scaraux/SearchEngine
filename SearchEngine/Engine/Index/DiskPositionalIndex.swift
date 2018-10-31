@@ -12,12 +12,15 @@ class DiskPositionalIndex: IndexProtocol {
     
     private(set) var map: [String: [Posting]] = [:]
     private(set) var kGramIndex: GramIndex
-    private var diskReader: DiskIndexUtility<Int32, Int64>
+    private var diskIndexUtility: DiskIndexUtility<Int32, Int64>
     
     init?(atPath url: URL) {
         self.kGramIndex = GramIndex()
         do {
-            self.diskReader = try DiskIndexUtility(atPath: url, fileMode: .reading, encodingType: Int32.self, offsetsEncodedWithType: Int64.self)
+            self.diskIndexUtility = try DiskIndexUtility(atPath: url,
+                                                   fileMode: .reading,
+                                                   postingsEncoding: Int32.self,
+                                                   offsetsEncoding: Int64.self)
         } catch let error as NSError {
             print(error.description)
             return nil
@@ -29,7 +32,7 @@ class DiskPositionalIndex: IndexProtocol {
     }
     
     func getPostingsFor(stem: String) -> [Posting]? {
-        self.diskReader.getPostings(forTerm: stem)
+        self.diskIndexUtility.getPostings(forTerm: stem)
         return nil
     }
     

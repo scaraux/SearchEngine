@@ -12,7 +12,6 @@ import PorterStemmer2
 class Engine {
     
     private var index: PositionalInvertedIndex
-    private var indexWriter: DiskIndexWriter<Int32>
     private var queryParser: BooleanQueryParser
     private let stemmer: PorterStemmer
     private var corpus: DocumentCorpusProtocol?
@@ -22,7 +21,6 @@ class Engine {
     
     init() {
         self.index = PositionalInvertedIndex()
-        self.indexWriter = DiskIndexWriter(usingEncoding: Int32.self)
         self.queryParser = BooleanQueryParser()
         self.stemmer = PorterStemmer(withLanguage: .English)!
     }
@@ -61,8 +59,22 @@ class Engine {
                 
                 self.corpus = corpus
                 self.initDelegate?.onCorpusInitialized(timeElapsed: self.calculateElapsedTime(from: start))
-                self.indexWriter.writeIndex(index: self.index, atPath: path)
+                
+                self.writeIndexOnDisk(url: path)
             })
+        }
+    }
+    
+    private func writeIndexOnDisk(url: URL) {
+        do {
+            let utility = try DiskIndexUtility(atPath: url,
+                                               fileMode: .writing,
+                                               postingsEncoding: Int32.self,
+                                               offsetsEncoding: Int64.self)
+            utility.writeIndex(index: self.index)
+            utility.dispose()
+        } catch let error as NSError {
+            print(error.description)
         }
     }
     
