@@ -58,14 +58,16 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     }
     
     internal func onQueryResulted(results: [QueryResult]?) {
-        if results == nil {
-            return
-        }
-        self.queryResults = results
         if self.tableViewMode != .queryResultsMode {
             setTableViewMode(to: .queryResultsMode)
         }
-        self.resultsLabel.stringValue = "\(results!.count) results"
+        if results == nil {
+            self.queryResults = []
+            self.resultsLabel.stringValue = "0 result"
+        } else {
+            self.queryResults = results
+            self.resultsLabel.stringValue = "\(results!.count) result(s)"
+        }
         self.tableView.reloadData()
         self.tableView.sizeLastColumnToFit()
     }

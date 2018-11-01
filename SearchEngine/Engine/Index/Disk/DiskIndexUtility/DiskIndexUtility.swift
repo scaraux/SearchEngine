@@ -62,11 +62,13 @@ class DiskIndexUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
     /// - Returns: The list of postings corresponding to term
     public func getPostings(forTerm term: String) -> [Posting]? {
         // Locate postings offset for term, in postings binary file
-        let postingsOffset: U = binarySearchTerm(term)
+        let result: (Bool, U) = binarySearchTerm(term)
         // If term exists in index
-        if postingsOffset != -1 {
+        if result.0 {
+            // Retrieve posting offset
+            let postingOffset = UInt64(result.1)
             // Retrieve and return postings at given offset
-            return getPostingsAtOffset(atOffset: UInt64(postingsOffset), forTerm: term)
+            return getPostingsAtOffset(atOffset: postingOffset, forTerm: term)
         }
         // Return nil if term has not been found
         return nil
@@ -227,7 +229,7 @@ extension DiskIndexUtility {
 
 extension DiskIndexUtility {
     
-    private func binarySearchTerm(_ target: String) -> U {
+    private func binarySearchTerm(_ target: String) -> (Bool, U) {
         // Number of bits to represent a single value
         let memorySizeOfValue = MemoryLayout<U>.size
         // The size of a complete chunk (two rows, 4 values)
@@ -269,11 +271,12 @@ extension DiskIndexUtility {
             chunk = vocabularyFile.readAt(offset: UInt64(termVocabOffset), chunkSize: termLength)
             // Create a UTF-8 string representation of the term
             guard let term = String(bytes: chunk, encoding: .utf8) else {
-                return -1
+                // If cannot create string, return false
+                return (false, 0)
             }
             // If term if target, return postings offset
             if term == target {
-                return termPostingsOffset
+                return (true, termPostingsOffset)
             }
             // If target term is before term we found, we search in left part
             else if target < term {
@@ -284,7 +287,7 @@ extension DiskIndexUtility {
                 startMarker = middle + 1
             }
         }
-        // Return -1 in case term has not been found
-        return -1
+        // Return false in case term has not been found
+        return (false, 0)
     }
 }

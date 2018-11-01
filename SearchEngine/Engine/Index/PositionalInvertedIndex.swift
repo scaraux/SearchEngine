@@ -56,6 +56,10 @@ class PositionalInvertedIndex: IndexProtocol {
             }
         }
     }
+    
+    func dispose() {
+        
+    }
 }
 
 extension PositionalInvertedIndex {

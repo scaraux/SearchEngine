@@ -9,7 +9,7 @@
 import Foundation
 
 class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProtocol {
-    
+
     private(set) var kGramIndex: GramIndex
     private var diskIndexUtility: DiskIndexUtility<T, U>
     
@@ -35,5 +35,9 @@ class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProt
     
     func getKGramIndex() -> GramIndexProtocol {
         return self.kGramIndex
+    }
+    
+    func dispose() {
+        self.diskIndexUtility.dispose()
     }
 }

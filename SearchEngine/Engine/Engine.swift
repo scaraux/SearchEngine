@@ -50,14 +50,16 @@ class Engine {
     }
     
     func loadEnvironment(withPath url: URL) {
-        
+    
+        if self.index != nil {
+            self.index!
+                .dispose()
+        }
         guard let corpus = DirectoryCorpus.loadDirectoryCorpus(absolutePath: url) else {
             return
         }
-        
         self.corpus = corpus
         self.corpus!.readDocuments()
-
         do {
             let utility = try DiskIndexUtility(atPath: url,
                                                fileMode: .reading,
@@ -89,6 +91,8 @@ class Engine {
                 self.initDelegate?.onEnvironmentInitialized(timeElapsed: self.calculateElapsedTime(from: start))
                 // Write index on disk
                 self.writeIndexOnDisk(index: index, atUrl: url)
+                // Reload environment
+                self.loadEnvironment(withPath: url)
             })
         }
     }

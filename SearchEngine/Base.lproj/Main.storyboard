@@ -501,9 +501,6 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
-                                        <connections>
-                                            <action selector="chooseFolderTouchUp:" target="XfG-lQ-9wD" id="CMr-nw-W4O"/>
-                                        </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fbb-9Q-l1B">
                                         <rect key="frame" x="434" y="415" width="49" height="17"/>

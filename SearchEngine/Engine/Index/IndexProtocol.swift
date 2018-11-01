@@ -13,4 +13,5 @@ protocol IndexProtocol {
     func getPostingsFor(stem: String) -> [Posting]?
     func getVocabulary() -> [String]
     func getKGramIndex() -> GramIndexProtocol
+    func dispose()
 }

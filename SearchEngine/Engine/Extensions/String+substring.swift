@@ -32,8 +32,7 @@ extension StringProtocol {
     
     var string: String { return String(self) }
     
-    subscript(offset: Int) -> Element {
-        return self[index(startIndex, offsetBy: offset)]
+    subscript(offset: Int) -> Element {        return self[index(startIndex, offsetBy: offset)]
     }
     
     subscript(_ range: CountableRange<Int>) -> SubSequence {
