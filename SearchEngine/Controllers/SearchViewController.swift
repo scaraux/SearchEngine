@@ -249,3 +249,25 @@ extension SearchViewController: NSTableViewDelegate, NSTableViewDataSource {
         return nil
     }
 }
+
+extension SearchViewController {
+    
+    func onEnvironmentLoaded() {
+        let alert = NSAlert()
+        alert.messageText = "Environment loaded"
+        alert.informativeText = "Environment has successfully been loaded."
+        alert.alertStyle = NSAlert.Style.informational
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
+    }
+    
+    func onEnvironmentLoadingFailed(withError error: String) {
+        let alert = NSAlert()
+        alert.messageText = "Environment not loaded"
+        alert.informativeText = "Could not load environment. \(error)"
+        alert.alertStyle = NSAlert.Style.warning
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
+    }
+
+}

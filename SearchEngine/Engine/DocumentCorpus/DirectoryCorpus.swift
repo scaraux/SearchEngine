@@ -16,7 +16,7 @@ class DirectoryCorpus: DocumentCorpusProtocol {
     private var documents: [Int: FileDocument]?
     internal var corpusSize: Int {
         if documents == nil {
-            documents = readDocuments()
+            readDocuments()
         }
         return documents!.count
     }
@@ -28,7 +28,7 @@ class DirectoryCorpus: DocumentCorpusProtocol {
     
     internal func getDocuments() -> [DocumentProtocol] {
         if self.documents == nil {
-            self.documents = readDocuments()
+            readDocuments()
         }
         return Array(self.documents!.values).sorted(by: { $0.documentId < $1.documentId })
     }
@@ -41,13 +41,13 @@ class DirectoryCorpus: DocumentCorpusProtocol {
         return self.documents?[id]
     }
     
-    private func readDocuments() -> [Int: FileDocument] {
+    public func readDocuments() {
         
         var docId = 1
         var docs = [Int: FileDocument]()
         
         guard let fileURLs = findFiles() else {
-            return docs
+            return
         }
         
         for url in fileURLs {
@@ -59,7 +59,7 @@ class DirectoryCorpus: DocumentCorpusProtocol {
             docs[docId] = factoryForUrl!.createDocument(docId, url)
             docId += 1
         }
-        return docs
+        self.documents = docs
     }
     
     private func registerFileDocumentFactoryFor(fileExtension: String, factory: DocumentFactoryProtocol) {
@@ -78,6 +78,7 @@ class DirectoryCorpus: DocumentCorpusProtocol {
                                                                  .skipsPackageDescendants,
                                                                  .skipsSubdirectoryDescendants])
             return files.filter { !$0.hasDirectoryPath }
+                        .sorted(by: { $0.lastPathComponent < $1.lastPathComponent })
         } catch {
             print("Error while enumerating files \(directoryPath.path): \(error.localizedDescription)")
             return nil

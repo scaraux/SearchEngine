@@ -9,13 +9,15 @@
 import Foundation
 
 protocol EngineDelegate: class {
+    func onEnvironmentLoaded()
+    func onEnvironmentLoadingFailed(withError: String)
     func onQueryResulted(results: [QueryResult]?)
 }
 
 protocol EngineInitDelegate: class {
-    func onCorpusDocumentIndexingStarted(documentsToIndex: Int)
-    func onCorpusGramsIndexingStarted(gramsToIndex: Int)
-    func onCorpusIndexedDocument(withFileName: String)
-    func onCorpusIndexedGram(gramNumber: Int)
-    func onCorpusInitialized(timeElapsed: Double)
+    func onEnvironmentDocumentIndexingStarted(documentsToIndex: Int)
+    func onEnvironmentGramsIndexingStarted(gramsToIndex: Int)
+    func onEnvironmentIndexedDocument(withFileName: String)
+    func onEnvironmentIndexedGram(gramNumber: Int)
+    func onEnvironmentInitialized(timeElapsed: Double)
 }

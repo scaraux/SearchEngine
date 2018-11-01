@@ -93,28 +93,28 @@ class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitD
         return false
     }
     
-    internal func onCorpusDocumentIndexingStarted(documentsToIndex: Int) {
+    internal func onEnvironmentDocumentIndexingStarted(documentsToIndex: Int) {
         updatePhase(phase: .phaseIndexingDocuments)
         resetProgressBar(scaledTo: documentsToIndex)
     }
     
-    internal func onCorpusGramsIndexingStarted(gramsToIndex: Int) {
+    func onEnvironmentGramsIndexingStarted(gramsToIndex: Int) {
         self.totalGramsToIndex = gramsToIndex
         updatePhase(phase: .phaseIndexingGrams)
         resetProgressBar(scaledTo: gramsToIndex)
     }
     
-    internal func onCorpusIndexedDocument(withFileName fileName: String) {
+    func onEnvironmentIndexedDocument(withFileName fileName: String) {
         self.currentTaskLabel.stringValue = "Indexed file \(fileName)"
         self.progressBar.increment(by: 1.0)
     }
     
-    internal func onCorpusIndexedGram(gramNumber: Int) {
+    func onEnvironmentIndexedGram(gramNumber: Int) {
         self.currentTaskLabel.stringValue = "Indexed Gram \(gramNumber)/\(self.totalGramsToIndex)"
         self.progressBar.increment(by: 1.0)
     }
     
-    internal func onCorpusInitialized(timeElapsed: Double) {
+    func onEnvironmentInitialized(timeElapsed: Double) {
         self.timer?.invalidate()
         self.timer = nil
         self.progressBar.isHidden = true

@@ -10,7 +10,6 @@ import Foundation
 
 class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProtocol {
     
-    private(set) var map: [String: [Posting]] = [:]
     private(set) var kGramIndex: GramIndex
     private var diskIndexUtility: DiskIndexUtility<T, U>
     
@@ -20,12 +19,14 @@ class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProt
     }
     
     func getQueryResultsFor(stem: String, fromTerm: String) -> [QueryResult]? {
+        if let postings = self.diskIndexUtility.getPostings(forTerm: stem) {
+            return postings.map({ QueryResult($0, term: fromTerm) })
+        }
         return nil
     }
     
     func getPostingsFor(stem: String) -> [Posting]? {
-        self.diskIndexUtility.getPostings(forTerm: stem)
-        return nil
+        return self.diskIndexUtility.getPostings(forTerm: stem)
     }
     
     func getVocabulary() -> [String] {
@@ -34,9 +35,5 @@ class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProt
     
     func getKGramIndex() -> GramIndexProtocol {
         return self.kGramIndex
-    }
-    
-    func clear() {
-        
     }
 }

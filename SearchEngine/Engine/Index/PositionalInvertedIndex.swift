@@ -33,14 +33,6 @@ class PositionalInvertedIndex: IndexProtocol {
         return nil
     }
     
-    public func getQueryResultsFor(stem: String, fromTerm: String,
-                                   withDummyMap map: [String: [Posting]]) -> [QueryResult]? {
-        if let postings = map[stem] {
-            return postings.map({ QueryResult($0, term: fromTerm) })
-        }
-        return nil
-    }
-    
     public func getPostingsFor(stem: String) -> [Posting]? {
         return self.map[stem]
     }
@@ -58,12 +50,21 @@ class PositionalInvertedIndex: IndexProtocol {
             if let posting = postings.last, posting.documentId == id {
                 posting.addPosition(position)
             } else {
-                postings.append(Posting(withDocumentId: id, withPosition: position, forTerm: term))
+                let posting = Posting(withDocumentId: id, forTerm: term)
+                posting.addPosition(position)
+                postings.append(posting)                
             }
         }
     }
+}
+
+extension PositionalInvertedIndex {
     
-    public func clear() {
-        self.map.removeAll()
+    public func getQueryResultsFor(stem: String, fromTerm: String,
+                                   withDummyMap map: [String: [Posting]]) -> [QueryResult]? {
+        if let postings = map[stem] {
+            return postings.map({ QueryResult($0, term: fromTerm) })
+        }
+        return nil
     }
 }
