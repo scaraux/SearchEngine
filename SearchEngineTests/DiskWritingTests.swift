@@ -42,7 +42,7 @@ class DiskWritingTests: XCTestCase {
         _t1p2.addPosition(36)
         
         // TERM 1-- POSTING 3--
-        let _t1p3 = Posting(withDocumentId: 6, withPosition: 7, forTerm: term1)
+        let _t1p3 = Posting(withDocumentId: 11, withPosition: 7, forTerm: term1)
         _t1p3.addPosition(14)
         _t1p3.addPosition(36)
         

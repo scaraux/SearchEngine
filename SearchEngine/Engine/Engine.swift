@@ -9,6 +9,7 @@
 import Foundation
 import PorterStemmer2
 
+<<<<<<< HEAD
 /// The search engine core object
 public class Engine {
     /// The index that contains associations between terms and postings
@@ -16,11 +17,18 @@ public class Engine {
     /// Module that writes the index to the file system
     private var indexWriter: DiskIndexWriter
     /// Parses queries to build a boolean, executable representation of it
+=======
+class Engine {
+>>>>>>> 5f9844c84c01dea66e3003b71b759420e3272b96
     private var queryParser: BooleanQueryParser
     /// Stems terms
     private let stemmer: PorterStemmer
     /// Contains all documents relative to the index
     private var corpus: DocumentCorpusProtocol?
+<<<<<<< HEAD
+=======
+    private var index: IndexProtocol?
+>>>>>>> 5f9844c84c01dea66e3003b71b759420e3272b96
 
     weak var delegate: EngineDelegate?
     
@@ -28,8 +36,6 @@ public class Engine {
     
     /// Constructor
     init() {
-        self.index = PositionalInvertedIndex()
-        self.indexWriter = DiskIndexWriter()
         self.queryParser = BooleanQueryParser()
         self.stemmer = PorterStemmer(withLanguage: .English)!
     }
@@ -38,9 +44,12 @@ public class Engine {
     ///
     /// - Parameter queryString: The query as a string
     func execQuery(queryString: String) {
+        guard let index = self.index else {
+            print("No environment selected !")
+            return
+        }
         let query: Queriable? = queryParser.parseQuery(query: queryString)
-
-        if var results: [QueryResult] = query?.getResultsFrom(index: self.index) {
+        if var results: [QueryResult] = query?.getResultsFrom(index: index) {
             results = attachDocumentsToResults(results: results)
             self.delegate?.onQueryResulted(results: results)
             return
@@ -52,7 +61,11 @@ public class Engine {
     ///
     /// - Returns: the vocabulary as a string array
     func getVocabulary() -> [String] {
-        return self.index.getVocabulary()
+        guard let index = self.index else {
+            print("No environment selected !")
+            return []
+        }
+       return index.getVocabulary()
     }
     
     /// Returns the stem for a given term
@@ -63,35 +76,84 @@ public class Engine {
         return self.stemmer.stem(word)
     }
     
+<<<<<<< HEAD
     /// Initializes the engine with a corpus at a given path
     ///
     /// - Parameter path: Is the corpus path
     func initCorpus(withPath path: URL) {
-        let start = DispatchTime.now()
-        
-        self.index.clear()
-
-        guard let corpus = DirectoryCorpus.loadDirectoryCorpus(absolutePath: path) else {
+=======
+    func loadEnvironment(withPath url: URL) {
+    
+        if self.index != nil {
+            self.index!
+                .dispose()
+        }
+        guard let corpus = DirectoryCorpus.loadDirectoryCorpus(absolutePath: url) else {
             return
         }
-        
+        self.corpus = corpus
+        self.corpus!.readDocuments()
+        do {
+            let utility = try DiskIndexUtility(atPath: url,
+                                               fileMode: .reading,
+                                               postingsEncoding: UInt32.self,
+                                               offsetsEncoding: UInt64.self)
+            
+            self.index = DiskPositionalIndex(atPath: url, utility: utility)
+            self.delegate?.onEnvironmentLoaded()
+            
+        } catch let error as NSError {
+            self.delegate?.onEnvironmentLoadingFailed(withError: error.localizedFailureReason!)
+        }
+    }
+    
+    func newEnvironment(withPath url: URL) {
+        // Snapshot start time
+>>>>>>> 5f9844c84c01dea66e3003b71b759420e3272b96
+        let start = DispatchTime.now()
+        // Load corpus
+        guard let corpus = DirectoryCorpus.loadDirectoryCorpus(absolutePath: url) else {
+            return
+        }
+        // Retrieve all documents in corpus asynchronously
         self.retrieveDocuments(corpus: corpus) { (documents: [DocumentProtocol]) in
-            self.initDelegate?.onCorpusDocumentIndexingStarted(documentsToIndex: documents.count)
-            self.indexDocuments(documents: documents, completion: {
-                
-                self.corpus = corpus
-                self.initDelegate?.onCorpusInitialized(timeElapsed: self.calculateElapsedTime(from: start))
-                self.indexWriter.writeIndex(index: self.index, atPath: path)
+            // Notify that indexing started
+            self.initDelegate?.onEnvironmentDocumentIndexingStarted(documentsToIndex: documents.count)
+            // Generate Positional Inverted Index in memory, asynchronously
+            self.generateIndex(documents: documents, { index in
+                // Notify that corpus has been initialized
+                self.initDelegate?.onEnvironmentInitialized(timeElapsed: self.calculateElapsedTime(from: start))
+                // Write index on disk
+                self.writeIndexOnDisk(index: index, atUrl: url)
+                // Reload environment
+                self.loadEnvironment(withPath: url)
             })
         }
     }
     
+<<<<<<< HEAD
     
     /// Calculates elapsed time from a timestamp
     ///
     /// - Parameter startTime: is the timestamp reference
     /// - Returns: the difference as a double
     private func calculateElapsedTime(from startTime: DispatchTime) -> Double {
+=======
+    private func writeIndexOnDisk(index: IndexProtocol, atUrl url: URL) {
+        do {
+            let utility = try DiskIndexUtility(atPath: url,
+                                               fileMode: .writing,
+                                               postingsEncoding: UInt32.self,
+                                               offsetsEncoding: UInt64.self)
+            utility.writeIndex(index: index)
+            utility.dispose()
+        } catch let error as NSError {
+            print(error.description)
+        }
+    }
+
+    private func calculateElapsedTime(from: DispatchTime) -> Double {
+>>>>>>> 5f9844c84c01dea66e3003b71b759420e3272b96
         let end = DispatchTime.now()
         let nanoTime = end.uptimeNanoseconds - startTime.uptimeNanoseconds
         return Double(nanoTime) / 1_000_000_000
@@ -112,6 +174,7 @@ public class Engine {
         }
     }
     
+<<<<<<< HEAD
     /// Indexes all documents, by registering them in the map
     /// One document is processed at a time. Its content is read using
     /// a StreamReader, that produces a stream of tokens.
@@ -123,6 +186,11 @@ public class Engine {
     ///   - documents: All the documents to be indexed
     ///   - completion: The completion handler that notifies when documents are indexed
     private func indexDocuments(documents: [DocumentProtocol], completion: @escaping () -> Void) {
+=======
+    private func generateIndex(documents: [DocumentProtocol], _ completion: @escaping (_: IndexProtocol) -> Void) {
+        let index = PositionalInvertedIndex()
+        
+>>>>>>> 5f9844c84c01dea66e3003b71b759420e3272b96
         DispatchQueue.global(qos: .userInteractive).async {
             
             let tokenProcessor = AdvancedTokenProcessor()
@@ -140,27 +208,27 @@ public class Engine {
                     let sanitized = tokenProcessor.processToken(token: tokens[position])
                     types.insert(sanitized)
                     let stemmed = self.stemWord(word: sanitized)
-                    self.index.addTerm(stemmed, withId: document.documentId, atPosition: position)
+                    index.addTerm(stemmed, withId: document.documentId, atPosition: position)
                 }
                 DispatchQueue.main.async {
-                    self.initDelegate?.onCorpusIndexedDocument(withFileName: document.fileName)
+                    self.initDelegate?.onEnvironmentIndexedDocument(withFileName: document.fileName)
                 }
             }
             
             var typeNb = 1
             DispatchQueue.main.async {
-                self.initDelegate?.onCorpusGramsIndexingStarted(gramsToIndex: types.count)
+                self.initDelegate?.onEnvironmentGramsIndexingStarted(gramsToIndex: types.count)
             }
             
             for type in types {
-                self.index.kGramIndex.registerGramsFor(type: type)
+                index.kGramIndex.registerGramsFor(type: type)
                 DispatchQueue.main.async {
-                    self.initDelegate?.onCorpusIndexedGram(gramNumber: typeNb)
+                    self.initDelegate?.onEnvironmentIndexedGram(gramNumber: typeNb)
                 }
                 typeNb += 1
             }
             DispatchQueue.main.async {
-                completion()
+                completion(index)
             }
         }
     }

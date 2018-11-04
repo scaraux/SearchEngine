@@ -14,10 +14,9 @@ class Posting {
     var positions: [Int]
     var term: String
 
-    init(withDocumentId id: Int, withPosition position: Int, forTerm term: String) {
+    init(withDocumentId id: Int, forTerm term: String) {
         self.documentId = id
         self.positions = [Int]()
-        self.positions.append(position)
         self.term = term
     }
     

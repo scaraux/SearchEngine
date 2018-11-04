@@ -58,13 +58,25 @@ class FilePreviewController: NSViewController {
             var range = NSRange(location: 0, length: attributedContent.length)
             let inputLength = attributedContent.string.count
 
+            let spacedTerm = " " + term + " "
             while range.location != NSNotFound {
+<<<<<<< HEAD
                 range = (content as NSString).range(of: word,
+=======
+                range = (content as NSString).range(of: spacedTerm,
+>>>>>>> 5f9844c84c01dea66e3003b71b759420e3272b96
                                                     options: [NSString.CompareOptions.caseInsensitive],
                                                     range: range)
                 if range.location != NSNotFound {
                     let finalRange = NSRange(location: range.location + 1, length: range.length - 2)
+<<<<<<< HEAD
                     attributedContent.addAttributes(Constants.higlightTextAttributes, range: finalRange)
+=======
+                    attributedContent.addAttributes([NSAttributedString.Key.foregroundColor: NSColor.black,
+                                                     NSAttributedString.Key.backgroundColor: NSColor.gray],
+                                                    range: finalRange)
+
+>>>>>>> 5f9844c84c01dea66e3003b71b759420e3272b96
                     range = NSRange(location: range.location + range.length,
                                     length: inputLength - (range.location + range.length))
                 }

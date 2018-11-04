@@ -43,12 +43,6 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         
         setTableViewMode(to: .queryResultsMode)
     }
-
-    override var representedObject: Any? {
-        didSet {
-        
-        }
-    }
     
     override func keyDown(with event: NSEvent) {
         if (event.characters?.contains("\r"))! {
@@ -65,14 +59,16 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     }
     
     internal func onQueryResulted(results: [QueryResult]?) {
-        if results == nil {
-            return
-        }
-        self.queryResults = results
         if self.tableViewMode != .queryResultsMode {
             setTableViewMode(to: .queryResultsMode)
         }
-        self.resultsLabel.stringValue = "\(results!.count) results"
+        if results == nil {
+            self.queryResults = []
+            self.resultsLabel.stringValue = "0 result"
+        } else {
+            self.queryResults = results
+            self.resultsLabel.stringValue = "\(results!.count) result(s)"
+        }
         self.tableView.reloadData()
         self.tableView.sizeLastColumnToFit()
     }
@@ -156,16 +152,35 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         }
     }
     
-    @IBAction func chooseFolderTouchUp(_ sender: Any) {
+    private func dialogOKCancel(question: String, text: String) {
+        let alert = NSAlert()
+        alert.messageText = question
+        alert.informativeText = text
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
+    }
+}
+
+extension SearchViewController {
+    
+    @IBAction func queryTouchUp(_ sender: Any) {
+        triggerQuery()
+    }
+    
+    @IBAction func newEnvironment(_ sender: Any) {
         if let path = pickBaseFolderWithModal() {
             self.directoryPathLabel.stringValue = "/" + path.lastPathComponent
-            self.engine.initCorpus(withPath: path)
+            self.engine.newEnvironment(withPath: path)
             performSegue(withIdentifier: "ShowCorpusInitView", sender: nil)
         }
     }
     
-    @IBAction func queryTouchUp(_ sender: Any) {
-        triggerQuery()
+    @IBAction func openEnvironment(_ sender: Any) {
+        if let path = pickBaseFolderWithModal() {
+            self.directoryPathLabel.stringValue = "/" + path.lastPathComponent
+            self.engine.loadEnvironment(withPath: path)
+        }
     }
     
     @IBAction func stemWord(_ sender: Any) {
@@ -181,15 +196,6 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         self.setTableViewMode(to: .vocabularyMode)
         self.tableView.reloadData()
         self.tableView.sizeLastColumnToFit()
-    }
-    
-    private func dialogOKCancel(question: String, text: String) {
-        let alert = NSAlert()
-        alert.messageText = question
-        alert.informativeText = text
-        alert.alertStyle = .warning
-        alert.addButton(withTitle: "OK")
-        alert.runModal()
     }
 }
 
@@ -245,4 +251,26 @@ extension SearchViewController: NSTableViewDelegate, NSTableViewDataSource {
         }
         return nil
     }
+}
+
+extension SearchViewController {
+    
+    func onEnvironmentLoaded() {
+        let alert = NSAlert()
+        alert.messageText = "Environment loaded"
+        alert.informativeText = "Environment has successfully been loaded."
+        alert.alertStyle = NSAlert.Style.informational
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
+    }
+    
+    func onEnvironmentLoadingFailed(withError error: String) {
+        let alert = NSAlert()
+        alert.messageText = "Environment not loaded"
+        alert.informativeText = "Could not load environment. \(error)"
+        alert.alertStyle = NSAlert.Style.warning
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
+    }
+
 }
