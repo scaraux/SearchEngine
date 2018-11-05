@@ -23,6 +23,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     @IBOutlet weak var queryInput: NSTextField!
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var resultsLabel: NSTextField!
+    @IBOutlet weak var searchModeSegmentedControl: NSSegmentedCell!
     
     var engine = Engine()
     var queryResults: [QueryResult]?
@@ -76,7 +77,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         self.queryResults?.removeAll()
         let queryString = self.queryInput.stringValue
         if queryString.isEmpty == false {
-            self.engine.execQuery(queryString: queryString)
+            self.engine.execQuery(queryString: queryString, mode: .ranked)
         }
         else {
             self.tableView.reloadData()

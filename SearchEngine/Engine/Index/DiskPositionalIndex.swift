@@ -11,9 +11,9 @@ import Foundation
 class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProtocol {
 
     private(set) var kGramIndex: GramIndex
-    private var diskIndexUtility: DiskIndexUtility<T, U>
+    private var diskIndexUtility: DiskEnvUtility<T, U>
     
-    init(atPath url: URL, utility: DiskIndexUtility<T, U>) {
+    init(atPath url: URL, utility: DiskEnvUtility<T, U>) {
         self.kGramIndex = GramIndex()
         self.diskIndexUtility = utility
     }
@@ -27,6 +27,10 @@ class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProt
     
     func getPostingsFor(stem: String) -> [Posting]? {
         return self.diskIndexUtility.getPostings(forTerm: stem)
+    }
+    
+    func getWeightForDocument(documentId id: Int) -> Double? {
+        return self.diskIndexUtility.getWeightForDocument(documentId: id)
     }
     
     func getVocabulary() -> [String] {

@@ -9,15 +9,15 @@
 import Foundation
 
 class JsonFileDocument: FileDocument {
-    
+
     private(set) var fileName: String
     private(set) var fileURL: URL
     private(set) var documentId: Int
     private(set) var content: StreamReader?
+    var weight: Double = 0
     var title: String { return getTitle() ?? "" }
     
     init(id: Int, fileURL: URL) {
-        
         self.fileURL = fileURL
         self.documentId = id
         self.content = nil

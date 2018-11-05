@@ -11,7 +11,7 @@ import Cocoa
 
 class DirectoryCorpus: DocumentCorpusProtocol {
     
-    private var directoryPath: URL
+    private var directoryPath: URL?
     private var factories: [String: DocumentFactoryProtocol]
     private var documents: [Int: FileDocument]?
     internal var corpusSize: Int {
@@ -21,9 +21,16 @@ class DirectoryCorpus: DocumentCorpusProtocol {
         return documents!.count
     }
     
-    init(directoryPath: URL) {
-        self.factories = [String: DocumentFactoryProtocol]()
-        self.directoryPath = directoryPath
+    static let shared = DirectoryCorpus()
+    
+    private init() {
+        self.factories = [:]
+        self.directoryPath = nil
+    }
+    
+    public func setDirectoryPath(directoryPath url: URL) {
+        self.factories = [:]
+        self.directoryPath = url
     }
     
     internal func getDocuments() -> [DocumentProtocol] {
@@ -71,8 +78,11 @@ class DirectoryCorpus: DocumentCorpusProtocol {
     }
     
     private func findFiles() -> [URL]? {
+        guard let path = self.directoryPath else {
+            return nil
+        }
         do {
-            let files = try FileManager.default.contentsOfDirectory(at: self.directoryPath,
+            let files = try FileManager.default.contentsOfDirectory(at: path,
                                                        includingPropertiesForKeys: nil,
                                                        options: [.skipsHiddenFiles,
                                                                  .skipsPackageDescendants,
@@ -80,15 +90,16 @@ class DirectoryCorpus: DocumentCorpusProtocol {
             return files.filter { !$0.hasDirectoryPath }
                         .sorted(by: { $0.lastPathComponent < $1.lastPathComponent })
         } catch {
-            print("Error while enumerating files \(directoryPath.path): \(error.localizedDescription)")
+            print("Error while enumerating files \(path): \(error.localizedDescription)")
             return nil
         }
     }
     
-    static func loadDirectoryCorpus(absolutePath: URL) -> DirectoryCorpus? {
-        let corpus: DirectoryCorpus = DirectoryCorpus(directoryPath: absolutePath)
-        corpus.registerFileDocumentFactoryFor(fileExtension: "txt", factory: TextFileDocument.getFactory())
-        corpus.registerFileDocumentFactoryFor(fileExtension: "json", factory: JsonFileDocument.getFactory())
-        return corpus
+    static func loadDirectoryCorpus(absolutePath: URL) {
+        DirectoryCorpus.shared.setDirectoryPath(directoryPath: absolutePath)
+        DirectoryCorpus.shared.registerFileDocumentFactoryFor(fileExtension: "txt",
+                                                              factory: TextFileDocument.getFactory())
+        DirectoryCorpus.shared.registerFileDocumentFactoryFor(fileExtension: "json",
+                                                              factory: JsonFileDocument.getFactory())
     }
 }

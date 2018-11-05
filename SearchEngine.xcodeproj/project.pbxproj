@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		BE6A3FB8C00C33E03236DAF5 /* Pods_SearchEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F8E2203351C32D1E818474 /* Pods_SearchEngine.framework */; };
 		D014BF3C217414F0003099CD /* CorpusLoadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D014BF3B217414F0003099CD /* CorpusLoadViewController.swift */; };
-		D0272E9B2188329D001B43DA /* DiskIndexUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0272E9A2188329D001B43DA /* DiskIndexUtility.swift */; };
+		D0272E9B2188329D001B43DA /* DiskEnvUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0272E9A2188329D001B43DA /* DiskEnvUtility.swift */; };
 		D0272E9D21883316001B43DA /* DiskConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0272E9C21883316001B43DA /* DiskConstants.swift */; };
 		D040E656214C99C900A487F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E655214C99C900A487F5 /* AppDelegate.swift */; };
 		D040E658214C99C900A487F5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E657214C99C900A487F5 /* SearchViewController.swift */; };
@@ -35,6 +35,7 @@
 		D04CDA5F21546C99007B8CB2 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04CDA5E21546C99007B8CB2 /* Engine.swift */; };
 		D04CDA6121546DA8007B8CB2 /* EngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04CDA6021546DA8007B8CB2 /* EngineDelegate.swift */; };
 		D0766BBA215AF0AD00F6A9B6 /* QueryResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0766BB9215AF0AD00F6A9B6 /* QueryResult.swift */; };
+		D079B5B7218FB6450034255D /* RankedQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D079B5B6218FB6450034255D /* RankedQuery.swift */; };
 		D0AD33692163EAE500139F76 /* GramIndexProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD33682163EAE500139F76 /* GramIndexProtocol.swift */; };
 		D0AD336D216441F700139F76 /* JsonFileDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD336C216441F700139F76 /* JsonFileDocument.swift */; };
 		D0AD336F216475D700139F76 /* AdvancedTokenProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD336E216475D700139F76 /* AdvancedTokenProcessor.swift */; };
@@ -71,7 +72,7 @@
 		7402D41F75C113016102494C /* Pods-SearchEngineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchEngineTests.release.xcconfig"; path = "Target Support Files/Pods-SearchEngineTests/Pods-SearchEngineTests.release.xcconfig"; sourceTree = "<group>"; };
 		C17DC276B5FF73796E153C58 /* Pods-SearchEngineTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchEngineTests.debug.xcconfig"; path = "Target Support Files/Pods-SearchEngineTests/Pods-SearchEngineTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D014BF3B217414F0003099CD /* CorpusLoadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorpusLoadViewController.swift; sourceTree = "<group>"; };
-		D0272E9A2188329D001B43DA /* DiskIndexUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskIndexUtility.swift; sourceTree = "<group>"; };
+		D0272E9A2188329D001B43DA /* DiskEnvUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskEnvUtility.swift; sourceTree = "<group>"; };
 		D0272E9C21883316001B43DA /* DiskConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskConstants.swift; sourceTree = "<group>"; };
 		D040E652214C99C900A487F5 /* SearchEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D040E655214C99C900A487F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +103,7 @@
 		D04CDA5E21546C99007B8CB2 /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		D04CDA6021546DA8007B8CB2 /* EngineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineDelegate.swift; sourceTree = "<group>"; };
 		D0766BB9215AF0AD00F6A9B6 /* QueryResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResult.swift; sourceTree = "<group>"; };
+		D079B5B6218FB6450034255D /* RankedQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankedQuery.swift; sourceTree = "<group>"; };
 		D0AD33682163EAE500139F76 /* GramIndexProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GramIndexProtocol.swift; sourceTree = "<group>"; };
 		D0AD336C216441F700139F76 /* JsonFileDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonFileDocument.swift; sourceTree = "<group>"; };
 		D0AD336E216475D700139F76 /* AdvancedTokenProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedTokenProcessor.swift; sourceTree = "<group>"; };
@@ -162,7 +164,7 @@
 		D0272E992188328C001B43DA /* DiskIndexUtility */ = {
 			isa = PBXGroup;
 			children = (
-				D0272E9A2188329D001B43DA /* DiskIndexUtility.swift */,
+				D0272E9A2188329D001B43DA /* DiskEnvUtility.swift */,
 			);
 			path = DiskIndexUtility;
 			sourceTree = "<group>";
@@ -336,6 +338,24 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		D079B5B4218FB6140034255D /* BooleanQuery */ = {
+			isa = PBXGroup;
+			children = (
+				D0FEDE4B214F3A720064B3D5 /* Subqueries */,
+				D0766BBB215B132200F6A9B6 /* Literals */,
+				D0FEDE4C214F3AAD0064B3D5 /* Parser */,
+			);
+			path = BooleanQuery;
+			sourceTree = "<group>";
+		};
+		D079B5B5218FB6330034255D /* RankedQuery */ = {
+			isa = PBXGroup;
+			children = (
+				D079B5B6218FB6450034255D /* RankedQuery.swift */,
+			);
+			path = RankedQuery;
+			sourceTree = "<group>";
+		};
 		D0957DC2214DB4810096EFA4 /* DocumentFactory */ = {
 			isa = PBXGroup;
 			children = (
@@ -389,10 +409,9 @@
 		D0FEDE40214F35B60064B3D5 /* Query */ = {
 			isa = PBXGroup;
 			children = (
+				D079B5B5218FB6330034255D /* RankedQuery */,
+				D079B5B4218FB6140034255D /* BooleanQuery */,
 				D0FEDE41214F35DE0064B3D5 /* Queriable.swift */,
-				D0FEDE4C214F3AAD0064B3D5 /* Parser */,
-				D0766BBB215B132200F6A9B6 /* Literals */,
-				D0FEDE4B214F3A720064B3D5 /* Subqueries */,
 			);
 			path = Query;
 			sourceTree = "<group>";
@@ -621,6 +640,7 @@
 				D040E682214C9FD700A487F5 /* DocumentProtocol.swift in Sources */,
 				D040E687214CA3D100A487F5 /* TextFileDocument.swift in Sources */,
 				D0D933FA21882243006A59DE /* BinaryFile.swift in Sources */,
+				D079B5B7218FB6450034255D /* RankedQuery.swift in Sources */,
 				D040E685214CA1FB00A487F5 /* StreamReader.swift in Sources */,
 				D040E67D214C9BAA00A487F5 /* IndexProtocol.swift in Sources */,
 				D0D158E6215F035100CE1376 /* GramIndex.swift in Sources */,
@@ -628,7 +648,7 @@
 				D040E695214CBC7700A487F5 /* DocumentFactoryProtocol.swift in Sources */,
 				D0AD336F216475D700139F76 /* AdvancedTokenProcessor.swift in Sources */,
 				D0FEDE44214F36140064B3D5 /* TermLiteral.swift in Sources */,
-				D0272E9B2188329D001B43DA /* DiskIndexUtility.swift in Sources */,
+				D0272E9B2188329D001B43DA /* DiskEnvUtility.swift in Sources */,
 				D0FEDE48214F38740064B3D5 /* PhraseLiteral.swift in Sources */,
 				D0AD33692163EAE500139F76 /* GramIndexProtocol.swift in Sources */,
 				D0FEDE46214F373E0064B3D5 /* OrQuery.swift in Sources */,

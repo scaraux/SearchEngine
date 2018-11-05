@@ -9,7 +9,7 @@
 import Foundation
 
 class PositionalInvertedIndex: IndexProtocol {
-    
+
     private(set) var map: [String: [Posting]] = [:]
     private(set) var kGramIndex: GramIndex
 
@@ -35,6 +35,10 @@ class PositionalInvertedIndex: IndexProtocol {
     
     public func getPostingsFor(stem: String) -> [Posting]? {
         return self.map[stem]
+    }
+    
+    func getWeightForDocument(documentId: Int) -> Double? {
+        return nil
     }
     
     public func getKGramIndex() -> GramIndexProtocol {

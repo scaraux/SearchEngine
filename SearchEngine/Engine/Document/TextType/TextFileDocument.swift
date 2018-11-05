@@ -14,6 +14,7 @@ class TextFileDocument: FileDocument {
     private(set) var fileURL: URL
     private(set) var documentId: Int
     private(set) var title: String
+    var weight: Double = 0
 
     init(id: Int, fileURL: URL) {
         self.fileURL = fileURL

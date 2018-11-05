@@ -9,6 +9,7 @@
 public struct DiskConstants {
     static let indexDirectoryName = "index"
     static let postingsDiskFileName = "postings.bin"
+    static let weightsDiskFileName = "weights.bin"
     static let vocabularyDiskFileName = "vocab.bin"
     static let tableDiskFileName = "vocab_table.bin"
     

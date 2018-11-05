@@ -11,12 +11,10 @@ import Foundation
 protocol DocumentProtocol {
     
     var documentId: Int { get }
-    
     var fileName: String { get }
-
     var title: String { get }
+    var weight: Double { get set }
     
     func getContent() -> StreamReader?
-        
     static func getFactory() -> DocumentFactoryProtocol
 }

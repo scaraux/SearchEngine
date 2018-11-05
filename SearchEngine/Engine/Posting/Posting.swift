@@ -13,6 +13,11 @@ class Posting {
     var documentId: Int = -1
     var positions: [Int]
     var term: String
+    var frequency: Int {
+        get {
+            return positions.count
+        }
+    }
 
     init(withDocumentId id: Int, forTerm term: String) {
         self.documentId = id

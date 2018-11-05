@@ -8,7 +8,9 @@
 
 import Foundation
 
-class DiskIndexUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
+class DiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
+    // The Binary File that holds wieghts for files
+    private var weightsFile: BinaryFile
     // The Binary File that holds all the postings
     private var postingsFile: BinaryFile
     // The Binary File that holds all the terms aka vocabulary
@@ -24,6 +26,9 @@ class DiskIndexUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
          offsetsEncoding: U.Type) throws {
         // Set URL of index directory
         self.url = url
+        // Construct Weights file URL
+        let weightsFileURL = url.appendingPathComponent(DiskConstants.indexDirectoryName, isDirectory: true)
+            .appendingPathComponent(DiskConstants.weightsDiskFileName)
         // Construct Postings file URL
         let postingsFileURL = url.appendingPathComponent(DiskConstants.indexDirectoryName, isDirectory: true)
             .appendingPathComponent(DiskConstants.postingsDiskFileName)
@@ -33,13 +38,14 @@ class DiskIndexUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
         // Construct Table file URL
         let tableFileURL = url.appendingPathComponent(DiskConstants.indexDirectoryName, isDirectory: true)
             .appendingPathComponent(DiskConstants.tableDiskFileName)
-        // Construct Binary Files
         
         if mode == .writing {
+            self.weightsFile = try BinaryFile.createBinaryFile(atPath: weightsFileURL, for: mode)
             self.postingsFile = try BinaryFile.createBinaryFile(atPath: postingsFileURL, for: mode)
             self.vocabularyFile = try BinaryFile.createBinaryFile(atPath: vocabularyFileURL, for: mode)
             self.tableFile = try BinaryFile.createBinaryFile(atPath: tableFileURL, for: mode)
         } else {
+            self.weightsFile = try BinaryFile(atPath: weightsFileURL, for: mode)
             self.postingsFile = try BinaryFile(atPath: postingsFileURL, for: mode)
             self.vocabularyFile = try BinaryFile(atPath: vocabularyFileURL, for: mode)
             self.tableFile = try BinaryFile(atPath: tableFileURL, for: mode)
@@ -47,6 +53,7 @@ class DiskIndexUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
     }
     
     public func dispose() {
+        self.weightsFile.dispose()
         self.postingsFile.dispose()
         self.vocabularyFile.dispose()
         self.tableFile.dispose()
@@ -74,6 +81,31 @@ class DiskIndexUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
         return nil
     }
     
+    public func getWeightForDocument(documentId id: Int) -> Double? {
+        // Calculate how many bytes needed to represent desired weight value
+        let chunkSize = MemoryLayout<Double>.size
+        // Calculate offset, knowing offset 0 is for id 1
+        let offset = (UInt64(id - 1) * UInt64(chunkSize))
+        // Read bytes to data
+        let data: Data = self.weightsFile.readAt(offset: offset, chunkSize: chunkSize)
+        // Convert bytes to Double and return
+        let weight: Double = data.withUnsafeBytes { $0.pointee }
+        // Return weight
+        return weight
+    }
+    
+    /// Write weights for given documents. Documents are sorted in ascending
+    /// order by their id. Therefore the offset corresponds to the document id.
+    ///
+    /// - Parameter documents: The documents whose weights will be written on disk
+    public func writeWeights(documents: [DocumentProtocol]) {
+        writeWeights(documents)
+    }
+    
+    /// Write entire index to disk files, including file names,
+    /// postings and positions
+    ///
+    /// - Parameter index: Is the index to be written
     public func writeIndex(index: IndexProtocol) {
         // Retrieve all terms in vocabulary, sorted alphabetically
         let vocabulary: [String] = index.getVocabulary()
@@ -86,7 +118,7 @@ class DiskIndexUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
     }
 }
 
-extension DiskIndexUtility {
+extension DiskEnvUtility {
     
     private func getBinaryRepresentation(forPostings postings: [Posting]) -> Data {
         // A Integer byte array, of desired size T
@@ -124,42 +156,32 @@ extension DiskIndexUtility {
         let memorySizeOfValue = MemoryLayout<T>.size
         // A counter of documents
         var documentsCounter: Int = 0
-        // A counter of positions, reset for each document
-        var positionCounter: Int = 0
         // A buffer
         var data: Data
-        // An Integer holding the frequency of term in corpus
-        var dft: T = 0
-        // An Integer holding the id of a document
-        var id: T = 0
-        // An Integer holding the frequency of term in document
-        var tftd: T = 0
-        // An Integer holding a position of term within document
-        var position: T = 0
         // Read a first value from bytes, which will be dft
         data = self.postingsFile.readAt(offset: offset, chunkSize: memorySizeOfValue)
         // Convert byte to dft Integer of desired size
-        dft = data.withUnsafeBytes { $0.pointee }
+        let dft: T = data.withUnsafeBytes { $0.pointee }
         // Reapeat until each document is translated
         repeat {
             // Read a byte that represents the document id
             data = self.postingsFile.read(chunkSize: memorySizeOfValue)
-            // Convert byte to id Integer of desired size
-            id = data.withUnsafeBytes { $0.pointee }
+            // An Integer holding the id of a document
+            let id: T = data.withUnsafeBytes { $0.pointee }
             // Create posting with document
             let posting = Posting(withDocumentId: Int(id), forTerm: term)
             // Read a byte that represents the number of positions in the document
             data = self.postingsFile.read(chunkSize: memorySizeOfValue)
-            // Convert byte to tftd Integer of desired size
-            tftd = data.withUnsafeBytes { $0.pointee }
-            // Set positions counter to zero
-            positionCounter = 0
+            // An Integer holding the frequency of term in document
+            let tftd: T = data.withUnsafeBytes { $0.pointee }
+            // A counter of positions, reset for each document
+            var positionCounter: Int = 0
             // Repeat until each position is translated
             repeat {
                 // Read a byte that represents the position
                 data = self.postingsFile.read(chunkSize: memorySizeOfValue)
-                // Convert byte to position Integer of desired size
-                position = data.withUnsafeBytes { $0.pointee }
+                // An Integer holding a position of term within document
+                let position: T = data.withUnsafeBytes { $0.pointee }
                 // Add position to posting
                 posting.addPosition(Int(position))
                 // Increment position counter
@@ -175,10 +197,20 @@ extension DiskIndexUtility {
         // Return the postings list
         return postings
     }
-    
 }
 
-extension DiskIndexUtility {
+extension DiskEnvUtility {
+    
+    private func writeWeights(_ documents: [DocumentProtocol]) {
+        let documents = documents.sorted(by: { $0.documentId < $1.documentId })
+        var weights: [Double] = []
+        
+        for document in documents {
+            weights.append(document.weight)
+        }
+        let data: Data = Data(fromArray: weights)
+        self.weightsFile.write(data: data)
+    }
     
     private func writePostings(_ vocabulary: [String], _ index: IndexProtocol) -> [Int64] {
         // Iterate over all terms in vocabulary
@@ -227,7 +259,7 @@ extension DiskIndexUtility {
     }
 }
 
-extension DiskIndexUtility {
+extension DiskEnvUtility {
     
     private func binarySearchTerm(_ target: String) -> (Bool, U) {
         // Number of bits to represent a single value
@@ -236,15 +268,6 @@ extension DiskIndexUtility {
         let chunkSize = memorySizeOfValue * 2
         // Number of chunks in binary file, (total bytes divided by chunk size)
         let totalChunks: UInt64 = self.tableFile.size / UInt64(chunkSize)
-        // Current term offset in vocabulary file, as Fixed Width Integer
-        var termVocabOffset: U
-        // Current term offset in postings file, as Fixed Width Integer
-        var termPostingsOffset: U
-        // Current term's next term offset in vocabulary file
-        // as Fixed Width Integer, to calculate term size
-        var nextTermOffset: U
-        // Current term length
-        var termLength: Int
         // A marker to beginning of file
         var startMarker: UInt64 = 0
         // A marker to end of file
@@ -257,16 +280,17 @@ extension DiskIndexUtility {
             let middle = (startMarker + endMarker) / 2
             // Read a chunk containing two terms
             chunk = tableFile.readAt(offset: middle * UInt64(chunkSize), chunkSize: chunkSize * 2)
-            // Retrieve offset of term in vocabulary file
-            termVocabOffset = chunk.subdata(in: 0..<memorySizeOfValue).withUnsafeBytes { $0.pointee }
-            // Retrieve offset of term's postings in postings file
-            termPostingsOffset = chunk.subdata(in: memorySizeOfValue..<chunkSize).withUnsafeBytes { $0.pointee }
-            // Retrieve offset of next term
+            // Current term offset in vocabulary file, as Fixed Width Integer
+            let termVocabOffset: U = chunk.subdata(in: 0..<memorySizeOfValue).withUnsafeBytes { $0.pointee }
+            // Current term offset in postings file, as Fixed Width Integer
+            let termPostingsOffset: U = chunk.subdata(in: memorySizeOfValue..<chunkSize).withUnsafeBytes { $0.pointee }
+            // Current term's next term offset in vocabulary file
+            // as Fixed Width Integer, to calculate term size
             // TODO: Handle last item
-            nextTermOffset = chunk.subdata(in: (memorySizeOfValue * 2)..<(chunkSize * 2))
+            let nextTermOffset: U = chunk.subdata(in: (memorySizeOfValue * 2)..<(chunkSize * 2))
                 .withUnsafeBytes { $0.pointee }
             // Calculate term length by substracting next term offset to current term offset
-            termLength = Int(nextTermOffset - termVocabOffset)
+            let termLength: Int = Int(nextTermOffset - termVocabOffset)
             // Read term in vocabulary file, from offset
             chunk = vocabularyFile.readAt(offset: UInt64(termVocabOffset), chunkSize: termLength)
             // Create a UTF-8 string representation of the term
