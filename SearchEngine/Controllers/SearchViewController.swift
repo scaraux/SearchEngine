@@ -29,6 +29,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     var queryResults: [QueryResult]?
     var vocabulary: [String]?
     var tableViewMode: TableViewDisplayMode = .queryResultsMode
+    var searchMode: Engine.SearchMode = .ranked
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +78,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         self.queryResults?.removeAll()
         let queryString = self.queryInput.stringValue
         if queryString.isEmpty == false {
-            self.engine.execQuery(queryString: queryString, mode: .ranked)
+            self.engine.execQuery(queryString: queryString, mode: self.searchMode)
         }
         else {
             self.tableView.reloadData()
@@ -163,6 +164,15 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
 }
 
 extension SearchViewController {
+    
+    @IBAction func didSwitchMode(_ sender: Any) {
+        let segmentedControl = sender as! NSSegmentedControl
+        if segmentedControl.selectedSegment == 0 {
+            self.searchMode = .boolean
+        } else if segmentedControl.selectedSegment == 1 {
+            self.searchMode = .ranked
+        }
+    }
     
     @IBAction func queryTouchUp(_ sender: Any) {
         triggerQuery()

@@ -504,6 +504,9 @@
                                                 <segment label="Ranked" selected="YES" tag="1"/>
                                             </segments>
                                         </segmentedCell>
+                                        <connections>
+                                            <action selector="didSwitchMode:" target="XfG-lQ-9wD" id="Hyn-im-JcO"/>
+                                        </connections>
                                     </segmentedControl>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fbb-9Q-l1B">
                                         <rect key="frame" x="368" y="415" width="49" height="17"/>
