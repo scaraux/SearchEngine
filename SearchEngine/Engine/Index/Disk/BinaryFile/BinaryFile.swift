@@ -69,6 +69,15 @@ class BinaryFile {
         return self.handle!.readDataToEndOfFile()
     }
     
+    public func placeHeadAt(offset: UInt64) {
+        self.handle!.seek(toFileOffset: offset)
+    }
+    
+    public func readInteger<I>() -> I {
+        let data: Data = self.read(chunkSize: MemoryLayout<I>.size)
+        return data.withUnsafeBytes { $0.pointee }
+    }
+    
     public func dispose() {
         self.handle!.closeFile()
     }

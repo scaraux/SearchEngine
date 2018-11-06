@@ -155,56 +155,48 @@ extension DiskEnvUtility {
         return data
     }
     
+    private func getPostingData() -> Posting {
+        // A counter of positions, reset for each document
+        var positionCounter: Int = 0
+        // An Integer holding the id of a document
+        let id: T = self.postingsFile.readInteger()
+        // An Double holding the wdt of document
+        let wdt: Double = self.postingsFile.readInteger()
+        // An Integer holding the frequency of term in document
+        let tftd: T = self.postingsFile.readInteger()
+        // Create posting with document
+        let posting = Posting(withDocumentId: Int(id))
+        // Set wdt in posting
+        posting.wdt = wdt
+        // Repeat until each position is translated
+        repeat {
+            let position: T = self.postingsFile.readInteger()
+            // Add position to posting
+            posting.addPosition(Int(position))
+            // Increment position counter
+            positionCounter += 1
+            
+        } while positionCounter < tftd
+        // Return posting
+        return posting
+    }
+    
     private func getPostingsAtOffset(atOffset offset: UInt64, forTerm term: String) -> [Posting] {
         // The array of postings that this function will translate form bytes
         var postings = [Posting]()
-        // The number of bits to represent a single value
-        let memorySizeOfValue = MemoryLayout<T>.size
         // A counter of documents
         var documentsCounter: Int = 0
-        // A buffer
-        var data: Data
-        // Read a first value from bytes, which will be dft
-        data = self.postingsFile.readAt(offset: offset, chunkSize: memorySizeOfValue)
-        // Convert byte to dft Integer of desired size
-        let dft: T = data.withUnsafeBytes { $0.pointee }
-        // Reapeat until each document is translated
+        // Seek to offset
+        self.postingsFile.placeHeadAt(offset: offset)
+        // Retrieve dft value, number of postings
+        let dft: T = self.postingsFile.readInteger()
+        // Reapeat until each posting is translated
         repeat {
-            // Read a byte that represents the document id
-            data = self.postingsFile.read(chunkSize: memorySizeOfValue)
-            // An Integer holding the id of a document
-            let id: T = data.withUnsafeBytes { $0.pointee }
-            // Read a byte that represents the wdt of document
-            data = self.postingsFile.read(chunkSize: MemoryLayout<Double>.size)
-            // An Double holding the wdt of document
-            let wdt: Double = data.withUnsafeBytes { $0.pointee }
-            // Create posting with document
-            let posting = Posting(withDocumentId: Int(id), forTerm: term)
-            // Set wdt in posting
-            posting.wdt = wdt
-            // Read a byte that represents the number of positions in the document
-            data = self.postingsFile.read(chunkSize: memorySizeOfValue)
-            // An Integer holding the frequency of term in document
-            let tftd: T = data.withUnsafeBytes { $0.pointee }
-            // A counter of positions, reset for each document
-            var positionCounter: Int = 0
-            // Repeat until each position is translated
-            repeat {
-                // Read a byte that represents the position
-                data = self.postingsFile.read(chunkSize: memorySizeOfValue)
-                // An Integer holding a position of term within document
-                let position: T = data.withUnsafeBytes { $0.pointee }
-                // Add position to posting
-                posting.addPosition(Int(position))
-                // Increment position counter
-                positionCounter += 1
-                
-            } while positionCounter < tftd
+            let posting: Posting = getPostingData()
             // Append posting to postings list
             postings.append(posting)
             // Increment document counter
             documentsCounter += 1
-            
         } while documentsCounter < dft
         // Return the postings list
         return postings
@@ -321,6 +313,9 @@ extension DiskEnvUtility {
             }
             // If target term is before term we found, we search in left part
             else if target < term {
+                if middle < 1 {
+                    return (false, 0)
+                }
                 endMarker = middle - 1
             }
             // If target term is after term we found, we search in right part
