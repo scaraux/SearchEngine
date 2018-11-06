@@ -64,6 +64,11 @@ class BinaryFile {
         return self.handle!.readData(ofLength: chunkSize)
     }
     
+    public func readUntilEndOfFileAt(offset: UInt64) -> Data {
+        self.handle!.seek(toFileOffset: offset)
+        return self.handle!.readDataToEndOfFile()
+    }
+    
     public func dispose() {
         self.handle!.closeFile()
     }

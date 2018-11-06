@@ -296,15 +296,20 @@ extension DiskEnvUtility {
             let termVocabOffset: U = chunk.subdata(in: 0..<memorySizeOfValue).withUnsafeBytes { $0.pointee }
             // Current term offset in postings file, as Fixed Width Integer
             let termPostingsOffset: U = chunk.subdata(in: memorySizeOfValue..<chunkSize).withUnsafeBytes { $0.pointee }
-            // Current term's next term offset in vocabulary file
-            // as Fixed Width Integer, to calculate term size
-            // TODO: Handle last item
-            let nextTermOffset: U = chunk.subdata(in: (memorySizeOfValue * 2)..<(chunkSize * 2))
-                .withUnsafeBytes { $0.pointee }
-            // Calculate term length by substracting next term offset to current term offset
-            let termLength: Int = Int(nextTermOffset - termVocabOffset)
-            // Read term in vocabulary file, from offset
-            chunk = vocabularyFile.readAt(offset: UInt64(termVocabOffset), chunkSize: termLength)
+            // If we read two entire chunks, we can jump to next entry to calculate
+            // offset differences, giving the term length
+            if chunk.count == chunkSize * 2 {
+                let nextTermOffset: U = chunk.subdata(in: (memorySizeOfValue * 2)..<(chunkSize * 2))
+                    .withUnsafeBytes { $0.pointee }
+                // Calculate term length by substracting next term offset to current term offset
+                let termLength = Int(nextTermOffset - termVocabOffset)
+                chunk = vocabularyFile.readAt(offset: UInt64(termVocabOffset), chunkSize: termLength)
+            }
+            // If we read less than two entire chunks, that was the last term in vocabulary
+            // therefore its size is EOF for now
+            else {
+                chunk = vocabularyFile.readUntilEndOfFileAt(offset: UInt64(termVocabOffset))
+            }
             // Create a UTF-8 string representation of the term
             guard let term = String(bytes: chunk, encoding: .utf8) else {
                 // If cannot create string, return false
