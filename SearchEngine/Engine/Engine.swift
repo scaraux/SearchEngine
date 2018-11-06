@@ -147,8 +147,6 @@ class Engine {
                 self.initDelegate?.onEnvironmentInitialized(timeElapsed: self.calculateElapsedTime(from: start))
                 // Write index on disk
                 self.writeEnvironmentToDisk(atUrl: url, withIndex: index, withDocuments: documents)
-                // Reload environment
-                self.loadEnvironment(withPath: url)
             })
         }
     }

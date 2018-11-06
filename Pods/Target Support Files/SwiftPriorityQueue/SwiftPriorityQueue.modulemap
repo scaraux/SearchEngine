@@ -1,0 +1,6 @@
+framework module SwiftPriorityQueue {
+  umbrella header "SwiftPriorityQueue-umbrella.h"
+
+  export *
+  module * { export * }
+}

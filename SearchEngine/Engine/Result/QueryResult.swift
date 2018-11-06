@@ -22,6 +22,12 @@ class QueryResult {
         self.matchingForTerms.append(term)
     }
     
+    init(_ posting: Posting, terms: [String]) {
+        self.posting = posting
+        self.documentId = self.posting.documentId
+        self.matchingForTerms = terms
+    }
+    
     func addMatchingTerm(_ term: String) {
         if self.matchingForTerms.contains(term) == false {
             self.matchingForTerms.insert(term, at: 0)

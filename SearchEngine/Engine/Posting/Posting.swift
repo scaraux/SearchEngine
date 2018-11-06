@@ -10,16 +10,15 @@ import Foundation
 
 class Posting {
     
-    var documentId: Int = -1
-    var positions: [Int]
-    var term: String
+    private(set) var documentId: Int = -1
+    private(set) var positions: [Int]
+    private(set) var term: String
+    var wdt: Double = 0.0
     var frequency: Int {
-        get {
-            return positions.count
-        }
+        return positions.count
     }
 
-    init(withDocumentId id: Int, forTerm term: String) {
+    init(withDocumentId id: Int, forTerm term: String = "") {
         self.documentId = id
         self.positions = [Int]()
         self.term = term
@@ -27,5 +26,9 @@ class Posting {
     
     func addPosition(_ position: Int) {
         self.positions.append(position)
+    }
+    
+    func calculateWdt() -> Double {
+        return 1 + log(Double(positions.count))
     }
 }

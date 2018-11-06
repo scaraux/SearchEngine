@@ -9,7 +9,7 @@
 import Foundation
 
 class PositionalInvertedIndex: IndexProtocol {
-
+    
     private(set) var map: [String: [Posting]] = [:]
     private(set) var kGramIndex: GramIndex
 
@@ -25,16 +25,14 @@ class PositionalInvertedIndex: IndexProtocol {
     private func withPostings<R>(forTerm term: String, mutations: (inout [Posting]) throws -> R) rethrows -> R {
         return try mutations(&map[term, default: []])
     }
-    
-    public func getQueryResultsFor(stem: String, fromTerm: String) -> [QueryResult]? {
-        if let postings = self.map[stem] {
-            return postings.map({ QueryResult($0, term: fromTerm) })
-        }
-        return nil
-    }
-    
+
     public func getPostingsFor(stem: String) -> [Posting]? {
         return self.map[stem]
+    }
+    
+    func getPostingsWithPositionsFor(stem: String) -> [Posting]? {
+        // TODO getPostingsWithPositions in Positional Inverted Index
+        return nil
     }
     
     func getWeightForDocument(documentId: Int) -> Double? {

@@ -19,28 +19,18 @@ class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProt
         self.kGramIndex = GramIndex()
         self.diskIndexUtility = utility
     }
-    
-    /// Retrieve postings that contains a given stem, as QueryResult
-    /// object. QueryResults contains a given posting, and useful informations
-    /// about the query, such as FileDocument, Terms etc...
-    ///
-    /// - Parameters:
-    ///   - stem: Is the stemmed string corresponding to the term
-    ///   - fromTerm: Is the raw term
-    /// - Returns: A list of QueryResults
-    func getQueryResultsFor(stem: String, fromTerm: String) -> [QueryResult]? {
-        if let postings = self.diskIndexUtility.getPostings(forTerm: stem) {
-            return postings.map({ QueryResult($0, term: fromTerm) })
-        }
-        return nil
-    }
-    
+ 
     /// Retrieve postings that contains a given stem
     ///
     /// - Parameter stem: Is the stemmed version of the term
     /// - Returns: A list of postings that contains the stem
     func getPostingsFor(stem: String) -> [Posting]? {
         return self.diskIndexUtility.getPostings(forTerm: stem)
+    }
+    
+    // TODO getPostingsWithPositions in Disk Positional Inverted Index
+    func getPostingsWithPositionsFor(stem: String) -> [Posting]? {
+        return nil
     }
     
     /// Retrieve calculated weight for a given document
@@ -55,6 +45,7 @@ class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProt
     ///
     /// - Returns: A list of terms, as strings
     func getVocabulary() -> [String] {
+        // TODO VOCABULARY
         return []
     }
     

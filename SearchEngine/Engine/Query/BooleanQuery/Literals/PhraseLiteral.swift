@@ -28,15 +28,16 @@ class PhraseLiteral: Queriable {
             return nil
         }
         
-        if let newResults = index.getQueryResultsFor(stem: stemmer.stem(terms[0]), fromTerm: terms[0]) {
-            mergedResults = newResults
+        if let postings = index.getPostingsFor(stem: stemmer.stem(self.terms[0])) {
+            mergedResults = convertToQueryResults(postings: postings, fromTerm: self.terms[0])
         }
         else {
             return nil
         }
         
         for i in 1 ..< self.terms.count {
-            if let newResults = index.getQueryResultsFor(stem: stemmer.stem(terms[i]), fromTerm: terms[i]) {
+            if let postings = index.getPostingsFor(stem: stemmer.stem(self.terms[i])) {
+                let newResults = convertToQueryResults(postings: postings, fromTerm: self.terms[i])
                 mergedResults = positionalMerge(left: mergedResults, right: newResults)
             }
             else {

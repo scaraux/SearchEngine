@@ -121,32 +121,38 @@ class DiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
 extension DiskEnvUtility {
     
     private func getBinaryRepresentation(forPostings postings: [Posting]) -> Data {
+        // The number of bits to represent a single value
+        let memorySizeOfValue = MemoryLayout<T>.size
         // A Integer byte array, of desired size T
-        var bytes = [T]()
+        var data = Data()
         // The frequency of the term within corpus, or how many documents contains it
-        let dft: T = T(postings.count)
-        // Add dft to array
-        bytes.append(dft)
+        var dft: T = T(postings.count)
+        // Add dft to array 
+        data.append(Data(bytes: &dft, count: memorySizeOfValue))
         // Iterate over all postings
         for posting in postings {
-            // Convert Id of current document to Integer of desired size
-            let id: T = T(posting.documentId)
-            // Convert the frequency of the term within document to Integer of desired size
-            let tftd: T = T(posting.positions.count)
-            // Add id to array
-            bytes.append(id) //.littleendian
+            // Retrieve ID of document
+            var id: T = T(posting.documentId)
+            // Add ID to array
+            data.append(Data(bytes: &id, count: memorySizeOfValue))
+            // Retrieve wdt from document
+            var wdt: Double = posting.calculateWdt()
+            // Add wdt to array
+            data.append(Data(bytes: &wdt, count: MemoryLayout<Double>.size))
+            // Retrieve frequency
+            var tftd: T = T(posting.frequency)
             // Add tftd to array
-            bytes.append(tftd) //.littleendian
+            data.append(Data(bytes: &tftd, count: memorySizeOfValue))
             // Iterate over all positions
             for position in posting.positions {
                 // Convert position to Integer of desired size
-                let position: T = T(position)
+                var position: T = T(position)
                 // Add position to array
-                bytes.append(position) //.littleendian
+                data.append(Data(bytes: &position, count: memorySizeOfValue))
             }
         }
-        // Return bytes as Data object
-        return Data(fromArray: bytes)
+        // Return data
+        return data
     }
     
     private func getPostingsAtOffset(atOffset offset: UInt64, forTerm term: String) -> [Posting] {
@@ -168,8 +174,14 @@ extension DiskEnvUtility {
             data = self.postingsFile.read(chunkSize: memorySizeOfValue)
             // An Integer holding the id of a document
             let id: T = data.withUnsafeBytes { $0.pointee }
+            // Read a byte that represents the wdt of document
+            data = self.postingsFile.read(chunkSize: MemoryLayout<Double>.size)
+            // An Double holding the wdt of document
+            let wdt: Double = data.withUnsafeBytes { $0.pointee }
             // Create posting with document
             let posting = Posting(withDocumentId: Int(id), forTerm: term)
+            // Set wdt in posting
+            posting.wdt = wdt
             // Read a byte that represents the number of positions in the document
             data = self.postingsFile.read(chunkSize: memorySizeOfValue)
             // An Integer holding the frequency of term in document

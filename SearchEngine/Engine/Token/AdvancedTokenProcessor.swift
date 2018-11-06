@@ -9,10 +9,8 @@
 import Foundation
 
 class AdvancedTokenProcessor: TokenProcessorProtocol {
-
     func processToken(token: String) -> String {
         var result = String()
-
         for ascii in token.utf8 {
             if ascii > 47 && ascii < 58 {
                 result.append(String(UnicodeScalar(UInt8(ascii))))

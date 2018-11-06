@@ -9,8 +9,8 @@
 import Foundation
 
 protocol IndexProtocol {
-    func getQueryResultsFor(stem: String, fromTerm: String) -> [QueryResult]?
     func getPostingsFor(stem: String) -> [Posting]?
+    func getPostingsWithPositionsFor(stem: String) -> [Posting]?
     func getWeightForDocument(documentId: Int) -> Double?
     func getVocabulary() -> [String]
     func getKGramIndex() -> GramIndexProtocol

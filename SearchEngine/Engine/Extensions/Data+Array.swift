@@ -1,5 +1,5 @@
 //
-//  Data+IntArray.swift
+//  Data+Array.swift
 //  SearchEngine
 //
 //  Created by Oscar Götting on 10/21/18.

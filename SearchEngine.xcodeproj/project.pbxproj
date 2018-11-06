@@ -29,11 +29,12 @@
 		D040E691214CA72500A487F5 /* DirectoryCorpus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E690214CA72500A487F5 /* DirectoryCorpus.swift */; };
 		D040E693214CA93400A487F5 /* FileDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E692214CA93400A487F5 /* FileDocument.swift */; };
 		D040E695214CBC7700A487F5 /* DocumentFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E694214CBC7700A487F5 /* DocumentFactoryProtocol.swift */; };
-		D0412D97217D4DEF0051E95A /* Data+IntArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D96217D4DEF0051E95A /* Data+IntArray.swift */; };
+		D0412D97217D4DEF0051E95A /* Data+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D96217D4DEF0051E95A /* Data+Array.swift */; };
 		D0412D99217DACEA0051E95A /* DiskWritingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0412D98217DACEA0051E95A /* DiskWritingTests.swift */; };
 		D04CDA5C21546864007B8CB2 /* PositionalInvertedIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04CDA5B21546864007B8CB2 /* PositionalInvertedIndex.swift */; };
 		D04CDA5F21546C99007B8CB2 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04CDA5E21546C99007B8CB2 /* Engine.swift */; };
 		D04CDA6121546DA8007B8CB2 /* EngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04CDA6021546DA8007B8CB2 /* EngineDelegate.swift */; };
+		D0505FBE2190FB3D001A6718 /* DocumentScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0505FBD2190FB3D001A6718 /* DocumentScore.swift */; };
 		D0766BBA215AF0AD00F6A9B6 /* QueryResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0766BB9215AF0AD00F6A9B6 /* QueryResult.swift */; };
 		D079B5B7218FB6450034255D /* RankedQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D079B5B6218FB6450034255D /* RankedQuery.swift */; };
 		D0AD33692163EAE500139F76 /* GramIndexProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD33682163EAE500139F76 /* GramIndexProtocol.swift */; };
@@ -97,11 +98,12 @@
 		D040E690214CA72500A487F5 /* DirectoryCorpus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryCorpus.swift; sourceTree = "<group>"; };
 		D040E692214CA93400A487F5 /* FileDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDocument.swift; sourceTree = "<group>"; };
 		D040E694214CBC7700A487F5 /* DocumentFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentFactoryProtocol.swift; sourceTree = "<group>"; };
-		D0412D96217D4DEF0051E95A /* Data+IntArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+IntArray.swift"; sourceTree = "<group>"; };
+		D0412D96217D4DEF0051E95A /* Data+Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Array.swift"; sourceTree = "<group>"; };
 		D0412D98217DACEA0051E95A /* DiskWritingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskWritingTests.swift; sourceTree = "<group>"; };
 		D04CDA5B21546864007B8CB2 /* PositionalInvertedIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionalInvertedIndex.swift; sourceTree = "<group>"; };
 		D04CDA5E21546C99007B8CB2 /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		D04CDA6021546DA8007B8CB2 /* EngineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineDelegate.swift; sourceTree = "<group>"; };
+		D0505FBD2190FB3D001A6718 /* DocumentScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentScore.swift; sourceTree = "<group>"; };
 		D0766BB9215AF0AD00F6A9B6 /* QueryResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResult.swift; sourceTree = "<group>"; };
 		D079B5B6218FB6450034255D /* RankedQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankedQuery.swift; sourceTree = "<group>"; };
 		D0AD33682163EAE500139F76 /* GramIndexProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GramIndexProtocol.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				D079B5B6218FB6450034255D /* RankedQuery.swift */,
+				D0505FBD2190FB3D001A6718 /* DocumentScore.swift */,
 			);
 			path = RankedQuery;
 			sourceTree = "<group>";
@@ -368,7 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				D0FEDE4F214F3DBF0064B3D5 /* String+substring.swift */,
-				D0412D96217D4DEF0051E95A /* Data+IntArray.swift */,
+				D0412D96217D4DEF0051E95A /* Data+Array.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -545,12 +548,14 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SearchEngine/Pods-SearchEngine-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/PorterStemmer2/PorterStemmer2.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftPriorityQueue/SwiftPriorityQueue.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PorterStemmer2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftPriorityQueue.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -652,7 +657,7 @@
 				D0FEDE48214F38740064B3D5 /* PhraseLiteral.swift in Sources */,
 				D0AD33692163EAE500139F76 /* GramIndexProtocol.swift in Sources */,
 				D0FEDE46214F373E0064B3D5 /* OrQuery.swift in Sources */,
-				D0412D97217D4DEF0051E95A /* Data+IntArray.swift in Sources */,
+				D0412D97217D4DEF0051E95A /* Data+Array.swift in Sources */,
 				D0D158E82161932800CE1376 /* WildcardLiteral.swift in Sources */,
 				D040E656214C99C900A487F5 /* AppDelegate.swift in Sources */,
 				D040E691214CA72500A487F5 /* DirectoryCorpus.swift in Sources */,
@@ -661,6 +666,7 @@
 				D040E693214CA93400A487F5 /* FileDocument.swift in Sources */,
 				D040E68A214CA55900A487F5 /* TokenStreamProtocol.swift in Sources */,
 				D0FEDE50214F3DBF0064B3D5 /* String+substring.swift in Sources */,
+				D0505FBE2190FB3D001A6718 /* DocumentScore.swift in Sources */,
 				D040E68C214CA5CA00A487F5 /* EnglishTokenStream.swift in Sources */,
 				D0FEDE4A214F3A020064B3D5 /* AndQuery.swift in Sources */,
 				D040E674214C9A0100A487F5 /* Posting.swift in Sources */,

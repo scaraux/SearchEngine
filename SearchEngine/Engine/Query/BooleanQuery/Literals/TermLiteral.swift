@@ -19,7 +19,11 @@ class TermLiteral: Queriable {
     
     func getResultsFrom(index: IndexProtocol) -> [QueryResult]? {
         if let stemmer = PorterStemmer(withLanguage: .English) {
-            return index.getQueryResultsFor(stem: stemmer.stem(self.term), fromTerm: self.term)
+            let stem = stemmer.stem(self.term)
+            if let postings = index.getPostingsFor(stem: stem) {
+                return convertToQueryResults(postings: postings, fromTerm: self.term)
+            }
+            return nil
         }
         return nil
     }

@@ -12,3 +12,9 @@ protocol Queriable {
     func getResultsFrom(index: IndexProtocol) -> [QueryResult]?
     func toString() -> String
 }
+
+extension Queriable {
+    public func convertToQueryResults(postings: [Posting], fromTerm term: String) -> [QueryResult] {
+        return postings.map({ QueryResult($0, term: term) })
+    }
+}
