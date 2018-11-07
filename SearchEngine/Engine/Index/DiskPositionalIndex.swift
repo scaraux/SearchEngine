@@ -24,13 +24,12 @@ class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProt
     ///
     /// - Parameter stem: Is the stemmed version of the term
     /// - Returns: A list of postings that contains the stem
-    func getPostingsFor(stem: String) -> [Posting]? {
-        return self.diskIndexUtility.getPostings(forTerm: stem)
+    func getPostingsWithoutPositionsFor(stem: String) -> [Posting]? {
+        return self.diskIndexUtility.getPostings(forTerm: stem, withPositions: false)
     }
     
-    // TODO getPostingsWithPositions in Disk Positional Inverted Index
     func getPostingsWithPositionsFor(stem: String) -> [Posting]? {
-        return nil
+        return self.diskIndexUtility.getPostings(forTerm: stem, withPositions: true)
     }
     
     /// Retrieve calculated weight for a given document

@@ -74,6 +74,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         self.tableView.sizeLastColumnToFit()
     }
 
+    /// "park national" camping
     private func triggerQuery() {
         self.queryResults?.removeAll()
         let queryString = self.queryInput.stringValue
@@ -181,8 +182,8 @@ extension SearchViewController {
     @IBAction func newEnvironment(_ sender: Any) {
         if let path = pickBaseFolderWithModal() {
             self.directoryPathLabel.stringValue = "/" + path.lastPathComponent
+            performSegue(withIdentifier: "ShowCorpusInitView", sender: self)
             self.engine.newEnvironment(withPath: path)
-            performSegue(withIdentifier: "ShowCorpusInitView", sender: nil)
         }
     }
     

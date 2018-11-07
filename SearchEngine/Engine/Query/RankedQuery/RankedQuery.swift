@@ -28,7 +28,7 @@ class RankedQuery: Queriable {
         // Iterate over all terms in the query
         for term in terms {
             // Retrieve results that contains the term
-            if let postings: [Posting] = index.getPostingsFor(stem: term) {
+            if let postings: [Posting] = index.getPostingsWithoutPositionsFor(stem: term) {
                 // Calculate the number of documents that contains term
                 let documentsContainingTerm: Int = postings.count
                 // Calculate wqt

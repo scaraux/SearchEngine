@@ -37,6 +37,7 @@
 		D0505FBE2190FB3D001A6718 /* DocumentScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0505FBD2190FB3D001A6718 /* DocumentScore.swift */; };
 		D0766BBA215AF0AD00F6A9B6 /* QueryResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0766BB9215AF0AD00F6A9B6 /* QueryResult.swift */; };
 		D079B5B7218FB6450034255D /* RankedQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D079B5B6218FB6450034255D /* RankedQuery.swift */; };
+		D07B5E2521927BD8007170CB /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07B5E2421927BD8007170CB /* Util.swift */; };
 		D0AD33692163EAE500139F76 /* GramIndexProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD33682163EAE500139F76 /* GramIndexProtocol.swift */; };
 		D0AD336D216441F700139F76 /* JsonFileDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD336C216441F700139F76 /* JsonFileDocument.swift */; };
 		D0AD336F216475D700139F76 /* AdvancedTokenProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD336E216475D700139F76 /* AdvancedTokenProcessor.swift */; };
@@ -106,6 +107,7 @@
 		D0505FBD2190FB3D001A6718 /* DocumentScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentScore.swift; sourceTree = "<group>"; };
 		D0766BB9215AF0AD00F6A9B6 /* QueryResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResult.swift; sourceTree = "<group>"; };
 		D079B5B6218FB6450034255D /* RankedQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankedQuery.swift; sourceTree = "<group>"; };
+		D07B5E2421927BD8007170CB /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		D0AD33682163EAE500139F76 /* GramIndexProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GramIndexProtocol.swift; sourceTree = "<group>"; };
 		D0AD336C216441F700139F76 /* JsonFileDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonFileDocument.swift; sourceTree = "<group>"; };
 		D0AD336E216475D700139F76 /* AdvancedTokenProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedTokenProcessor.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 			children = (
 				D0FEDE4F214F3DBF0064B3D5 /* String+substring.swift */,
 				D0412D96217D4DEF0051E95A /* Data+Array.swift */,
+				D07B5E2421927BD8007170CB /* Util.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				D014BF3C217414F0003099CD /* CorpusLoadViewController.swift in Sources */,
 				D0D158EA2161EFE700CE1376 /* FilePreviewController.swift in Sources */,
 				D04CDA6121546DA8007B8CB2 /* EngineDelegate.swift in Sources */,
+				D07B5E2521927BD8007170CB /* Util.swift in Sources */,
 				D040E68F214CA6C300A487F5 /* DocumentCorpusProtocol.swift in Sources */,
 				D040E658214C99C900A487F5 /* SearchViewController.swift in Sources */,
 				D040E67B214C9B4B00A487F5 /* BasicTokenProcessor.swift in Sources */,

@@ -9,7 +9,6 @@
 import Cocoa
 
 extension TimeInterval {
-    
     func format() -> String? {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.day, .hour, .minute, .second, .nanosecond]
@@ -20,7 +19,7 @@ extension TimeInterval {
 }
 
 class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitDelegate {
-    
+
     @IBOutlet weak var procedureDescriptionLabel: NSTextField!
     @IBOutlet weak var currentTaskLabel: NSTextField!
     @IBOutlet weak var elapsedTimeLabel: NSTextField!
@@ -31,25 +30,20 @@ class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitD
     var milliseconds: Double = 0.0
     var totalGramsToIndex: Int = 0
     
-    enum InitPhase {
-        case phaseIndexingDocuments
-        case phaseIndexingGrams
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.closeButton.isEnabled = false
         self.closeButton.isTransparent = true
         self.procedureDescriptionLabel.stringValue = "Indexing Documents"
-        
-        runTimer()
     }
     
     private func runTimer() {
+        guard self.timer == nil else { return }
+        
         self.timer = Timer.scheduledTimer(timeInterval: 0.1,
                                           target: self,
-                                          selector: (#selector(CorpusLoadViewController.updateTimer)),
+                                          selector: #selector(updateTimer),
                                           userInfo: nil,
                                           repeats: true)
     }
@@ -73,56 +67,57 @@ class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitD
         return String(format: "Elapsed time: %0.2d:%0.2d:%0.2d", hours, minutes, seconds)
     }
     
-    private func updatePhase(phase: InitPhase) {
-        switch phase {
-        case .phaseIndexingDocuments:
-            self.procedureDescriptionLabel.stringValue = "Indexing Documents"
-            
-        case .phaseIndexingGrams:
-            self.procedureDescriptionLabel.stringValue = "Indexing K-Grams"
-        }
-    }
-    
     private func resetProgressBar(scaledTo value: Int) {
         self.progressBar.doubleValue = 0.0
         self.progressBar.minValue = 0
         self.progressBar.maxValue = Double(value)
     }
     
-    private func popoverShouldClose(_ popover: NSPopover) -> Bool {
+    func popoverShouldClose(_ popover: NSPopover) -> Bool {
         return false
     }
+}
+
+extension CorpusLoadViewController {
     
-    internal func onEnvironmentDocumentIndexingStarted(documentsToIndex: Int) {
-        updatePhase(phase: .phaseIndexingDocuments)
-        resetProgressBar(scaledTo: documentsToIndex)
+    func onInitializationPhaseChanged(phase: InitPhase, withTotalCount count: Int) {
+        switch phase {
+        case .phaseIndexingDocuments:
+            runTimer()
+            resetProgressBar(scaledTo: count)
+            self.procedureDescriptionLabel.stringValue = "Indexing Documents"
+            
+        case .phaseIndexingGrams:
+            resetProgressBar(scaledTo: count)
+            self.procedureDescriptionLabel.stringValue = "Indexing K-Grams"
+            
+        case .phaseWritingIndex:
+            self.procedureDescriptionLabel.stringValue = "Writing Index to Disk"
+            
+        case .terminated:
+            
+            self.timer?.invalidate()
+            //        self.timer = nil
+            self.progressBar.isHidden = true
+            
+            self.closeButton.isTransparent = false
+            self.closeButton.isEnabled = true
+        }
+        
     }
-    
-    func onEnvironmentGramsIndexingStarted(gramsToIndex: Int) {
-        self.totalGramsToIndex = gramsToIndex
-        updatePhase(phase: .phaseIndexingGrams)
-        resetProgressBar(scaledTo: gramsToIndex)
-    }
-    
-    func onEnvironmentIndexedDocument(withFileName fileName: String) {
+
+    func onIndexingDocument(withFileName fileName: String, documentNb: Int, totalDocuments: Int) {
         self.currentTaskLabel.stringValue = "Indexed file \(fileName)"
         self.progressBar.increment(by: 1.0)
     }
-    
-    func onEnvironmentIndexedGram(gramNumber: Int) {
-        self.currentTaskLabel.stringValue = "Indexed Gram \(gramNumber)/\(self.totalGramsToIndex)"
+
+    func onIndexingGrams(forType type: String, typeNb: Int, totalTypes: Int) {
+        self.currentTaskLabel.stringValue = "Indexed Gram (\(typeNb)/\(totalTypes))"
         self.progressBar.increment(by: 1.0)
     }
-    
-    func onEnvironmentInitialized(timeElapsed: Double) {
-        self.timer?.invalidate()
-        self.timer = nil
-        self.progressBar.isHidden = true
-        
-        self.closeButton.isTransparent = false
-        self.closeButton.isEnabled = true
-    }
-    
+}
+
+extension CorpusLoadViewController {
     @IBAction func closeButtonTUI(_ sender: Any) {
         self.dismiss(nil)
     }

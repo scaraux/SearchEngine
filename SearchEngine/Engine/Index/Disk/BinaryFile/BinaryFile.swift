@@ -55,6 +55,10 @@ class BinaryFile {
         self.currentOffset += Int64(data.count)
     }
     
+    public func placeHeadAt(offset: UInt64) {
+        self.handle!.seek(toFileOffset: offset)
+    }
+    
     public func read(chunkSize: Int) -> Data {
         return self.handle!.readData(ofLength: chunkSize)
     }
@@ -69,13 +73,24 @@ class BinaryFile {
         return self.handle!.readDataToEndOfFile()
     }
     
-    public func placeHeadAt(offset: UInt64) {
-        self.handle!.seek(toFileOffset: offset)
+    public func getOffset() -> UInt64 {
+        return self.handle!.offsetInFile
     }
     
-    public func readInteger<I>() -> I {
+    public func readInteger<I: FixedWidthInteger>() -> I? {
         let data: Data = self.read(chunkSize: MemoryLayout<I>.size)
-        return data.withUnsafeBytes { $0.pointee }
+        if data.count == 0 {
+            return nil
+        }
+        return data.withUnsafeBytes { $0.pointee } as I
+    }
+    
+    public func readDouble() -> Double? {
+        let data: Data = self.read(chunkSize: MemoryLayout<Double>.size)
+        if data.count == 0 {
+            return nil
+        }
+        return data.withUnsafeBytes { $0.pointee } as Double
     }
     
     public func dispose() {

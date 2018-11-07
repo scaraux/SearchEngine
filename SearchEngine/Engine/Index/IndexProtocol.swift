@@ -9,7 +9,7 @@
 import Foundation
 
 protocol IndexProtocol {
-    func getPostingsFor(stem: String) -> [Posting]?
+    func getPostingsWithoutPositionsFor(stem: String) -> [Posting]?
     func getPostingsWithPositionsFor(stem: String) -> [Posting]?
     func getWeightForDocument(documentId: Int) -> Double?
     func getVocabulary() -> [String]

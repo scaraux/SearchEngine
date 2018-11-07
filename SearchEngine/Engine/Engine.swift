@@ -61,16 +61,25 @@ class Engine {
         else {
             query = RankedQuery(withIndex: index, bagOfWords: queryString)
         }
-        // Retrieve results for Queriable object
-        if var results: [QueryResult] = query?.getResultsFrom(index: index) {
-            // Attach document to results
-            results = attachDocumentsToResults(results: results)
-            // Notify that query resulted and return the query results
-            self.delegate?.onQueryResulted(results: results)
-            return
+        // Place in Thread
+        DispatchQueue.global(qos: .userInteractive).async {
+            // Retrieve results for Queriable object
+            if var results: [QueryResult] = query?.getResultsFrom(index: index) {
+                // Attach document to results
+                results = self.attachDocumentsToResults(results: results)
+                // Notify async
+                DispatchQueue.main.async {
+                    // Notify that query resulted and return the query results
+                    self.delegate?.onQueryResulted(results: results)
+                }
+            }
+            else {
+                DispatchQueue.main.async {
+                    // If no results, notify and return nil results
+                    self.delegate?.onQueryResulted(results: nil)
+                }
+            }
         }
-        // If no results, notify and return nil results
-        self.delegate?.onQueryResulted(results: nil)
     }
     
     /// Return all terms known by the index
@@ -107,24 +116,30 @@ class Engine {
             self.index!
                 .dispose()
         }
-        // Load a new directory corpus to given path
-        DirectoryCorpus.loadDirectoryCorpus(absolutePath: url)
-        // Read documents
-        DirectoryCorpus.shared.readDocuments()
-        // Try to instantiate a Disk Environment Utility
-        do {
-            let utility = try DiskEnvUtility(atPath: url,
-                                               fileMode: .reading,
-                                               postingsEncoding: UInt32.self,
-                                               offsetsEncoding: UInt64.self)
-            // Create a Disk Positional Index, by passing the utility
-            self.index = DiskPositionalIndex(atPath: url, utility: utility)
-            // Notify that environment has been loaded
-            self.delegate?.onEnvironmentLoaded()
-            
-        } catch let error as NSError {
-            // Notify a loading error
-            self.delegate?.onEnvironmentLoadingFailed(withError: error.localizedFailureReason!)
+        // Place in thread
+        DispatchQueue.global(qos: .userInteractive).async {
+            // Load a new directory corpus to given path
+            DirectoryCorpus.loadDirectoryCorpus(absolutePath: url)
+            // Read documents
+            DirectoryCorpus.shared.readDocuments()
+            // Try to instantiate a Disk Environment Utility
+            do {
+                let utility = try DiskEnvUtility(atPath: url,
+                                                   fileMode: .reading,
+                                                   postingsEncoding: UInt32.self,
+                                                   offsetsEncoding: UInt64.self)
+                // Create a Disk Positional Index, by passing the utility
+                self.index = DiskPositionalIndex(atPath: url, utility: utility)
+                // Notify that environment has been loaded
+                DispatchQueue.main.async {
+                    self.delegate?.onEnvironmentLoaded()
+                }
+            } catch let error as NSError {
+                // Notify a loading error
+                DispatchQueue.main.async {
+                    self.delegate?.onEnvironmentLoadingFailed(withError: error.localizedFailureReason!)
+                }
+            }
         }
     }
     
@@ -133,21 +148,32 @@ class Engine {
     ///
     /// - Parameter url: Is the url of the given directory
     func newEnvironment(withPath url: URL) {
-        // Snapshot start time
-        let start = DispatchTime.now()
-        // Load corpus
-        DirectoryCorpus.loadDirectoryCorpus(absolutePath: url)
-        // Retrieve all documents in corpus asynchronously
-        self.retrieveDocuments { (documents: [DocumentProtocol]) in
-            // Notify that indexing started
-            self.initDelegate?.onEnvironmentDocumentIndexingStarted(documentsToIndex: documents.count)
-            // Generate Positional Inverted Index in memory, asynchronously
-            self.generateIndex(documents: documents, { index in
-                // Notify that corpus has been initialized
-                self.initDelegate?.onEnvironmentInitialized(timeElapsed: self.calculateElapsedTime(from: start))
-                // Write index on disk
-                self.writeEnvironmentToDisk(atUrl: url, withIndex: index, withDocuments: documents)
-            })
+        // Place in thread
+        DispatchQueue.global(qos: .userInteractive).async {
+            // Load corpus
+            DirectoryCorpus.loadDirectoryCorpus(absolutePath: url)
+            // Retrieve all documents in corpus asynchronously
+            self.retrieveDocuments { (documents: [DocumentProtocol]) in
+                // Notify that indexing started
+                DispatchQueue.main.async {
+                    self.initDelegate?.onInitializationPhaseChanged(phase: .phaseIndexingDocuments,
+                                                                    withTotalCount: documents.count)
+                }
+                // Generate Positional Inverted Index in memory, asynchronously
+                self.generateIndex(documents: documents, { index in
+                    DispatchQueue.main.async {
+                        self.initDelegate?.onInitializationPhaseChanged(phase: .phaseWritingIndex,
+                                                                        withTotalCount: 0)
+                    }
+                    // Write index on disk
+                    self.writeEnvironmentToDisk(atUrl: url, withIndex: index, withDocuments: documents)
+                    // Notify that corpus has been initialized
+                    DispatchQueue.main.async {
+                        self.initDelegate?.onInitializationPhaseChanged(phase: .terminated,
+                                                                        withTotalCount: 0)
+                    }
+                })
+            }
         }
     }
     
@@ -187,12 +213,8 @@ class Engine {
     }
     
     private func retrieveDocuments(completion: @escaping ([DocumentProtocol]) -> Void) {
-        DispatchQueue.global(qos: .userInteractive).async {
-            let docs: [DocumentProtocol] = DirectoryCorpus.shared.getDocuments()
-            DispatchQueue.main.async {
-                completion(docs)
-            }
-        }
+        let docs: [DocumentProtocol] = DirectoryCorpus.shared.getDocuments()
+        completion(docs)
     }
     
     /// Asynchronously generates an Index (PositionalInvertedIndex) from given documents.
@@ -210,82 +232,81 @@ class Engine {
         let index = PositionalInvertedIndex()
         // Instantiate a Token Processor
         let tokenProcessor = AdvancedTokenProcessor()
-        // Use a thread for indexing
-        DispatchQueue.global(qos: .userInteractive).async {
-            // Create a hashset that will hold terms as unique values
-            var types = Set<String>()
-            // Iterate over all documents
-            for i in 0..<documents.count {
-                // Retrieve current document
-                var document = documents[i]
-                // Open a Stream Reader on document, fail if can't open
-                guard let stream = document.getContent() else {
-                    fatalError("Error: Cannot create stream for file \(document.documentId)")
-                }
-                // Create a token stream, capable of retrieving all terms one at a time
-                let tokenStream: TokenStreamProtocol = EnglishTokenStream(stream)
-                // Initialize document weight
-                var documentWeigth: Double = 0.0
-                // Initialize a dictionary holding frequencies, mapping
-                // a term with the number of times it appears within the current document
-                var frequencies: [String: Int] = [:]
-                // Retrieve tokens from the stream
-                let tokens = tokenStream.getTokens()
-                // Iterate over all tokens, as positions
-                for position in 0..<tokens.count {
-                    // Retrieve current token
-                    let token = tokens[position]
-                    // Sanitize the token, by eleminiating unwanted characters
-                    let sanitized = tokenProcessor.processToken(token: token)
-                    // Insert the sanitized term to the hashset
-                    types.insert(sanitized)
-                    // Stem the term, making it shorter and more generic
-                    let stemmed = self.stemWord(word: sanitized)
-                    // Add the term to the index, at position
-                    index.addTerm(stemmed, withId: document.documentId, atPosition: position)
-                    // Retrieve current frequency for term
-                    let frequency = frequencies[stemmed]
-                    // If its the first time the term appears in document, set to 1
-                    if frequency == nil {
-                        frequencies[stemmed] = 1
-                    }
-                    // Else increase the frequency
-                    else {
-                        frequencies[stemmed] = frequency! + 1
-                    } // End of iteration over all tokens in document
-                }
-                // Iterate over all frequencies and calculate document weight
-                for freq in frequencies {
-                    documentWeigth += 1 + log(Double(freq.value))
-                }
-                // Set the weight in document
-                document.weight = documentWeigth
-                // Synchronously notify that document has been indexed
-                DispatchQueue.main.async {
-                    self.initDelegate?.onEnvironmentIndexedDocument(withFileName: document.fileName)
-                }
-            } // End of iteration over all documents
-            // Synchronously notify that K-Gram indexing started
+        // Create a hashset that will hold terms as unique values
+        var types = Set<String>()
+        // Iterate over all documents
+        for i in 0..<documents.count {
+            // Retrieve current document
+            var document = documents[i]
+            // Synchronously notify that document has been indexed
             DispatchQueue.main.async {
-                self.initDelegate?.onEnvironmentGramsIndexingStarted(gramsToIndex: types.count)
+                self.initDelegate?.onIndexingDocument(withFileName: document.fileName,
+                                                      documentNb: i + 1,
+                                                      totalDocuments: documents.count)
             }
-            // Initialize a type counter to 1
-            var typeCounter = 1
-            // Iterate over all types
-            for type in types {
-                // Register K-Grams for current type
-                index.kGramIndex.registerGramsFor(type: type)
-                // Synchronously notify that type has been indexed
-                DispatchQueue.main.async {
-                    self.initDelegate?.onEnvironmentIndexedGram(gramNumber: typeCounter)
+            // Open a Stream Reader on document, fail if can't open
+            guard let stream = document.getContent() else {
+                fatalError("Error: Cannot create stream for file \(document.documentId)")
+            }
+            // Create a token stream, capable of retrieving all terms one at a time
+            let tokenStream: TokenStreamProtocol = EnglishTokenStream(stream)
+            // Initialize document weight
+            var documentWeigth: Double = 0.0
+            // Initialize a dictionary holding frequencies, mapping
+            // a term with the number of times it appears within the current document
+            var frequencies: [String: Int] = [:]
+            // Retrieve tokens from the stream
+            let tokens = tokenStream.getTokens()
+            // Iterate over all tokens, as positions
+            for position in 0..<tokens.count {
+                // Retrieve current token
+                let token = tokens[position]
+                // Sanitize the token, by eleminiating unwanted characters
+                let sanitized = tokenProcessor.processToken(token: token)
+                // Insert the sanitized term to the hashset
+                types.insert(sanitized)
+                // Stem the term, making it shorter and more generic
+                let stemmed = self.stemWord(word: sanitized)
+                // Add the term to the index, at position
+                index.addTerm(stemmed, withId: document.documentId, atPosition: position)
+                // Retrieve current frequency for term
+                let frequency = frequencies[stemmed]
+                // If its the first time the term appears in document, set to 1
+                if frequency == nil {
+                    frequencies[stemmed] = 1
                 }
-                // Increment type counter
-                typeCounter += 1
+                // Else increase the frequency
+                else {
+                    frequencies[stemmed] = frequency! + 1
+                } // End of iteration over all tokens in document
             }
-            // Synchronously notify that indexing has finished
+            // Iterate over all frequencies and calculate document weight
+            for freq in frequencies {
+                documentWeigth += 1 + log(Double(freq.value))
+            }
+            // Set the weight in document
+            document.weight = documentWeigth
+        } // End of iteration over all documents
+        // Synchronously notify that K-Gram indexing started
+        DispatchQueue.main.async {
+            self.initDelegate?.onInitializationPhaseChanged(phase: .phaseIndexingGrams, withTotalCount: types.count)
+        }
+        // Initialize a type counter to 1
+        var typeCounter = 1
+        // Iterate over all types
+        for type in types {
+            // Synchronously notify that type has been indexed
             DispatchQueue.main.async {
-                completion(index)
+                self.initDelegate?.onIndexingGrams(forType: type, typeNb: typeCounter, totalTypes: types.count)
             }
+            // Register K-Grams for current type
+            index.kGramIndex.registerGramsFor(type: type)
+            // Increment type counter
+            typeCounter += 1
+        }
+        // Synchronously notify that indexing has finished
+        DispatchQueue.main.async {
+            completion(index)
         }
     }
     

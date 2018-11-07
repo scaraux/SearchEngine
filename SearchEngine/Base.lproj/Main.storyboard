@@ -549,7 +549,7 @@
                         <outlet property="resultsLabel" destination="fbb-9Q-l1B" id="VMX-WI-lwd"/>
                         <outlet property="searchModeSegmentedControl" destination="b1Z-mc-U8f" id="gfz-cP-AXd"/>
                         <outlet property="tableView" destination="TwL-BO-9Cu" id="xV3-sp-6Oe"/>
-                        <segue destination="aKf-FJ-Rol" kind="popover" identifier="ShowCorpusInitView" popoverBehavior="t" preferredEdge="maxY" id="j7D-nU-7Mr"/>
+                        <segue destination="aKf-FJ-Rol" kind="popover" identifier="ShowCorpusInitView" popoverAnchorView="fbb-9Q-l1B" popoverBehavior="t" preferredEdge="maxY" id="8d5-oj-pRP"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

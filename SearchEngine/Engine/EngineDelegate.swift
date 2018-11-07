@@ -15,9 +15,16 @@ protocol EngineDelegate: class {
 }
 
 protocol EngineInitDelegate: class {
-    func onEnvironmentDocumentIndexingStarted(documentsToIndex: Int)
-    func onEnvironmentGramsIndexingStarted(gramsToIndex: Int)
-    func onEnvironmentIndexedDocument(withFileName: String)
-    func onEnvironmentIndexedGram(gramNumber: Int)
-    func onEnvironmentInitialized(timeElapsed: Double)
+    func onInitializationPhaseChanged(phase: InitPhase, withTotalCount: Int)
+    
+    func onIndexingDocument(withFileName: String, documentNb: Int, totalDocuments: Int)
+    
+    func onIndexingGrams(forType: String, typeNb: Int, totalTypes: Int)
+}
+
+enum InitPhase {
+    case phaseIndexingDocuments
+    case phaseIndexingGrams
+    case phaseWritingIndex
+    case terminated
 }

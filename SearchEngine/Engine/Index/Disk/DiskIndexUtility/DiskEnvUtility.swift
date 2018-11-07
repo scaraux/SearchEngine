@@ -19,7 +19,11 @@ class DiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
     private var tableFile: BinaryFile
     // The URL of the index directory
     private var url: URL
-
+    // The size of an integer in the postings file
+    private var sizeOfT = MemoryLayout<T>.size
+    // The size of a Double
+    private var sizeOfDouble = MemoryLayout<Double>.size
+    
     init(atPath url: URL,
          fileMode mode: DiskConstants.FileDescriptorMode,
          postingsEncoding: T.Type,
@@ -67,7 +71,7 @@ class DiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
     ///
     /// - Parameter term: Is the term we need to find postings for
     /// - Returns: The list of postings corresponding to term
-    public func getPostings(forTerm term: String) -> [Posting]? {
+    public func getPostings(forTerm term: String, withPositions: Bool) -> [Posting]? {
         // Locate postings offset for term, in postings binary file
         let result: (Bool, U) = binarySearchTerm(term)
         // If term exists in index
@@ -75,7 +79,7 @@ class DiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
             // Retrieve posting offset
             let postingOffset = UInt64(result.1)
             // Retrieve and return postings at given offset
-            return getPostingsAtOffset(atOffset: postingOffset, forTerm: term)
+            return getPostingsAtOffset(atOffset: postingOffset, forTerm: term, withPositions: withPositions)
         }
         // Return nil if term has not been found
         return nil
@@ -121,20 +125,18 @@ class DiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
 extension DiskEnvUtility {
     
     private func getBinaryRepresentation(forPostings postings: [Posting]) -> Data {
-        // The number of bits to represent a single value
-        let memorySizeOfValue = MemoryLayout<T>.size
         // A Integer byte array, of desired size T
         var data = Data()
         // The frequency of the term within corpus, or how many documents contains it
         var dft: T = T(postings.count)
         // Add dft to array 
-        data.append(Data(bytes: &dft, count: memorySizeOfValue))
+        data.append(Data(bytes: &dft, count: sizeOfT))
         // Iterate over all postings
         for posting in postings {
             // Retrieve ID of document
             var id: T = T(posting.documentId)
             // Add ID to array
-            data.append(Data(bytes: &id, count: memorySizeOfValue))
+            data.append(Data(bytes: &id, count: sizeOfT))
             // Retrieve wdt from document
             var wdt: Double = posting.calculateWdt()
             // Add wdt to array
@@ -142,46 +144,58 @@ extension DiskEnvUtility {
             // Retrieve frequency
             var tftd: T = T(posting.frequency)
             // Add tftd to array
-            data.append(Data(bytes: &tftd, count: memorySizeOfValue))
+            data.append(Data(bytes: &tftd, count: sizeOfT))
             // Iterate over all positions
             for position in posting.positions {
                 // Convert position to Integer of desired size
                 var position: T = T(position)
                 // Add position to array
-                data.append(Data(bytes: &position, count: memorySizeOfValue))
+                data.append(Data(bytes: &position, count: sizeOfT))
             }
         }
         // Return data
         return data
     }
     
-    private func getPostingData() -> Posting {
-        // A counter of positions, reset for each document
-        var positionCounter: Int = 0
+    private func getPostingData(forTerm term: String, withPositions: Bool) -> Posting {
         // An Integer holding the id of a document
-        let id: T = self.postingsFile.readInteger()
+        let id: T = self.postingsFile.readInteger()!
         // An Double holding the wdt of document
-        let wdt: Double = self.postingsFile.readInteger()
+        let wdt: Double = self.postingsFile.readDouble()!
         // An Integer holding the frequency of term in document
-        let tftd: T = self.postingsFile.readInteger()
+        let tftd: T = self.postingsFile.readInteger()!
         // Create posting with document
-        let posting = Posting(withDocumentId: Int(id))
+        let posting = Posting(withDocumentId: Int(id), forTerm: term)
         // Set wdt in posting
         posting.wdt = wdt
-        // Repeat until each position is translated
-        repeat {
-            let position: T = self.postingsFile.readInteger()
-            // Add position to posting
-            posting.addPosition(Int(position))
-            // Increment position counter
-            positionCounter += 1
-            
-        } while positionCounter < tftd
+        // If we need positions in the posting
+        if withPositions == true {
+            // A counter of positions, reset for each document
+            var positionCounter: Int = 0
+            // Repeat until each position is translated
+            repeat {
+                let position: T = self.postingsFile.readInteger()!
+                // Add position to posting
+                posting.addPosition(Int(position))
+                // Increment position counter
+                positionCounter += 1
+                
+            } while positionCounter < tftd
+        }
+        // If we don't need positions in the posting
+        else {
+            // Get current offset
+            let currentOffset = self.postingsFile.getOffset()
+            // Calculate offset after last position (nb of positions * their size)
+            let lastPositionOffset = currentOffset + (UInt64(tftd) * UInt64(self.sizeOfT))
+            // Seek to offset after positions
+            self.postingsFile.placeHeadAt(offset: lastPositionOffset)
+        }
         // Return posting
         return posting
     }
     
-    private func getPostingsAtOffset(atOffset offset: UInt64, forTerm term: String) -> [Posting] {
+    private func getPostingsAtOffset(atOffset offset: UInt64, forTerm term: String, withPositions: Bool) -> [Posting] {
         // The array of postings that this function will translate form bytes
         var postings = [Posting]()
         // A counter of documents
@@ -189,10 +203,11 @@ extension DiskEnvUtility {
         // Seek to offset
         self.postingsFile.placeHeadAt(offset: offset)
         // Retrieve dft value, number of postings
-        let dft: T = self.postingsFile.readInteger()
+        let dft: T = self.postingsFile.readInteger()!
         // Reapeat until each posting is translated
         repeat {
-            let posting: Posting = getPostingData()
+            // Retrieve posting
+            let posting: Posting = getPostingData(forTerm: term, withPositions: withPositions)
             // Append posting to postings list
             postings.append(posting)
             // Increment document counter
@@ -222,7 +237,7 @@ extension DiskEnvUtility {
             // Retrieve the term
             let term = vocabulary[i]
             // Retrive the postings list for the term
-            guard let postings: [Posting] = index.getPostingsFor(stem: term) else {
+            guard let postings: [Posting] = index.getPostingsWithPositionsFor(stem: term) else {
                 fatalError("Error while generating postings binary file.")
             }
             // Generate a binary representation of the term's postings list as a Data object
@@ -276,34 +291,31 @@ extension DiskEnvUtility {
         var startMarker: UInt64 = 0
         // A marker to end of file
         var endMarker: UInt64 = totalChunks - 1
-        // The current chunk to read
-        var chunk: Data
         // Iterate as long as there is space
         while startMarker <= endMarker {
+            // Buffer to store term
+            let termData: Data
             // Compute the middle offset in file
             let middle = (startMarker + endMarker) / 2
-            // Read a chunk containing two terms
-            chunk = tableFile.readAt(offset: middle * UInt64(chunkSize), chunkSize: chunkSize * 2)
-            // Current term offset in vocabulary file, as Fixed Width Integer
-            let termVocabOffset: U = chunk.subdata(in: 0..<memorySizeOfValue).withUnsafeBytes { $0.pointee }
-            // Current term offset in postings file, as Fixed Width Integer
-            let termPostingsOffset: U = chunk.subdata(in: memorySizeOfValue..<chunkSize).withUnsafeBytes { $0.pointee }
-            // If we read two entire chunks, we can jump to next entry to calculate
-            // offset differences, giving the term length
-            if chunk.count == chunkSize * 2 {
-                let nextTermOffset: U = chunk.subdata(in: (memorySizeOfValue * 2)..<(chunkSize * 2))
-                    .withUnsafeBytes { $0.pointee }
-                // Calculate term length by substracting next term offset to current term offset
+            // Seek to offset
+            self.tableFile.placeHeadAt(offset: middle * UInt64(chunkSize))
+            // Calculate term offset in vocabulary file
+            let termVocabOffset: U = self.tableFile.readInteger()!
+            // Calculate postings offset in postings file
+            let termPostingsOffset: U = self.tableFile.readInteger()!
+            // Calculate next term offset in vocabulary file
+            if let nextTermOffset: U = self.tableFile.readInteger() {
+                // Calculate term length by offsets difference
                 let termLength = Int(nextTermOffset - termVocabOffset)
-                chunk = vocabularyFile.readAt(offset: UInt64(termVocabOffset), chunkSize: termLength)
+                // Read term data to termLength
+                termData = self.vocabularyFile.readAt(offset: UInt64(termVocabOffset), chunkSize: termLength)
             }
-            // If we read less than two entire chunks, that was the last term in vocabulary
-            // therefore its size is EOF for now
             else {
-                chunk = vocabularyFile.readUntilEndOfFileAt(offset: UInt64(termVocabOffset))
+                // Read term data to EOF
+                termData = self.vocabularyFile.readUntilEndOfFileAt(offset: UInt64(termVocabOffset))
             }
             // Create a UTF-8 string representation of the term
-            guard let term = String(bytes: chunk, encoding: .utf8) else {
+            guard let term = String(bytes: termData, encoding: .utf8) else {
                 // If cannot create string, return false
                 return (false, 0)
             }

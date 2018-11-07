@@ -26,13 +26,13 @@ class PositionalInvertedIndex: IndexProtocol {
         return try mutations(&map[term, default: []])
     }
 
-    public func getPostingsFor(stem: String) -> [Posting]? {
+    func getPostingsWithoutPositionsFor(stem: String) -> [Posting]? {
         return self.map[stem]
     }
     
+    // TODO MODIFY INTERFACE ?
     func getPostingsWithPositionsFor(stem: String) -> [Posting]? {
-        // TODO getPostingsWithPositions in Positional Inverted Index
-        return nil
+        return self.map[stem]
     }
     
     func getWeightForDocument(documentId: Int) -> Double? {

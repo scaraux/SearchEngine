@@ -88,7 +88,9 @@ class DirectoryCorpus: DocumentCorpusProtocol {
                                                                  .skipsPackageDescendants,
                                                                  .skipsSubdirectoryDescendants])
             return files.filter { !$0.hasDirectoryPath }
-                        .sorted(by: { $0.lastPathComponent < $1.lastPathComponent })
+                .sorted(by: { $0.lastPathComponent.localizedStandardCompare($1.lastPathComponent)
+                    == .orderedAscending })
+
         } catch {
             print("Error while enumerating files \(path): \(error.localizedDescription)")
             return nil
