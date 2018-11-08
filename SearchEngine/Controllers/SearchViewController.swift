@@ -17,6 +17,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     
     struct Constants {
         static let maximumVocabularyDisplayed: Int = 1000
+        static let zeroResultsString: String = "0 result(s)"
     }
 
     @IBOutlet weak var directoryPathLabel: NSTextField!
@@ -38,19 +39,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.engine.delegate = self
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.doubleAction = #selector(onTableViewRowDoubleClicked)
-        self.queryInput.delegate = self
-        self.resultsLabel.stringValue = "0 results"
-        self.durationLabel.isHidden = true
-        self.searchButton.isEnabled = false
-        self.circularProgressBar.isHidden = true
-        self.tableView.sizeLastColumnToFit()
-        
-        setTableViewMode(to: .queryResultsMode)
+        configure()
     }
     
     override func keyDown(with event: NSEvent) {
@@ -65,6 +54,21 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
             return true
         }
         return false
+    }
+    
+    private func configure() {
+        self.engine.delegate = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.doubleAction = #selector(onTableViewRowDoubleClicked)
+        self.queryInput.delegate = self
+        self.resultsLabel.stringValue = Constants.zeroResultsString
+        self.durationLabel.isHidden = true
+        self.searchButton.isEnabled = false
+        self.circularProgressBar.isHidden = true
+        self.tableView.sizeLastColumnToFit()
+        
+        setTableViewMode(to: .queryResultsMode)
     }
     
     private func roundDouble(value: Double) -> Double {
@@ -88,16 +92,6 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         self.circularProgressBar.startAnimation(self)
     }
     
-    private func postQuery() {
-        self.isQueryExecuting = false
-        self.durationLabel.isHidden = false
-        self.searchButton.isEnabled = true
-        self.circularProgressBar.isHidden = true
-        self.durationLabel.stringValue = "\(calculateDuration())ms"
-        self.circularProgressBar.stopAnimation(self)
-    }
-    
-    /// "park national" camping
     private func triggerQuery() {
         preQuery()
         let queryString = self.queryInput.stringValue
@@ -107,6 +101,15 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         else {
             self.tableView.reloadData()
         }
+    }
+    
+    private func postQuery() {
+        self.durationLabel.isHidden = false
+        self.searchButton.isEnabled = true
+        self.circularProgressBar.isHidden = true
+        self.durationLabel.stringValue = "\(calculateDuration())ms"
+        self.circularProgressBar.stopAnimation(self)
+        self.isQueryExecuting = false
     }
     
     private func preLoadEnv() {
@@ -135,9 +138,14 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
             self.tableView.tableColumns[0].minWidth = 50.0
             self.tableView.tableColumns[0].maxWidth = 50.0
             
-            self.tableView.tableColumns[1].isHidden = false
-            self.tableView.tableColumns[1].width = 50.0
-            self.tableView.tableColumns[1].minWidth = 50.0
+            if self.searchMode == .ranked {
+                self.tableView.tableColumns[1].isHidden = false
+                self.tableView.tableColumns[1].width = 50.0
+                self.tableView.tableColumns[1].minWidth = 50.0
+            }
+            else {
+                self.tableView.tableColumns[1].isHidden = true
+            }
 
             self.tableView.tableColumns[2].isHidden = false
             self.tableView.tableColumns[2].width = 150.0
@@ -146,6 +154,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
             self.tableView.tableColumns[3].isHidden = false
             self.tableView.tableColumns[3].width = 150.0
             self.tableViewMode = .queryResultsMode
+            
         }
         else if mode == .vocabularyMode {
             self.tableView.tableColumns[0].headerCell.title = "Words"
@@ -188,14 +197,6 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         windowController.showWindow(self)
     }
     
-    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowCorpusInitView" {
-            if let vc = segue.destinationController as? CorpusLoadViewController {
-                self.engine.initDelegate = vc
-            }
-        }
-    }
-    
     private func dialogOKCancel(question: String, text: String) {
         let alert = NSAlert()
         alert.messageText = question
@@ -203,6 +204,14 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         alert.alertStyle = .warning
         alert.addButton(withTitle: "OK")
         alert.runModal()
+    }
+    
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowCorpusInitView" {
+            if let vc = segue.destinationController as? CorpusLoadViewController {
+                self.engine.initDelegate = vc
+            }
+        }
     }
 }
 
@@ -285,7 +294,8 @@ extension SearchViewController: NSTableViewDelegate, NSTableViewDataSource {
                 let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier),
                                               owner: self) as? NSTableCellView
                 if result.score != 0.0 {
-                    cell?.textField?.stringValue = String(roundDouble(value: result.score))
+                    let displayableScore = String(roundDouble(value: result.score))
+                    cell?.textField?.stringValue = displayableScore
                 } else {
                     cell?.textField?.stringValue = ""
                 }
@@ -339,10 +349,8 @@ extension SearchViewController {
     }
     
     func onQueryResulted(results: [QueryResult]?) {
+        print("RESULTED")
         postQuery()
-        if self.tableViewMode != .queryResultsMode {
-            setTableViewMode(to: .queryResultsMode)
-        }
         if results == nil {
             self.queryResults = []
             self.resultsLabel.stringValue = "0 result"
@@ -352,5 +360,6 @@ extension SearchViewController {
         }
         self.tableView.reloadData()
         self.tableView.sizeLastColumnToFit()
+        setTableViewMode(to: .queryResultsMode)
     }
 }
