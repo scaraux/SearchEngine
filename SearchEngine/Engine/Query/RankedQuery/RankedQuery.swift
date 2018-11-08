@@ -8,18 +8,20 @@
 
 import Foundation
 import SwiftPriorityQueue
+import PorterStemmer2
 
 class RankedQuery: Queriable {
     
-    let index: IndexProtocol
-    let terms: [String]
+    private let index: IndexProtocol
+    private let terms: [String]
+    private let stemmer: PorterStemmer
     
     init(withIndex index: IndexProtocol, bagOfWords: String) {
         self.index = index
         self.terms = bagOfWords.components(separatedBy: " ")
+        self.stemmer = PorterStemmer(withLanguage: .English)!
     }
     
-    // TODO STEMS ?
     func getResultsFrom(index: IndexProtocol) -> [QueryResult]? {
         // Retrieve the total number of documents in Corpus
         let numberOfDocuments = DirectoryCorpus.shared.corpusSize
@@ -27,8 +29,10 @@ class RankedQuery: Queriable {
         var scores: [Int: DocumentScore] = [:]
         // Iterate over all terms in the query
         for term in terms {
+            // Stem the term
+            let stem = self.stemmer.stem(term)
             // Retrieve results that contains the term
-            if let postings: [Posting] = index.getPostingsWithoutPositionsFor(stem: term) {
+            if let postings: [Posting] = index.getPostingsWithoutPositionsFor(stem: stem) {
                 // Calculate the number of documents that contains term
                 let documentsContainingTerm: Int = postings.count
                 // Calculate wqt

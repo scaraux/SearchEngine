@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -304,18 +305,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="623" height="443"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kks-eG-ND3">
-                                        <rect key="frame" x="15" y="414" width="134" height="19"/>
+                                        <rect key="frame" x="15" y="415" width="150" height="18"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b1e-jI-YNl">
-                                                <rect key="frame" x="-2" y="0.0" width="51" height="19"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Folder:" id="N8K-KT-UQC">
-                                                    <font key="font" metaFont="systemLight" size="15"/>
-                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                <rect key="frame" x="-2" y="0.0" width="67" height="18"/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Directory:" id="N8K-KT-UQC">
+                                                    <font key="font" metaFont="systemLight" size="14"/>
+                                                    <color key="textColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="selectedControlTextColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LrS-LA-J8u">
-                                                <rect key="frame" x="53" y="1" width="83" height="17"/>
+                                                <rect key="frame" x="69" y="1" width="83" height="17"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Not Selected" id="QHW-Jb-BrN">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" white="0.92391065139999995" alpha="0.55779599469999996" colorSpace="calibratedWhite"/>
@@ -323,6 +324,9 @@
                                                 </textFieldCell>
                                             </textField>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="LrS-LA-J8u" firstAttribute="centerY" secondItem="b1e-jI-YNl" secondAttribute="centerY" id="pEj-Gt-luS"/>
+                                        </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
@@ -354,13 +358,13 @@
                                         </buttonCell>
                                     </button>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dl4-jv-Mbt">
-                                        <rect key="frame" x="15" y="42" width="593" height="362"/>
+                                        <rect key="frame" x="15" y="42" width="593" height="363"/>
                                         <clipView key="contentView" drawsBackground="NO" id="oXn-VH-0b6">
-                                            <rect key="frame" x="1" y="0.0" width="591" height="361"/>
+                                            <rect key="frame" x="1" y="0.0" width="591" height="362"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="6O6-Pe-YD3" viewBased="YES" id="TwL-BO-9Cu">
-                                                    <rect key="frame" x="0.0" y="0.0" width="591" height="336"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="591" height="337"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -496,7 +500,7 @@
                                         </tableHeaderView>
                                     </scrollView>
                                     <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9aV-FD-k8H">
-                                        <rect key="frame" x="456" y="411" width="149" height="24"/>
+                                        <rect key="frame" x="456" y="412" width="149" height="24"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="b1Z-mc-U8f">
                                             <font key="font" metaFont="system"/>
                                             <segments>
@@ -512,9 +516,9 @@
                                         <rect key="frame" x="512" y="13" width="16" height="16"/>
                                     </progressIndicator>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pUd-xD-Yov">
-                                        <rect key="frame" x="485" y="13" width="43" height="17"/>
+                                        <rect key="frame" x="489" y="13" width="39" height="16"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="110ms" id="RS9-tP-oYy">
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="systemLight" size="12"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -526,7 +530,7 @@
                                         </constraints>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Results" id="vQ2-aV-hh1">
                                             <font key="font" metaFont="system"/>
-                                            <color key="textColor" red="1" green="0.6514477796" blue="0.18127708779999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="textColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>

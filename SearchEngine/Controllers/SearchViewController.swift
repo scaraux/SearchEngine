@@ -34,6 +34,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     var tableViewMode: TableViewDisplayMode = .queryResultsMode
     var searchMode: Engine.SearchMode = .ranked
     var timeStamp: DispatchTime?
+    var isQueryExecuting: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,13 +54,13 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     }
     
     override func keyDown(with event: NSEvent) {
-        if (event.characters?.contains("\r"))! {
+        if (event.characters?.contains("\r"))! && !isQueryExecuting {
             triggerQuery()
         }
     }
     
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
-        if commandSelector == #selector(NSResponder.insertNewline(_:)) {
+        if commandSelector == #selector(NSResponder.insertNewline(_:)) && !isQueryExecuting {
             triggerQuery()
             return true
         }
@@ -70,23 +71,27 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         let end = DispatchTime.now()
         let nanoTime = end.uptimeNanoseconds - self.timeStamp!.uptimeNanoseconds
         let diff = Double(nanoTime) / 1_000_000_000
-        return diff
+        let ret = Double(round(1000*diff)/1000)
+        return ret
     }
 
     private func preQuery() {
+        self.isQueryExecuting = true
         self.timeStamp = DispatchTime.now()
         self.durationLabel.isHidden = true
         self.queryResults?.removeAll()
         self.searchButton.isEnabled = false
         self.circularProgressBar.isHidden = false
-        self.circularProgressBar.doubleValue = 20.0
+        self.circularProgressBar.startAnimation(self)
     }
     
     private func postQuery() {
+        self.isQueryExecuting = false
         self.durationLabel.isHidden = false
         self.searchButton.isEnabled = true
         self.circularProgressBar.isHidden = true
         self.durationLabel.stringValue = "\(calculateDuration())ms"
+        self.circularProgressBar.stopAnimation(self)
     }
     
     /// "park national" camping
@@ -99,6 +104,17 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         else {
             self.tableView.reloadData()
         }
+    }
+    
+    private func preLoadEnv() {
+        self.circularProgressBar.isHidden = false
+        self.circularProgressBar.startAnimation(self)
+    }
+    
+    private func postLoadEnv() {
+        self.searchButton.isEnabled = true
+        self.circularProgressBar.isHidden = true
+        self.circularProgressBar.stopAnimation(self)
     }
     
     @objc private func onTableViewRowDoubleClicked() {
@@ -205,6 +221,7 @@ extension SearchViewController {
     @IBAction func openEnvironment(_ sender: Any) {
         if let path = pickBaseFolderWithModal() {
             self.directoryPathLabel.stringValue = "/" + path.lastPathComponent
+            preLoadEnv()
             self.engine.loadEnvironment(withPath: path)
         }
     }
@@ -282,7 +299,7 @@ extension SearchViewController: NSTableViewDelegate, NSTableViewDataSource {
 extension SearchViewController {
     
     func onEnvironmentLoaded() {
-        self.searchButton.isEnabled = true
+        postLoadEnv()
         let alert = NSAlert()
         alert.messageText = "Environment loaded"
         alert.informativeText = "Environment has successfully been loaded."
@@ -292,6 +309,7 @@ extension SearchViewController {
     }
     
     func onEnvironmentLoadingFailed(withError error: String) {
+        postLoadEnv()
         let alert = NSAlert()
         alert.messageText = "Environment not loaded"
         alert.informativeText = "Could not load environment. \(error)"
@@ -301,6 +319,7 @@ extension SearchViewController {
     }
     
     func onQueryResulted(results: [QueryResult]?) {
+        postQuery()
         if self.tableViewMode != .queryResultsMode {
             setTableViewMode(to: .queryResultsMode)
         }
@@ -313,6 +332,5 @@ extension SearchViewController {
         }
         self.tableView.reloadData()
         self.tableView.sizeLastColumnToFit()
-        postQuery()
     }
 }
