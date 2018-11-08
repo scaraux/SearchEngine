@@ -67,12 +67,15 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         return false
     }
     
+    private func roundDouble(value: Double) -> Double {
+        return Double(round(1000*value)/1000)
+    }
+    
     private func calculateDuration() -> Double {
         let end = DispatchTime.now()
         let nanoTime = end.uptimeNanoseconds - self.timeStamp!.uptimeNanoseconds
         let diff = Double(nanoTime) / 1_000_000_000
-        let ret = Double(round(1000*diff)/1000)
-        return ret
+        return roundDouble(value: diff)
     }
 
     private func preQuery() {
@@ -131,18 +134,26 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
             self.tableView.tableColumns[0].width = 50.0
             self.tableView.tableColumns[0].minWidth = 50.0
             self.tableView.tableColumns[0].maxWidth = 50.0
+            
             self.tableView.tableColumns[1].isHidden = false
-            self.tableView.tableColumns[1].width = 150.0
-            self.tableView.tableColumns[1].minWidth = 150.0
+            self.tableView.tableColumns[1].width = 50.0
+            self.tableView.tableColumns[1].minWidth = 50.0
+
             self.tableView.tableColumns[2].isHidden = false
             self.tableView.tableColumns[2].width = 150.0
+            self.tableView.tableColumns[2].minWidth = 150.0
+            
+            self.tableView.tableColumns[3].isHidden = false
+            self.tableView.tableColumns[3].width = 150.0
             self.tableViewMode = .queryResultsMode
         }
         else if mode == .vocabularyMode {
             self.tableView.tableColumns[0].headerCell.title = "Words"
             self.tableView.tableColumns[0].maxWidth = 500.0
+            
             self.tableView.tableColumns[1].isHidden = true
             self.tableView.tableColumns[2].isHidden = true
+            self.tableView.tableColumns[3].isHidden = true
             self.tableViewMode = .vocabularyMode
         }
     }
@@ -270,8 +281,17 @@ extension SearchViewController: NSTableViewDelegate, NSTableViewDataSource {
                 cell?.textField?.stringValue = String(result.documentId)
                 return cell
             }
-            
             if tableColumn == tableView.tableColumns[1] {
+                let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier),
+                                              owner: self) as? NSTableCellView
+                if result.score != 0.0 {
+                    cell?.textField?.stringValue = String(roundDouble(value: result.score))
+                } else {
+                    cell?.textField?.stringValue = ""
+                }
+                return cell
+            }
+            if tableColumn == tableView.tableColumns[2] {
                 let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier),
                                               owner: self) as? NSTableCellView
                 cell?.textField?.stringValue = String(result.document!.title)

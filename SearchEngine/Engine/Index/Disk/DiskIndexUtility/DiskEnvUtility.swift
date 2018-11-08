@@ -81,7 +81,9 @@ class DiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
             // Retrieve posting offset
             let postingOffset = UInt64(result.1)
             // Retrieve and return postings at given offset
-            let postings: [Posting] = getPostingsAtOffset(atOffset: postingOffset, forTerm: term, withPositions: withPositions)
+            let postings: [Posting] = getPostingsAtOffset(atOffset: postingOffset,
+                                                          forTerm: term,
+                                                          withPositions: withPositions)
             // Return postings
             return postings
         }
@@ -228,13 +230,17 @@ extension DiskEnvUtility {
 extension DiskEnvUtility {
     
     private func writeWeights(_ documents: [DocumentProtocol]) {
+        // Retrieve documents sorted by document iD
         let documents = documents.sorted(by: { $0.documentId < $1.documentId })
+        // Initialize a list of weigths
         var weights: [Double] = []
-        
+        // Iterate over all documents and append their weigth
         for document in documents {
             weights.append(document.weight)
         }
+        // Create data from the array of weigths
         let data: Data = Data(fromArray: weights)
+        // Write the entire object
         self.weightsFile.write(data: data)
     }
     

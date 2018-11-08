@@ -81,9 +81,6 @@ class PhraseLiteral: Queriable {
                 i += 1
             }
             else if left.positions[i] > right.positions[j] {
-                if left.positions[i] - right.positions[j] == 1 {
-                    return true
-                }
                 j += 1
             }
             else if left.positions[i] < right.positions[j] {

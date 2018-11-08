@@ -14,18 +14,21 @@ class QueryResult {
     var document: FileDocument?
     var posting: Posting
     var matchingForTerms: [String]
+    var score: Double
     
     init(_ posting: Posting, term: String) {
         self.posting = posting
         self.documentId = self.posting.documentId
         self.matchingForTerms = [String]()
         self.matchingForTerms.append(term)
+        self.score = 0.0
     }
     
     init(_ posting: Posting, terms: [String]) {
         self.posting = posting
         self.documentId = self.posting.documentId
         self.matchingForTerms = terms
+        self.score = 0.0
     }
     
     func addMatchingTerm(_ term: String) {

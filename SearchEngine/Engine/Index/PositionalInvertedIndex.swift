@@ -30,7 +30,6 @@ class PositionalInvertedIndex: IndexProtocol {
         return self.map[stem]
     }
     
-    // TODO MODIFY INTERFACE ?
     func getPostingsWithPositionsFor(stem: String) -> [Posting]? {
         return self.map[stem]
     }

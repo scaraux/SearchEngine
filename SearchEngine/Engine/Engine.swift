@@ -269,23 +269,21 @@ class Engine {
                 let stemmed = self.stemWord(word: sanitized)
                 // Add the term to the index, at position
                 index.addTerm(stemmed, withId: document.documentId, atPosition: position)
-                // Retrieve current frequency for term
-                let frequency = frequencies[stemmed]
                 // If its the first time the term appears in document, set to 1
-                if frequency == nil {
+                if frequencies[stemmed] == nil {
                     frequencies[stemmed] = 1
                 }
                 // Else increase the frequency
                 else {
-                    frequencies[stemmed] = frequency! + 1
+                    frequencies[stemmed]! +=  1
                 } // End of iteration over all tokens in document
             }
             // Iterate over all frequencies and calculate document weight
             for freq in frequencies {
-                documentWeigth += 1 + log(Double(freq.value))
+                documentWeigth += pow(1 + log(Double(freq.value)), 2.0)
             }
             // Set the weight in document
-            document.weight = documentWeigth
+            document.weight = sqrt(documentWeigth)
         } // End of iteration over all documents
         // Synchronously notify that K-Gram indexing started
         DispatchQueue.main.async {

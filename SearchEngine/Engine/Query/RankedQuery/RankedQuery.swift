@@ -23,8 +23,6 @@ class RankedQuery: Queriable {
     }
     
     func getResultsFrom(index: IndexProtocol) -> [QueryResult]? {
-        // Retrieve the total number of documents in Corpus
-        let numberOfDocuments = DirectoryCorpus.shared.corpusSize
         // Create a dictionary of accumulators values, from document ids to accumulators
         var scores: [Int: DocumentScore] = [:]
         // Iterate over all terms in the query
@@ -33,10 +31,8 @@ class RankedQuery: Queriable {
             let stem = self.stemmer.stem(term)
             // Retrieve results that contains the term
             if let postings: [Posting] = index.getPostingsWithoutPositionsFor(stem: stem) {
-                // Calculate the number of documents that contains term
-                let documentsContainingTerm: Int = postings.count
                 // Calculate wqt
-                let wqt = log(1 + Double(numberOfDocuments / documentsContainingTerm))
+                let wqt = log(1 + Double(DirectoryCorpus.shared.corpusSize / postings.count))
                 // Iterate over all results that contains term
                 for posting: Posting in postings {
                     // Retrieve current document ID
@@ -63,7 +59,6 @@ class RankedQuery: Queriable {
         // A priority queue to sort documents scores
         var priorityQueue = PriorityQueue<DocumentScore>()
         // Iterate over all dictionary entries
-        // TODO IF NOT ZERO ?
         for score: DocumentScore in scores.values where score.accumulator != 0 {
             // Retrieve weight for document, or failure
             guard let weight = index.getWeightForDocument(documentId: score.documentId) else {
@@ -80,9 +75,11 @@ class RankedQuery: Queriable {
             // Pop highest score from priority queue
             if let score: DocumentScore = priorityQueue.pop() {
                 // Retrieve document that belongs to score
-                let r = QueryResult(Posting(withDocumentId: score.documentId), terms: score.matchingTerms)
+                let queryResult = QueryResult(Posting(withDocumentId: score.documentId), terms: score.matchingTerms)
+                // Set score
+                queryResult.score = score.score
                 // Append result
-                results.append(r)
+                results.append(queryResult)
             }
         }
         // Return the results
