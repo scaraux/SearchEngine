@@ -24,6 +24,8 @@ class DiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
     // The size of a Double
     private var sizeOfDouble = MemoryLayout<Double>.size
     
+    var counter: Int = 0
+    
     init(atPath url: URL,
          fileMode mode: DiskConstants.FileDescriptorMode,
          postingsEncoding: T.Type,
@@ -79,7 +81,9 @@ class DiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
             // Retrieve posting offset
             let postingOffset = UInt64(result.1)
             // Retrieve and return postings at given offset
-            return getPostingsAtOffset(atOffset: postingOffset, forTerm: term, withPositions: withPositions)
+            let postings: [Posting] = getPostingsAtOffset(atOffset: postingOffset, forTerm: term, withPositions: withPositions)
+            // Return postings
+            return postings
         }
         // Return nil if term has not been found
         return nil
@@ -90,8 +94,10 @@ class DiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
         let chunkSize = MemoryLayout<Double>.size
         // Calculate offset, knowing offset 0 is for id 1
         let offset = (UInt64(id - 1) * UInt64(chunkSize))
+        // Seek to offset
+        self.weightsFile.placeHeadAt(offset: offset)
         // Read bytes to data
-        let data: Data = self.weightsFile.readAt(offset: offset, chunkSize: chunkSize)
+        let data: Data = self.weightsFile.read(chunkSize: chunkSize)
         // Convert bytes to Double and return
         let weight: Double = data.withUnsafeBytes { $0.pointee }
         // Return weight
@@ -185,7 +191,7 @@ extension DiskEnvUtility {
         // If we don't need positions in the posting
         else {
             // Get current offset
-            let currentOffset = self.postingsFile.getOffset()
+            let currentOffset = self.postingsFile.headOffset
             // Calculate offset after last position (nb of positions * their size)
             let lastPositionOffset = currentOffset + (UInt64(tftd) * UInt64(self.sizeOfT))
             // Seek to offset after positions
@@ -212,6 +218,7 @@ extension DiskEnvUtility {
             postings.append(posting)
             // Increment document counter
             documentsCounter += 1
+            
         } while documentsCounter < dft
         // Return the postings list
         return postings
@@ -307,8 +314,10 @@ extension DiskEnvUtility {
             if let nextTermOffset: U = self.tableFile.readInteger() {
                 // Calculate term length by offsets difference
                 let termLength = Int(nextTermOffset - termVocabOffset)
+                // Seek to term position
+                self.vocabularyFile.placeHeadAt(offset: UInt64(termVocabOffset))
                 // Read term data to termLength
-                termData = self.vocabularyFile.readAt(offset: UInt64(termVocabOffset), chunkSize: termLength)
+                termData = self.vocabularyFile.read(chunkSize: termLength)
             }
             else {
                 // Read term data to EOF

@@ -25,7 +25,10 @@ class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProt
     /// - Parameter stem: Is the stemmed version of the term
     /// - Returns: A list of postings that contains the stem
     func getPostingsWithoutPositionsFor(stem: String) -> [Posting]? {
-        return self.diskIndexUtility.getPostings(forTerm: stem, withPositions: false)
+        let start = DispatchTime.now()
+        let ret = self.diskIndexUtility.getPostings(forTerm: stem, withPositions: false)
+        Utils.printDiff(start: start, message: "Get Postings")
+        return ret
     }
     
     func getPostingsWithPositionsFor(stem: String) -> [Posting]? {

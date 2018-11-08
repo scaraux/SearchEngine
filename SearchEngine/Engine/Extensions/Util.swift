@@ -10,10 +10,10 @@ import Foundation
 
 class Utils {
     
-    static func printDiff(start: DispatchTime) {
+    static func printDiff(start: DispatchTime, message: String = "") {
         let end = DispatchTime.now()
         let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
         let timeInterval = Double(nanoTime) / 1_000_000_000
-        print(timeInterval)
+        print("\(message) \(timeInterval)")
     }
 }

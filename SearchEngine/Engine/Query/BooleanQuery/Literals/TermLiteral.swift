@@ -20,7 +20,7 @@ class TermLiteral: Queriable {
     func getResultsFrom(index: IndexProtocol) -> [QueryResult]? {
         if let stemmer = PorterStemmer(withLanguage: .English) {
             let stem = stemmer.stem(self.term)
-            if let postings = index.getPostingsWithPositionsFor(stem: stem) {
+            if let postings = index.getPostingsWithoutPositionsFor(stem: stem) {
                 return convertToQueryResults(postings: postings, fromTerm: self.term)
             }
             return nil

@@ -28,12 +28,12 @@ class WildcardLiteral: Queriable {
         guard let stemmer = PorterStemmer(withLanguage: .English) else {
             return nil
         }
-        if let postings = index.getPostingsWithPositionsFor(stem: stemmer.stem(candidates[0])) {
+        if let postings = index.getPostingsWithoutPositionsFor(stem: stemmer.stem(candidates[0])) {
             mergedResults = convertToQueryResults(postings: postings, fromTerm: candidates[0])
         }
 
         for i in 1 ..< candidates.count {
-            if let postings = index.getPostingsWithPositionsFor(stem: stemmer.stem(candidates[i])) {
+            if let postings = index.getPostingsWithoutPositionsFor(stem: stemmer.stem(candidates[i])) {
                 let newResults = convertToQueryResults(postings: postings, fromTerm: candidates[i])
                 mergedResults = union(left: mergedResults, right: newResults)
             }

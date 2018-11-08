@@ -24,12 +24,16 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var resultsLabel: NSTextField!
     @IBOutlet weak var searchModeSegmentedControl: NSSegmentedCell!
+    @IBOutlet weak var searchButton: NSButton!
+    @IBOutlet weak var durationLabel: NSTextField!
+    @IBOutlet weak var circularProgressBar: NSProgressIndicator!
     
     var engine = Engine()
     var queryResults: [QueryResult]?
     var vocabulary: [String]?
     var tableViewMode: TableViewDisplayMode = .queryResultsMode
     var searchMode: Engine.SearchMode = .ranked
+    var timeStamp: DispatchTime?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +44,9 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         self.tableView.doubleAction = #selector(onTableViewRowDoubleClicked)
         self.queryInput.delegate = self
         self.resultsLabel.stringValue = "0 results"
+        self.durationLabel.isHidden = true
+        self.searchButton.isEnabled = false
+        self.circularProgressBar.isHidden = true
         self.tableView.sizeLastColumnToFit()
         
         setTableViewMode(to: .queryResultsMode)
@@ -59,24 +66,32 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         return false
     }
     
-    internal func onQueryResulted(results: [QueryResult]?) {
-        if self.tableViewMode != .queryResultsMode {
-            setTableViewMode(to: .queryResultsMode)
-        }
-        if results == nil {
-            self.queryResults = []
-            self.resultsLabel.stringValue = "0 result"
-        } else {
-            self.queryResults = results
-            self.resultsLabel.stringValue = "\(results!.count) result(s)"
-        }
-        self.tableView.reloadData()
-        self.tableView.sizeLastColumnToFit()
+    private func calculateDuration() -> Double {
+        let end = DispatchTime.now()
+        let nanoTime = end.uptimeNanoseconds - self.timeStamp!.uptimeNanoseconds
+        let diff = Double(nanoTime) / 1_000_000_000
+        return diff
     }
 
+    private func preQuery() {
+        self.timeStamp = DispatchTime.now()
+        self.durationLabel.isHidden = true
+        self.queryResults?.removeAll()
+        self.searchButton.isEnabled = false
+        self.circularProgressBar.isHidden = false
+        self.circularProgressBar.doubleValue = 20.0
+    }
+    
+    private func postQuery() {
+        self.durationLabel.isHidden = false
+        self.searchButton.isEnabled = true
+        self.circularProgressBar.isHidden = true
+        self.durationLabel.stringValue = "\(calculateDuration())ms"
+    }
+    
     /// "park national" camping
     private func triggerQuery() {
-        self.queryResults?.removeAll()
+        preQuery()
         let queryString = self.queryInput.stringValue
         if queryString.isEmpty == false {
             self.engine.execQuery(queryString: queryString, mode: self.searchMode)
@@ -267,6 +282,7 @@ extension SearchViewController: NSTableViewDelegate, NSTableViewDataSource {
 extension SearchViewController {
     
     func onEnvironmentLoaded() {
+        self.searchButton.isEnabled = true
         let alert = NSAlert()
         alert.messageText = "Environment loaded"
         alert.informativeText = "Environment has successfully been loaded."
@@ -283,5 +299,20 @@ extension SearchViewController {
         alert.addButton(withTitle: "OK")
         alert.runModal()
     }
-
+    
+    func onQueryResulted(results: [QueryResult]?) {
+        if self.tableViewMode != .queryResultsMode {
+            setTableViewMode(to: .queryResultsMode)
+        }
+        if results == nil {
+            self.queryResults = []
+            self.resultsLabel.stringValue = "0 result"
+        } else {
+            self.queryResults = results
+            self.resultsLabel.stringValue = "\(results!.count) result(s)"
+        }
+        self.tableView.reloadData()
+        self.tableView.sizeLastColumnToFit()
+        postQuery()
+    }
 }
