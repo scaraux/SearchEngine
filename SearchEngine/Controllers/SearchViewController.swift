@@ -349,7 +349,6 @@ extension SearchViewController {
     }
     
     func onQueryResulted(results: [QueryResult]?) {
-        print("RESULTED")
         postQuery()
         if results == nil {
             self.queryResults = []
