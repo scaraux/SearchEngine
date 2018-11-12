@@ -73,11 +73,11 @@ class ReadingDiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger>: DiskEnv
         }
         
         var data: Data = Data()
-        var data2: Data = Data()
+        var vocabularyData: Data = Data()
         
         do {
             data = try Data(contentsOf: self.gramFile.url)
-            data2 = try Data(contentsOf: self.vocabularyFile.url)
+            vocabularyData = try Data(contentsOf: self.vocabularyFile.url)
         } catch {
             
         }
@@ -106,9 +106,9 @@ class ReadingDiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger>: DiskEnv
                 index += 8
                 let typeLength: UInt32 = data.subdata(in: index..<index + 4).withUnsafeBytes { $0.pointee }
                 index += 4
-                let typeData: Data = data2.subdata(in: Int(typeOffset)..<Int(typeOffset) + Int(typeLength))
+                let typeData: Data = vocabularyData.subdata(in: Int(typeOffset)..<Int(typeOffset) + Int(typeLength))
                 let type: String = String(bytes: typeData, encoding: .utf8)!
-                withTypes(forGram: gram) { types in
+                _ = withTypes(forGram: gram) { types in
                     types.insert(type)
                 }
                 if gramCounter % 250 == 0 {
@@ -138,15 +138,19 @@ class ReadingDiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger>: DiskEnv
         posting.wdt = wdt
         // If we need positions in the posting
         if withPositions == true {
+            // The last gap for position
+            var lastPositionGap: T = 0
             // A counter of positions, reset for each document
             var positionCounter: Int = 0
             // Repeat until each position is translated
             repeat {
                 let position: T = self.postingsFile.readInteger()!
                 // Add position to posting
-                posting.addPosition(Int(position))
+                posting.addPosition(Int(position + lastPositionGap))
                 // Increment position counter
                 positionCounter += 1
+                // Update last position gap
+                lastPositionGap += position
 
             } while positionCounter < tftd
         }

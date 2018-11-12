@@ -76,12 +76,18 @@ class WritingDiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger>: DiskEnv
             var tftd: T = T(posting.frequency)
             // Add tftd to array
             data.append(Data(bytes: &tftd, count: MemoryLayout<T>.size))
+            // Initialize the last position gap
+            var lastPositionGap: T = 0
             // Iterate over all positions
             for position in posting.positions {
                 // Convert position to Integer of desired size
-                var position: T = T(position)
+                let position: T = T(position)
+                // Calculate gap
+                var gap: T = position - lastPositionGap
                 // Add position to array
-                data.append(Data(bytes: &position, count: MemoryLayout<T>.size))
+                data.append(Data(bytes: &gap, count: MemoryLayout<T>.size))
+                // Update last
+                lastPositionGap += gap
             }
         }
         // Return data

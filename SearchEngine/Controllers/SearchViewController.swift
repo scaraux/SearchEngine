@@ -19,7 +19,8 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         static let maximumVocabularyDisplayed: Int = 1000
         static let zeroResultsString: String = "0 result(s)"
         static let environmentLoadedMessage: String = "Environment loaded"
-        static let environmentLoadedDescription: String = "Environment has successfully been loaded. You can now trigger queries."
+        static let environmentLoadedDescription: String =
+        "Environment has successfully been loaded. You can now trigger queries."
         static let environmentNotLoadedMessage: String = "Environment not loaded"
         static let selectDirectoryMessage: String = "Select a directory"
     }

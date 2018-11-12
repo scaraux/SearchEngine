@@ -13,13 +13,25 @@ import PorterStemmer2
 class RankedQuery: Queriable {
     
     private let index: IndexProtocol
-    private let terms: [String]
+    private var terms: [String]
     private let stemmer: PorterStemmer
     
     init(withIndex index: IndexProtocol, bagOfWords: String) {
         self.index = index
-        self.terms = bagOfWords.components(separatedBy: " ")
+        self.terms = []
         self.stemmer = PorterStemmer(withLanguage: .English)!
+        let kGramIndex = index.getKGramIndex()
+        let terms: [String] = bagOfWords.components(separatedBy: " ")
+        for term in terms {
+            if term.range(of: "*") != nil {
+                if let candidates = kGramIndex.getMatchingCandidatesFor(term: term) {
+                    self.terms.append(contentsOf: candidates)
+                }
+            }
+            else {
+                self.terms.append(stemmer.stem(term))
+            }
+        }
     }
     
     func getResultsFrom(index: IndexProtocol) -> [QueryResult]? {
@@ -27,10 +39,8 @@ class RankedQuery: Queriable {
         var scores: [Int: DocumentScore] = [:]
         // Iterate over all terms in the query
         for term in terms {
-            // Stem the term
-            let stem = self.stemmer.stem(term)
             // Retrieve results that contains the term
-            if let postings: [Posting] = index.getPostingsWithoutPositionsFor(stem: stem) {
+            if let postings: [Posting] = index.getPostingsWithoutPositionsFor(stem: term) {
                 // Calculate wqt
                 let wqt = log(1 + Double(DirectoryCorpus.shared.corpusSize / postings.count))
                 // Iterate over all results that contains term
