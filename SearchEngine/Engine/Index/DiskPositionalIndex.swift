@@ -10,14 +10,14 @@ import Foundation
 
 class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProtocol {
 
+    /// An Utility class that allows writing index on disk files permanenty
+    private var diskIndexUtility: ReadingDiskEnvUtility<T, U>
     /// An Index that holds all K-gram values
     private(set) var kGramIndex: GramIndex
-    /// An Utility class that allows writing index on disk files permanenty
-    private var diskIndexUtility: DiskEnvUtility<T, U>
     
-    init(atPath url: URL, utility: DiskEnvUtility<T, U>) {
-        self.kGramIndex = GramIndex()
+    init(atPath url: URL, utility: ReadingDiskEnvUtility<T, U>, gramIndex: GramIndex) {
         self.diskIndexUtility = utility
+        self.kGramIndex = gramIndex
     }
  
     /// Retrieve postings that contains a given stem
@@ -27,7 +27,6 @@ class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProt
     func getPostingsWithoutPositionsFor(stem: String) -> [Posting]? {
         let start = DispatchTime.now()
         let ret = self.diskIndexUtility.getPostings(forTerm: stem, withPositions: false)
-        Utils.printDiff(start: start, message: "Get Postings")
         return ret
     }
     

@@ -14,17 +14,25 @@ protocol EngineDelegate: class {
     func onQueryResulted(results: [QueryResult]?)
 }
 
-protocol EngineInitDelegate: class {
-    func onInitializationPhaseChanged(phase: InitPhase, withTotalCount: Int)
-    
+protocol CreateEnvironmentDelegate: class {
+    func onInitializationPhaseChanged(phase: CreateEnvironmentPhase, withTotalCount: Int)
     func onIndexingDocument(withFileName: String, documentNb: Int, totalDocuments: Int)
-    
     func onIndexingGrams(forType: String, typeNb: Int, totalTypes: Int)
 }
 
-enum InitPhase {
+protocol LoadEnvironmentDelegate: class {
+    func onLoadingPhaseChanged(phase: LoadEnvironmentPhase, withTotalCount: Int)
+    func onLoadingTypes(forGram: String, gramNb: Int, totalGrams: Int)
+}
+
+enum CreateEnvironmentPhase {
     case phaseIndexingDocuments
     case phaseIndexingGrams
     case phaseWritingIndex
+    case terminated
+}
+
+enum LoadEnvironmentPhase {
+    case phaseLoadingGrams
     case terminated
 }

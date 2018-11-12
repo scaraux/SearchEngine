@@ -12,6 +12,7 @@ public struct DiskConstants {
     static let weightsDiskFileName = "weights.bin"
     static let vocabularyDiskFileName = "vocab.bin"
     static let tableDiskFileName = "vocab_table.bin"
+    static let gramDiskFileName = "grams.bin"
     
     enum FileDescriptorMode {
         case reading

@@ -18,6 +18,10 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     struct Constants {
         static let maximumVocabularyDisplayed: Int = 1000
         static let zeroResultsString: String = "0 result(s)"
+        static let environmentLoadedMessage: String = "Environment loaded"
+        static let environmentLoadedDescription: String = "Environment has successfully been loaded. You can now trigger queries."
+        static let environmentNotLoadedMessage: String = "Environment not loaded"
+        static let selectDirectoryMessage: String = "Select a directory"
     }
 
     @IBOutlet weak var directoryPathLabel: NSTextField!
@@ -35,6 +39,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     var tableViewMode: TableViewDisplayMode = .queryResultsMode
     var searchMode: Engine.SearchMode = .ranked
     var timeStamp: DispatchTime?
+    var isEnvironmentLoaded: Bool = false
     var isQueryExecuting: Bool = false
     
     override func viewDidLoad() {
@@ -83,6 +88,12 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     }
 
     private func preQuery() {
+        guard isEnvironmentLoaded else {
+            dialogOKCancel(question: "Could not trigger query",
+                           text: "You need to load en environment first.",
+                           mode: .warning)
+            return
+        }
         self.isQueryExecuting = true
         self.timeStamp = DispatchTime.now()
         self.durationLabel.isHidden = true
@@ -121,6 +132,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         self.searchButton.isEnabled = true
         self.circularProgressBar.isHidden = true
         self.circularProgressBar.stopAnimation(self)
+        self.isEnvironmentLoaded = true
     }
     
     @objc private func onTableViewRowDoubleClicked() {
@@ -157,7 +169,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
             
         }
         else if mode == .vocabularyMode {
-            self.tableView.tableColumns[0].headerCell.title = "Words"
+            self.tableView.tableColumns[0].headerCell.title = "Terms"
             self.tableView.tableColumns[0].maxWidth = 500.0
             
             self.tableView.tableColumns[1].isHidden = true
@@ -169,8 +181,8 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     
     private func pickBaseFolderWithModal() -> URL? {
         let openPanel = NSOpenPanel()
-        openPanel.title = "Select a folder"
-        openPanel.message = "Pick a folder"
+        openPanel.title = Constants.selectDirectoryMessage
+        openPanel.message = Constants.selectDirectoryMessage
         openPanel.directoryURL = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)[0]
         openPanel.showsResizeIndicator = true
         openPanel.canChooseDirectories = true
@@ -197,11 +209,11 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         windowController.showWindow(self)
     }
     
-    private func dialogOKCancel(question: String, text: String) {
+    private func dialogOKCancel(question: String, text: String, mode: NSAlert.Style) {
         let alert = NSAlert()
         alert.messageText = question
         alert.informativeText = text
-        alert.alertStyle = .warning
+        alert.alertStyle = mode
         alert.addButton(withTitle: "OK")
         alert.runModal()
     }
@@ -210,6 +222,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         if segue.identifier == "ShowCorpusInitView" {
             if let vc = segue.destinationController as? CorpusLoadViewController {
                 self.engine.initDelegate = vc
+                self.engine.loadDelegate = vc
             }
         }
     }
@@ -242,6 +255,7 @@ extension SearchViewController {
         if let path = pickBaseFolderWithModal() {
             self.directoryPathLabel.stringValue = "/" + path.lastPathComponent
             preLoadEnv()
+            performSegue(withIdentifier: "ShowCorpusInitView", sender: self)
             self.engine.loadEnvironment(withPath: path)
         }
     }
@@ -250,7 +264,7 @@ extension SearchViewController {
         let word = self.queryInput.stringValue
         if word.isEmpty == false {
             let stem = self.engine.stemWord(word: word)
-            dialogOKCancel(question: "Stem", text: stem)
+            dialogOKCancel(question: "Stem", text: stem, mode: .informational)
         }
     }
     
@@ -330,29 +344,23 @@ extension SearchViewController {
     
     func onEnvironmentLoaded() {
         postLoadEnv()
-        let alert = NSAlert()
-        alert.messageText = "Environment loaded"
-        alert.informativeText = "Environment has successfully been loaded."
-        alert.alertStyle = NSAlert.Style.informational
-        alert.addButton(withTitle: "OK")
-        alert.runModal()
+        dialogOKCancel(question: Constants.environmentLoadedMessage,
+                       text: Constants.environmentLoadedDescription,
+                       mode: .informational)
     }
     
     func onEnvironmentLoadingFailed(withError error: String) {
         postLoadEnv()
-        let alert = NSAlert()
-        alert.messageText = "Environment not loaded"
-        alert.informativeText = "Could not load environment. \(error)"
-        alert.alertStyle = NSAlert.Style.warning
-        alert.addButton(withTitle: "OK")
-        alert.runModal()
+        dialogOKCancel(question: Constants.environmentNotLoadedMessage,
+                       text: "\(error)",
+                       mode: .critical)
     }
     
     func onQueryResulted(results: [QueryResult]?) {
         postQuery()
         if results == nil {
             self.queryResults = []
-            self.resultsLabel.stringValue = "0 result"
+            self.resultsLabel.stringValue = Constants.zeroResultsString
         } else {
             self.queryResults = results
             self.resultsLabel.stringValue = "\(results!.count) result(s)"

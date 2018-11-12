@@ -18,7 +18,7 @@ extension TimeInterval {
     }
 }
 
-class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitDelegate {
+class CorpusLoadViewController: NSViewController, NSPopoverDelegate {
 
     @IBOutlet weak var procedureDescriptionLabel: NSTextField!
     @IBOutlet weak var currentTaskLabel: NSTextField!
@@ -28,14 +28,15 @@ class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitD
     
     var timer: Timer?
     var milliseconds: Double = 0.0
-    var totalGramsToIndex: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.timer = nil
         self.closeButton.isEnabled = false
         self.closeButton.isTransparent = true
-        self.procedureDescriptionLabel.stringValue = "Indexing Documents"
+        self.currentTaskLabel.stringValue = ""
+        self.procedureDescriptionLabel.stringValue = ""
     }
     
     private func runTimer() {
@@ -78,9 +79,9 @@ class CorpusLoadViewController: NSViewController, NSPopoverDelegate, EngineInitD
     }
 }
 
-extension CorpusLoadViewController {
+extension CorpusLoadViewController: CreateEnvironmentDelegate {
     
-    func onInitializationPhaseChanged(phase: InitPhase, withTotalCount count: Int) {
+    func onInitializationPhaseChanged(phase: CreateEnvironmentPhase, withTotalCount count: Int) {
         switch phase {
         case .phaseIndexingDocuments:
             runTimer()
@@ -95,24 +96,43 @@ extension CorpusLoadViewController {
             self.procedureDescriptionLabel.stringValue = "Writing Index to Disk"
             
         case .terminated:
-            
             self.timer?.invalidate()
-            //        self.timer = nil
             self.progressBar.isHidden = true
-            
             self.closeButton.isTransparent = false
             self.closeButton.isEnabled = true
         }
-        
     }
 
     func onIndexingDocument(withFileName fileName: String, documentNb: Int, totalDocuments: Int) {
-        self.currentTaskLabel.stringValue = "Indexed file \(fileName)"
+        self.currentTaskLabel.stringValue = "Indexing file \(fileName)"
         self.progressBar.increment(by: 1.0)
     }
 
     func onIndexingGrams(forType type: String, typeNb: Int, totalTypes: Int) {
-        self.currentTaskLabel.stringValue = "Indexed Gram (\(typeNb)/\(totalTypes))"
+        self.currentTaskLabel.stringValue = "Indexing Gram (\(typeNb)/\(totalTypes))"
+        self.progressBar.increment(by: 1.0)
+    }
+}
+
+extension CorpusLoadViewController: LoadEnvironmentDelegate {
+    
+    func onLoadingPhaseChanged(phase: LoadEnvironmentPhase, withTotalCount count: Int) {
+        switch phase {
+        case .phaseLoadingGrams:
+            runTimer()
+            resetProgressBar(scaledTo: count)
+            self.procedureDescriptionLabel.stringValue = "Loading Grams"
+    
+        case .terminated:
+            self.timer?.invalidate()
+            self.progressBar.isHidden = true
+            self.closeButton.isTransparent = false
+            self.closeButton.isEnabled = true
+        }
+    }
+    
+    func onLoadingTypes(forGram: String, gramNb: Int, totalGrams: Int) {
+        self.currentTaskLabel.stringValue = "Indexing Gram (\(gramNb)/\(totalGrams))"
         self.progressBar.increment(by: 1.0)
     }
 }

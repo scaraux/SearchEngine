@@ -16,10 +16,14 @@ class GramIndex: GramIndexProtocol {
         static let WildcardCharacter = "*"
     }
     
-    private(set) var map: [String: Set<String>]
+    var map: [String: Set<String>]
     
     init() {
         self.map = [String: Set<String>]()
+    }
+    
+    init(withMap map: [String: Set<String>]) {
+        self.map = map
     }
     
     private func withTypes<R>(forGram gram: String, mutations: (inout Set<String>) throws -> R) rethrows -> R {
@@ -45,7 +49,7 @@ class GramIndex: GramIndexProtocol {
                 return nil
             }
         }
-        return candidates
+        return candidates.isEmpty ? nil : candidates
     }
     
     private func addTypeCandidateForGram(gram: String, type: String) {
@@ -54,10 +58,10 @@ class GramIndex: GramIndexProtocol {
         }
     }
 
-    func registerGramsFor(type: String) {
+    func registerGramsFor(vocabularyType type: VocabularyType) {
         var i: Int = 0
         // Wrap the term with dollar signs, at beginning and end
-        let dollarWrappedType = Constants.DollarSignCharacter + type + Constants.DollarSignCharacter
+        let dollarWrappedType = Constants.DollarSignCharacter + type.raw + Constants.DollarSignCharacter
         // Iterate on type characters
         while i < dollarWrappedType.count {
             // Calculate the maximum length to start with, for the grams that will be generated from the type
@@ -73,7 +77,7 @@ class GramIndex: GramIndexProtocol {
                 if i + gramSize <= dollarWrappedType.count {
                     gram = String(dollarWrappedType[i..<(i + gramSize)])
                     if gram != Constants.DollarSignCharacter {
-                        addTypeCandidateForGram(gram: gram, type: type)
+                        addTypeCandidateForGram(gram: gram, type: type.stem)
                     }
                 }
                 gramSize -= 1

@@ -8,9 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		BE6A3FB8C00C33E03236DAF5 /* Pods_SearchEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F8E2203351C32D1E818474 /* Pods_SearchEngine.framework */; };
+		D0109A9A219908B200411B19 /* WritingDiskEnvUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0109A99219908B200411B19 /* WritingDiskEnvUtility.swift */; };
+		D0109A9D21990BB000411B19 /* ReadingDiskEnvUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0109A9C21990BB000411B19 /* ReadingDiskEnvUtility.swift */; };
 		D014BF3C217414F0003099CD /* CorpusLoadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D014BF3B217414F0003099CD /* CorpusLoadViewController.swift */; };
 		D0272E9B2188329D001B43DA /* DiskEnvUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0272E9A2188329D001B43DA /* DiskEnvUtility.swift */; };
 		D0272E9D21883316001B43DA /* DiskConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0272E9C21883316001B43DA /* DiskConstants.swift */; };
+		D0333344219905170098D75E /* VocabularyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0333343219905170098D75E /* VocabularyType.swift */; };
+		D0333346219908730098D75E /* VocabularyMappingEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0333345219908730098D75E /* VocabularyMappingEntry.swift */; };
 		D040E656214C99C900A487F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E655214C99C900A487F5 /* AppDelegate.swift */; };
 		D040E658214C99C900A487F5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E657214C99C900A487F5 /* SearchViewController.swift */; };
 		D040E65A214C99CB00A487F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D040E659214C99CB00A487F5 /* Assets.xcassets */; };
@@ -73,9 +77,13 @@
 		63C8F2CED019334100A2C987 /* Pods-SearchEngine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchEngine.release.xcconfig"; path = "Target Support Files/Pods-SearchEngine/Pods-SearchEngine.release.xcconfig"; sourceTree = "<group>"; };
 		7402D41F75C113016102494C /* Pods-SearchEngineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchEngineTests.release.xcconfig"; path = "Target Support Files/Pods-SearchEngineTests/Pods-SearchEngineTests.release.xcconfig"; sourceTree = "<group>"; };
 		C17DC276B5FF73796E153C58 /* Pods-SearchEngineTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchEngineTests.debug.xcconfig"; path = "Target Support Files/Pods-SearchEngineTests/Pods-SearchEngineTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D0109A99219908B200411B19 /* WritingDiskEnvUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingDiskEnvUtility.swift; sourceTree = "<group>"; };
+		D0109A9C21990BB000411B19 /* ReadingDiskEnvUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingDiskEnvUtility.swift; sourceTree = "<group>"; };
 		D014BF3B217414F0003099CD /* CorpusLoadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorpusLoadViewController.swift; sourceTree = "<group>"; };
 		D0272E9A2188329D001B43DA /* DiskEnvUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskEnvUtility.swift; sourceTree = "<group>"; };
 		D0272E9C21883316001B43DA /* DiskConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskConstants.swift; sourceTree = "<group>"; };
+		D0333343219905170098D75E /* VocabularyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyType.swift; sourceTree = "<group>"; };
+		D0333345219908730098D75E /* VocabularyMappingEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyMappingEntry.swift; sourceTree = "<group>"; };
 		D040E652214C99C900A487F5 /* SearchEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D040E655214C99C900A487F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D040E657214C99C900A487F5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -169,6 +177,9 @@
 			isa = PBXGroup;
 			children = (
 				D0272E9A2188329D001B43DA /* DiskEnvUtility.swift */,
+				D0109A99219908B200411B19 /* WritingDiskEnvUtility.swift */,
+				D0109A9C21990BB000411B19 /* ReadingDiskEnvUtility.swift */,
+				D0333345219908730098D75E /* VocabularyMappingEntry.swift */,
 			);
 			path = DiskIndexUtility;
 			sourceTree = "<group>";
@@ -300,6 +311,7 @@
 			children = (
 				D04CDA5E21546C99007B8CB2 /* Engine.swift */,
 				D04CDA6021546DA8007B8CB2 /* EngineDelegate.swift */,
+				D0333343219905170098D75E /* VocabularyType.swift */,
 				D0766BB8215AF08200F6A9B6 /* Result */,
 				D0FEDE40214F35B60064B3D5 /* Query */,
 				D0957DC3214DC4600096EFA4 /* Extensions */,
@@ -658,12 +670,15 @@
 				D0AD336F216475D700139F76 /* AdvancedTokenProcessor.swift in Sources */,
 				D0FEDE44214F36140064B3D5 /* TermLiteral.swift in Sources */,
 				D0272E9B2188329D001B43DA /* DiskEnvUtility.swift in Sources */,
+				D0333344219905170098D75E /* VocabularyType.swift in Sources */,
+				D0109A9A219908B200411B19 /* WritingDiskEnvUtility.swift in Sources */,
 				D0FEDE48214F38740064B3D5 /* PhraseLiteral.swift in Sources */,
 				D0AD33692163EAE500139F76 /* GramIndexProtocol.swift in Sources */,
 				D0FEDE46214F373E0064B3D5 /* OrQuery.swift in Sources */,
 				D0412D97217D4DEF0051E95A /* Data+Array.swift in Sources */,
 				D0D158E82161932800CE1376 /* WildcardLiteral.swift in Sources */,
 				D040E656214C99C900A487F5 /* AppDelegate.swift in Sources */,
+				D0109A9D21990BB000411B19 /* ReadingDiskEnvUtility.swift in Sources */,
 				D040E691214CA72500A487F5 /* DirectoryCorpus.swift in Sources */,
 				D0D933F621882011006A59DE /* DiskPositionalIndex.swift in Sources */,
 				D040E678214C9B1000A487F5 /* TokenProcessorProtocol.swift in Sources */,
@@ -671,6 +686,7 @@
 				D040E68A214CA55900A487F5 /* TokenStreamProtocol.swift in Sources */,
 				D0FEDE50214F3DBF0064B3D5 /* String+substring.swift in Sources */,
 				D0505FBE2190FB3D001A6718 /* DocumentScore.swift in Sources */,
+				D0333346219908730098D75E /* VocabularyMappingEntry.swift in Sources */,
 				D040E68C214CA5CA00A487F5 /* EnglishTokenStream.swift in Sources */,
 				D0FEDE4A214F3A020064B3D5 /* AndQuery.swift in Sources */,
 				D040E674214C9A0100A487F5 /* Posting.swift in Sources */,

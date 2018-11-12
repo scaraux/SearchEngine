@@ -11,11 +11,11 @@ import Foundation
 
 class BinaryFile {
     
-    private(set) var offsets: [Int64] = []
-    private(set) var headOffset: UInt64 = 0
-    private var handle: FileHandle?
-    private var url: URL
-    private var currentOffset: Int64 = 0
+    private(set) var offsets: [UInt64] = []
+//    private(set) var headOffset: UInt64 = 0
+    private(set) var handle: FileHandle?
+    private(set) var url: URL
+    private var currentOffset: UInt64 = 0
     private var buffer: Data
     
     var size: UInt64 {
@@ -55,40 +55,40 @@ class BinaryFile {
     public func write(data: Data) {
         self.handle!.write(data)
         self.offsets.append(self.currentOffset)
-        self.currentOffset += Int64(data.count)
+        self.currentOffset += UInt64(data.count)
     }
     
     public func placeHeadAt(offset: UInt64) {
         self.buffer = Data()
-        self.headOffset = offset
+//        self.headOffset = offset
         self.handle!.seek(toFileOffset: offset)
     }
     
-    public func read(chunkSize: Int) -> Data {
-        var data: Data
-        if self.buffer.count < chunkSize {
-            let tmpBuffer: Data = self.handle!.readData(ofLength: 4096)
-            self.buffer.append(tmpBuffer)
-        }
-        if self.buffer.count < chunkSize {
-            data = self.buffer.subdata(in: 0..<self.buffer.count)
-            self.buffer.removeSubrange(0..<self.buffer.count)
-            self.headOffset += UInt64(self.buffer.count)
-        } else {
-            data = self.buffer.subdata(in: 0..<chunkSize)
-            self.buffer.removeSubrange(0..<chunkSize)
-            self.headOffset += UInt64(chunkSize)
-        }
-        return data
-    }
-    
 //    public func read(chunkSize: Int) -> Data {
-//        return self.handle!.readData(ofLength: chunkSize)
+//        var data: Data
+//        if self.buffer.count < chunkSize {
+//            let tmpBuffer: Data = self.handle!.readData(ofLength: 4096)
+//            self.buffer.append(tmpBuffer)
+//        }
+//        if self.buffer.count < chunkSize {
+//            data = self.buffer.subdata(in: 0..<self.buffer.count)
+//            self.buffer.removeSubrange(0..<self.buffer.count)
+//            self.headOffset += UInt64(self.buffer.count)
+//        } else {
+//            data = self.buffer.subdata(in: 0..<chunkSize)
+//            self.buffer.removeSubrange(0..<chunkSize)
+//            self.headOffset += UInt64(chunkSize)
+//        }
+//        return data
 //    }
+
+    public func read(chunkSize: Int) -> Data {
+        return self.handle!.readData(ofLength: chunkSize)
+    }
     
     public func readUntilEndOfFileAt(offset: UInt64) -> Data {
         self.buffer = Data()
-        self.headOffset = self.handle!.offsetInFile
+//        self.headOffset = self.handle!.offsetInFile
         self.handle!.seek(toFileOffset: offset)
         return self.handle!.readDataToEndOfFile()
     }

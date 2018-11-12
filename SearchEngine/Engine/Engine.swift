@@ -12,10 +12,12 @@ import PorterStemmer2
 class Engine {
     private var booleanQueryParser: BooleanQueryParser
     private let stemmer: PorterStemmer
+    private let tokenProcessor: AdvancedTokenProcessor
     private var index: IndexProtocol?
-
+    
     weak var delegate: EngineDelegate?
-    weak var initDelegate: EngineInitDelegate?
+    weak var initDelegate: CreateEnvironmentDelegate?
+    weak var loadDelegate: LoadEnvironmentDelegate?
     
     /// Modes for searching documents
     ///
@@ -30,6 +32,7 @@ class Engine {
     init() {
         self.booleanQueryParser = BooleanQueryParser()
         self.stemmer = PorterStemmer(withLanguage: .English)!
+        self.tokenProcessor = AdvancedTokenProcessor()
     }
     
     /// Executes a query from a given query string
@@ -124,19 +127,25 @@ class Engine {
             DirectoryCorpus.shared.readDocuments()
             // Try to instantiate a Disk Environment Utility
             do {
-                let utility = try DiskEnvUtility(atPath: url,
+                let utility = try ReadingDiskEnvUtility(atPath: url,
                                                    fileMode: .reading,
                                                    postingsEncoding: UInt32.self,
                                                    offsetsEncoding: UInt64.self)
-                // Create a Disk Positional Index, by passing the utility
-                self.index = DiskPositionalIndex(atPath: url, utility: utility)
+                
+                utility.loadDelegate = self.loadDelegate
+                // Create a Gram Index
+                let gramIndex: GramIndex = GramIndex(withMap: utility.getGramMap())
+                // Create a Disk Positional Index, pass the utility
+                self.index = DiskPositionalIndex(atPath: url, utility: utility, gramIndex: gramIndex)
                 // Notify that environment has been loaded
                 DispatchQueue.main.async {
+                    self.loadDelegate?.onLoadingPhaseChanged(phase: .terminated, withTotalCount: 0)
                     self.delegate?.onEnvironmentLoaded()
                 }
             } catch let error as NSError {
                 // Notify a loading error
                 DispatchQueue.main.async {
+                    self.loadDelegate?.onLoadingPhaseChanged(phase: .terminated, withTotalCount: 0)
                     self.delegate?.onEnvironmentLoadingFailed(withError: error.localizedFailureReason!)
                 }
             }
@@ -191,12 +200,14 @@ class Engine {
                                         withDocuments documents: [DocumentProtocol]) {
         // Try to instantiate a Disk Environment Utility
         do {
-            let utility = try DiskEnvUtility(atPath: url,
+            let utility = try WritingDiskEnvUtility(atPath: url,
                                                fileMode: .writing,
                                                postingsEncoding: UInt32.self,
                                                offsetsEncoding: UInt64.self)
             // Write the entire index to disk
             utility.writeIndex(index: index)
+            // Write the entire gram-index to disk
+            utility.writeKGramIndex(index: index.getKGramIndex())
             // Write weights for all documents
             utility.writeWeights(documents: documents)
             // Release the resources
@@ -218,9 +229,7 @@ class Engine {
     }
     
     /// Asynchronously generates an Index (PositionalInvertedIndex) from given documents.
-    /// Each document is read, term by term to generate token stems.
-    /// Each stem is associated to documents (postings) and each position
-    /// of the term within its posting is specified
+    /// Each document is processed independently to retrieve all tokens
     ///
     /// - Parameters:
     ///   - documents: A list of documents part of the indexing process
@@ -230,10 +239,8 @@ class Engine {
         var documents = documents
         // Creates a PositionalInvertedIndex
         let index = PositionalInvertedIndex()
-        // Instantiate a Token Processor
-        let tokenProcessor = AdvancedTokenProcessor()
         // Create a hashset that will hold terms as unique values
-        var types = Set<String>()
+        var types = Set<VocabularyType>()
         // Iterate over all documents
         for i in 0..<documents.count {
             // Retrieve current document
@@ -244,46 +251,9 @@ class Engine {
                                                       documentNb: i + 1,
                                                       totalDocuments: documents.count)
             }
-            // Open a Stream Reader on document, fail if can't open
-            guard let stream = document.getContent() else {
-                fatalError("Error: Cannot create stream for file \(document.documentId)")
-            }
-            // Create a token stream, capable of retrieving all terms one at a time
-            let tokenStream: TokenStreamProtocol = EnglishTokenStream(stream)
-            // Initialize document weight
-            var documentWeigth: Double = 0.0
-            // Initialize a dictionary holding frequencies, mapping
-            // a term with the number of times it appears within the current document
-            var frequencies: [String: Int] = [:]
-            // Retrieve tokens from the stream
-            let tokens = tokenStream.getTokens()
-            // Iterate over all tokens, as positions
-            for position in 0..<tokens.count {
-                // Retrieve current token
-                let token = tokens[position]
-                // Sanitize the token, by eleminiating unwanted characters
-                let sanitized = tokenProcessor.processToken(token: token)
-                // Insert the sanitized term to the hashset
-                types.insert(sanitized)
-                // Stem the term, making it shorter and more generic
-                let stemmed = self.stemWord(word: sanitized)
-                // Add the term to the index, at position
-                index.addTerm(stemmed, withId: document.documentId, atPosition: position)
-                // If its the first time the term appears in document, set to 1
-                if frequencies[stemmed] == nil {
-                    frequencies[stemmed] = 1
-                }
-                // Else increase the frequency
-                else {
-                    frequencies[stemmed]! +=  1
-                } // End of iteration over all tokens in document
-            }
-            // Iterate over all frequencies and calculate document weight
-            for freq in frequencies {
-                documentWeigth += pow(1 + log(Double(freq.value)), 2.0)
-            }
-            // Set the weight in document
-            document.weight = sqrt(documentWeigth)
+            // Process document by adding its terms and types
+            processDocument(index: index, document: &document, types: &types)
+ 
         } // End of iteration over all documents
         // Synchronously notify that K-Gram indexing started
         DispatchQueue.main.async {
@@ -292,20 +262,72 @@ class Engine {
         // Initialize a type counter to 1
         var typeCounter = 1
         // Iterate over all types
-        for type in types {
+        for vocabularyType in types {
             // Synchronously notify that type has been indexed
             DispatchQueue.main.async {
-                self.initDelegate?.onIndexingGrams(forType: type, typeNb: typeCounter, totalTypes: types.count)
+                self.initDelegate?.onIndexingGrams(forType: vocabularyType.raw,
+                                                   typeNb: typeCounter,
+                                                   totalTypes: types.count)
             }
             // Register K-Grams for current type
-            index.kGramIndex.registerGramsFor(type: type)
+            index.kGramIndex.registerGramsFor(vocabularyType: vocabularyType)
             // Increment type counter
             typeCounter += 1
         }
-        // Synchronously notify that indexing has finished
-        DispatchQueue.main.async {
-            completion(index)
+        completion(index)
+    }
+    
+    /// Each document is read, term by term to generate token stems.
+    /// Each stem is associated to documents (postings) and each position
+    /// of the term within its posting is specified
+    ///
+    /// - Parameters:
+    ///   - index: The index where stems and postings are addes
+    ///   - document: The current document to treat
+    ///   - types: A list of unique types that appear in documents
+    private func processDocument(index: PositionalInvertedIndex,
+                                 document: inout DocumentProtocol,
+                                 types: inout Set<VocabularyType>) {
+        // Open a Stream Reader on document, fail if can't open
+        guard let stream = document.getContent() else {
+            fatalError("Error: Cannot create stream for file \(document.documentId)")
         }
+        // Create a token stream, capable of retrieving all terms one at a time
+        let tokenStream: TokenStreamProtocol = EnglishTokenStream(stream)
+        // Initialize document weight
+        var documentWeigth: Double = 0.0
+        // Initialize a dictionary holding frequencies, mapping
+        // a term with the number of times it appears within the current document
+        var frequencies: [String: Int] = [:]
+        // Retrieve tokens from the stream
+        let tokens = tokenStream.getTokens()
+        // Iterate over all tokens, as positions
+        for position in 0..<tokens.count {
+            // Retrieve current token
+            let token = tokens[position]
+            // Sanitize the token, by eleminiating unwanted characters
+            let sanitized = tokenProcessor.processToken(token: token)
+            // Stem the term, making it shorter and more generic
+            let stem = self.stemWord(word: sanitized)
+            // Insert the sanitized term to the hashset
+            types.insert(VocabularyType(type: sanitized, stem: stem))
+            // Add the term to the index, at position
+            index.addTerm(stem, withId: document.documentId, atPosition: position)
+            // If its the first time the term appears in document, set to 1
+            if frequencies[stem] == nil {
+                frequencies[stem] = 1
+            }
+            // Else increase the frequency
+            else {
+                frequencies[stem]! +=  1
+            } // End of iteration over all tokens in document
+        }
+        // Iterate over all frequencies and calculate document weight
+        for freq in frequencies {
+            documentWeigth += pow(1 + log(Double(freq.value)), 2.0)
+        }
+        // Set the weight in document
+        document.weight = sqrt(documentWeigth)
     }
     
     private func attachDocumentsToResults(results: [QueryResult]) -> [QueryResult] {
