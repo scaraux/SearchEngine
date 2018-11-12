@@ -10,20 +10,24 @@ import Foundation
 
 class PositionalInvertedIndex: IndexProtocol {
     
-    private(set) var map: [String: [Posting]] = [:]
+    private(set) var map: [String: [Posting]]
+    private(set) var types: [String: String]
     private(set) var kGramIndex: GramIndex
 
     init() {
+        self.map = [:]
+        self.types = [:]
         self.kGramIndex = GramIndex()
     }
     
     init(withIndex index: [String: [Posting]]) {
         self.map = index
+        self.types = [:]
         self.kGramIndex = GramIndex()
     }
 
-    private func withPostings<R>(forTerm term: String, mutations: (inout [Posting]) throws -> R) rethrows -> R {
-        return try mutations(&map[term, default: []])
+    private func withPostings<R>(forStem stem: String, mutations: (inout [Posting]) throws -> R) rethrows -> R {
+        return try mutations(&map[stem, default: []])
     }
 
     func getPostingsWithoutPositionsFor(stem: String) -> [Posting]? {
@@ -46,16 +50,18 @@ class PositionalInvertedIndex: IndexProtocol {
         return Array(self.map.keys).sorted(by: <)
     }
     
-    public func addTerm(_ term: String, withId id: Int, atPosition position: Int) {
-        withPostings(forTerm: term) { postings in
-            if let posting = postings.last, posting.documentId == id {
+    public func addElement(_ element: VocabularyElement, withDocumentId docId: Int, atPosition position: Int) {
+        withPostings(forStem: element.stem) { postings in
+            if let posting = postings.last, posting.documentId == docId {
                 posting.addPosition(position)
-            } else {
-                let posting = Posting(withDocumentId: id, forTerm: term)
+            }
+            else {
+                let posting = Posting(withDocumentId: docId, forTerm: element.stem)
                 posting.addPosition(position)
                 postings.append(posting)                
             }
         }
+        self.types[element.type] = element.stem
     }
     
     func dispose() {

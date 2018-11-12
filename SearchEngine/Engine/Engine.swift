@@ -240,7 +240,7 @@ class Engine {
         // Creates a PositionalInvertedIndex
         let index = PositionalInvertedIndex()
         // Create a hashset that will hold terms as unique values
-        var types = Set<VocabularyType>()
+        var types = Set<VocabularyElement>()
         // Iterate over all documents
         for i in 0..<documents.count {
             // Retrieve current document
@@ -265,7 +265,7 @@ class Engine {
         for vocabularyType in types {
             // Synchronously notify that type has been indexed
             DispatchQueue.main.async {
-                self.initDelegate?.onIndexingGrams(forType: vocabularyType.raw,
+                self.initDelegate?.onIndexingGrams(forType: vocabularyType.type,
                                                    typeNb: typeCounter,
                                                    totalTypes: types.count)
             }
@@ -287,7 +287,7 @@ class Engine {
     ///   - types: A list of unique types that appear in documents
     private func processDocument(index: PositionalInvertedIndex,
                                  document: inout DocumentProtocol,
-                                 types: inout Set<VocabularyType>) {
+                                 types: inout Set<VocabularyElement>) {
         // Open a Stream Reader on document, fail if can't open
         guard let stream = document.getContent() else {
             fatalError("Error: Cannot create stream for file \(document.documentId)")
@@ -309,10 +309,12 @@ class Engine {
             let sanitized = tokenProcessor.processToken(token: token)
             // Stem the term, making it shorter and more generic
             let stem = self.stemWord(word: sanitized)
-            // Insert the sanitized term to the hashset
-            types.insert(VocabularyType(type: sanitized, stem: stem))
-            // Add the term to the index, at position
-            index.addTerm(stem, withId: document.documentId, atPosition: position)
+            // Create Vocabulary Element
+            let element = VocabularyElement(type: sanitized, stem: stem)
+            // Insert the element to hashset, uniquely identified by its type
+            types.insert(element)
+            // Add the element to the index, at position
+            index.addElement(element, withDocumentId: document.documentId, atPosition: position)
             // If its the first time the term appears in document, set to 1
             if frequencies[stem] == nil {
                 frequencies[stem] = 1

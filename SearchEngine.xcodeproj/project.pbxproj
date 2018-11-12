@@ -13,7 +13,7 @@
 		D014BF3C217414F0003099CD /* CorpusLoadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D014BF3B217414F0003099CD /* CorpusLoadViewController.swift */; };
 		D0272E9B2188329D001B43DA /* DiskEnvUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0272E9A2188329D001B43DA /* DiskEnvUtility.swift */; };
 		D0272E9D21883316001B43DA /* DiskConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0272E9C21883316001B43DA /* DiskConstants.swift */; };
-		D0333344219905170098D75E /* VocabularyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0333343219905170098D75E /* VocabularyType.swift */; };
+		D0333344219905170098D75E /* VocabularyElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0333343219905170098D75E /* VocabularyElement.swift */; };
 		D0333346219908730098D75E /* VocabularyMappingEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0333345219908730098D75E /* VocabularyMappingEntry.swift */; };
 		D040E656214C99C900A487F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E655214C99C900A487F5 /* AppDelegate.swift */; };
 		D040E658214C99C900A487F5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E657214C99C900A487F5 /* SearchViewController.swift */; };
@@ -82,7 +82,7 @@
 		D014BF3B217414F0003099CD /* CorpusLoadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorpusLoadViewController.swift; sourceTree = "<group>"; };
 		D0272E9A2188329D001B43DA /* DiskEnvUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskEnvUtility.swift; sourceTree = "<group>"; };
 		D0272E9C21883316001B43DA /* DiskConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskConstants.swift; sourceTree = "<group>"; };
-		D0333343219905170098D75E /* VocabularyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyType.swift; sourceTree = "<group>"; };
+		D0333343219905170098D75E /* VocabularyElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyElement.swift; sourceTree = "<group>"; };
 		D0333345219908730098D75E /* VocabularyMappingEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyMappingEntry.swift; sourceTree = "<group>"; };
 		D040E652214C99C900A487F5 /* SearchEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D040E655214C99C900A487F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -311,7 +311,7 @@
 			children = (
 				D04CDA5E21546C99007B8CB2 /* Engine.swift */,
 				D04CDA6021546DA8007B8CB2 /* EngineDelegate.swift */,
-				D0333343219905170098D75E /* VocabularyType.swift */,
+				D0333343219905170098D75E /* VocabularyElement.swift */,
 				D0766BB8215AF08200F6A9B6 /* Result */,
 				D0FEDE40214F35B60064B3D5 /* Query */,
 				D0957DC3214DC4600096EFA4 /* Extensions */,
@@ -670,7 +670,7 @@
 				D0AD336F216475D700139F76 /* AdvancedTokenProcessor.swift in Sources */,
 				D0FEDE44214F36140064B3D5 /* TermLiteral.swift in Sources */,
 				D0272E9B2188329D001B43DA /* DiskEnvUtility.swift in Sources */,
-				D0333344219905170098D75E /* VocabularyType.swift in Sources */,
+				D0333344219905170098D75E /* VocabularyElement.swift in Sources */,
 				D0109A9A219908B200411B19 /* WritingDiskEnvUtility.swift in Sources */,
 				D0FEDE48214F38740064B3D5 /* PhraseLiteral.swift in Sources */,
 				D0AD33692163EAE500139F76 /* GramIndexProtocol.swift in Sources */,

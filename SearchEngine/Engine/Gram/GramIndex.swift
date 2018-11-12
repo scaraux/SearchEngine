@@ -58,10 +58,10 @@ class GramIndex: GramIndexProtocol {
         }
     }
 
-    func registerGramsFor(vocabularyType type: VocabularyType) {
+    func registerGramsFor(vocabularyType type: VocabularyElement) {
         var i: Int = 0
         // Wrap the term with dollar signs, at beginning and end
-        let dollarWrappedType = Constants.DollarSignCharacter + type.raw + Constants.DollarSignCharacter
+        let dollarWrappedType = Constants.DollarSignCharacter + type.type + Constants.DollarSignCharacter
         // Iterate on type characters
         while i < dollarWrappedType.count {
             // Calculate the maximum length to start with, for the grams that will be generated from the type

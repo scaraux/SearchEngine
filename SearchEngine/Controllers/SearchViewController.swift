@@ -50,13 +50,17 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     
     override func keyDown(with event: NSEvent) {
         if (event.characters?.contains("\r"))! && !isQueryExecuting {
-            triggerQuery()
+            if queryInput.stringValue != "" {
+                triggerQuery()
+            }
         }
     }
     
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
         if commandSelector == #selector(NSResponder.insertNewline(_:)) && !isQueryExecuting {
-            triggerQuery()
+            if queryInput.stringValue != "" {
+                triggerQuery()
+            }
             return true
         }
         return false

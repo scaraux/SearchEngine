@@ -21,8 +21,6 @@ class DiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
     public var gramFile: BinaryFile
     // The URL of the index directory
     public var url: URL
-    // Mapping for vocabulary
-    public var mappings: [String: VocabularyMappingEntry]?
         
     init(atPath url: URL,
          fileMode mode: DiskConstants.FileDescriptorMode,

@@ -10,6 +10,9 @@ import Foundation
 
 class WritingDiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger>: DiskEnvUtility<T, U> {
     
+    // Mapping for vocabulary
+    public var mappings: [String: VocabularyMappingEntry]?
+    
     /// Write entire index to disk files, including file names,
     /// postings and positions
     ///

@@ -6,17 +6,17 @@
 //  Copyright © 2018 Oscar Götting. All rights reserved.
 //
 
-struct VocabularyType: Hashable {
+struct VocabularyElement: Hashable {
     
-    let raw: String
+    let type: String
     let stem: String
     
-    static func == (lhs: VocabularyType, rhs: VocabularyType) -> Bool {
-        return lhs.raw == rhs.raw
+    static func == (lhs: VocabularyElement, rhs: VocabularyElement) -> Bool {
+        return lhs.type == rhs.type
     }
     
     init(type: String, stem: String) {
-        self.raw = type
+        self.type = type
         self.stem = stem
     }
 }
