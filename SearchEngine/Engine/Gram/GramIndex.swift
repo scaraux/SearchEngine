@@ -26,8 +26,24 @@ class GramIndex: GramIndexProtocol {
         self.map = map
     }
     
-    private func withTypes<R>(forGram gram: String, mutations: (inout Set<VocabularyElement>) throws -> R) rethrows -> R {
+    private func withTypes<R>(forGram gram: String,
+                              mutations: (inout Set<VocabularyElement>) throws -> R) rethrows -> R {
         return try mutations(&map[gram, default: []])
+    }
+    
+    func getSimilarCandidatesFor(term: String) -> [VocabularyElement]? {
+        var candidates = [VocabularyElement]()
+        let grams = getMatchingGramsForNonWildCard(term: term)!
+        
+        if let newCandidates = self.map[grams[0]] {
+            candidates = Array(newCandidates)
+        }
+        for i in 1 ..< grams.count {
+            if let newCandidates = self.map[grams[i]] {
+                candidates = Array(Set(candidates).union(Set(newCandidates)))
+            }
+        }
+        return candidates.isEmpty ? nil : candidates
     }
     
     func getMatchingCandidatesFor(term: String) -> [VocabularyElement]? {
@@ -58,6 +74,7 @@ class GramIndex: GramIndexProtocol {
     }
 
     func registerGramsFor(vocabularyElement element: VocabularyElement) {
+        // Initialize i to 0
         var i: Int = 0
         // Wrap the term with dollar signs, at beginning and end
         let dollarWrappedType = Constants.DollarSignCharacter + element.type + Constants.DollarSignCharacter
@@ -85,7 +102,39 @@ class GramIndex: GramIndexProtocol {
         }
     }
     
-    func getMatchingGramsFor(term: String) -> [String]? {
+    private func getMatchingGramsForNonWildCard(term: String) -> [String]? {
+        var grams = [String]()
+        // Wrap the term with dollar signs, at beginning and end
+        let term = Constants.DollarSignCharacter + term + Constants.DollarSignCharacter
+        var i: Int = 0
+        // Iterate on subterm characters
+        while i < term.count {
+            var gram: String
+            // Calculate the maximum length for each of the grams we will build from the term
+            // If term length exceeds the maximum gram length we handle in the index, then we will use
+            // this maximum length as reference. Otherwise, the grams will be based on the term length
+            let maximumGramLengthForTerm = term.count >= Constants.MaximumGramLength ?
+                Constants.MaximumGramLength : term.count
+            // If we can't find anymore grams of maximum length from i, jump to next subterm
+            if i + maximumGramLengthForTerm > term.count {
+                break
+            }
+            // If gram is more than 1 character long, we build a substring
+            if maximumGramLengthForTerm > 1 {
+                gram = String(term[i..<(i + maximumGramLengthForTerm)])
+            }
+                // If gram is only one character long, the gram is the character itself
+            else {
+                gram = String(term[i])
+            }
+            // Append gram to the list of grams to be returned
+            grams.append(gram)
+            i += 1
+        }
+        return grams
+    }
+    
+    private func getMatchingGramsFor(term: String) -> [String]? {
         var grams = [String]()
         // Wrap the term with dollar signs, at beginning and end
         let term = Constants.DollarSignCharacter + term + Constants.DollarSignCharacter

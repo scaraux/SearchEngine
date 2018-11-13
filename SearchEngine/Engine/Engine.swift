@@ -82,6 +82,10 @@ class Engine {
                     self.delegate?.onQueryResulted(results: nil)
                 }
             }
+            
+            if SpellingManager.shared.hasSuggestions() {
+                let suggestions: [SpellingSuggestion] = SpellingManager.shared.getSuggestions()
+            }
         }
     }
     

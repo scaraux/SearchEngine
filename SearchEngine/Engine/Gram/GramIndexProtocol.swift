@@ -10,5 +10,6 @@ import Foundation
 
 protocol GramIndexProtocol {
     func registerGramsFor(vocabularyElement: VocabularyElement)
+    func getSimilarCandidatesFor(term: String) -> [VocabularyElement]?
     func getMatchingCandidatesFor(term: String) -> [VocabularyElement]?
 }

@@ -349,9 +349,6 @@ extension SearchViewController {
     
     func onEnvironmentLoaded() {
         postLoadEnv()
-        dialogOKCancel(question: Constants.environmentLoadedMessage,
-                       text: Constants.environmentLoadedDescription,
-                       mode: .informational)
     }
     
     func onEnvironmentLoadingFailed(withError error: String) {

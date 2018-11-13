@@ -20,11 +20,12 @@ class RankedQuery: Queriable {
         self.index = index
         self.terms = []
         self.stemmer = PorterStemmer(withLanguage: .English)!
-        let kGramIndex = index.getKGramIndex()
+
+        let gramIndex = index.getKGramIndex()
         let terms: [String] = bagOfWords.components(separatedBy: " ")
         for term in terms {
             if term.range(of: "*") != nil {
-                if let candidates = kGramIndex.getMatchingCandidatesFor(term: term) {
+                if let candidates = gramIndex.getMatchingCandidatesFor(term: term) {
                     self.terms.append(contentsOf: candidates.map({ $0.stem }))
                 }
             }
@@ -40,11 +41,21 @@ class RankedQuery: Queriable {
         // Iterate over all terms in the query
         for term in terms {
             // Retrieve results that contains the term
-            if let postings: [Posting] = index.getPostingsWithoutPositionsFor(stem: term) {
+            let postings: [Posting]? = index.getPostingsWithoutPositionsFor(stem: term)
+            // Anticipate spelling correction
+            if postings == nil || postings!.count < 1 {
+                // Resolve suggestion
+                if let suggestion: SpellingSuggestion = SpellingSuggestionFactory
+                    .findSuggestion(forMispelledTerm: term, withIndex: index.getKGramIndex()) {
+                    // Add suggestion to pool
+                    SpellingManager.shared.addSuggestion(suggestion)
+                }
+            }
+            if postings != nil {
                 // Calculate wqt
-                let wqt = log(1 + Double(DirectoryCorpus.shared.corpusSize / postings.count))
+                let wqt = log(1 + Double(DirectoryCorpus.shared.corpusSize / postings!.count))
                 // Iterate over all results that contains term
-                for posting: Posting in postings {
+                for posting: Posting in postings! {
                     // Retrieve current document ID
                     let documentId = posting.documentId
                     // Calculate wdt for result based on the frequency of term in document
