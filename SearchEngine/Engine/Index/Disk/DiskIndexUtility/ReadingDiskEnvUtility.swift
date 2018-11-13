@@ -5,6 +5,7 @@
 //  Created by Oscar Götting on 11/11/18.
 //  Copyright © 2018 Oscar Götting. All rights reserved.
 //
+// swiftlint:disable function_body_length
 
 import Foundation
 
@@ -53,6 +54,53 @@ class ReadingDiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger>: DiskEnv
         return nil
     }
     
+    public func getVocabulary() -> [String] {
+        var vocabulary: [String] = []
+        var tableData: Data = Data()
+        var vocabData: Data = Data()
+        let sizeOfOffset =  MemoryLayout<UInt64>.size
+        
+        do {
+            tableData = try Data(contentsOf: self.tableFile.url)
+            vocabData = try Data(contentsOf: self.vocabularyFile.url)
+        } catch {
+            return []
+        }
+        // Initialize index
+        var index = 0
+        // Read the first offset
+        var currentTermOffset: UInt64 = tableData.subdata(in: index..<index + 8).withUnsafeBytes { $0.pointee }
+        
+        while true {
+            // If last term, stop loop
+            if tableData.count < index + sizeOfOffset * 2 + sizeOfOffset {
+                break
+            }
+            // Calculate start range for next offset
+            let rangeStart = index + sizeOfOffset * 2
+            // Calculate end range for next offset
+            let rangeEnd = rangeStart + sizeOfOffset
+            // Calculate next term offset
+            let nextTermOffset: UInt64 = tableData.subdata(in: rangeStart..<rangeEnd).withUnsafeBytes { $0.pointee }
+            // Increment position
+            index += sizeOfOffset * 2
+            // Calculate term length, by substracting offsets
+            let termLength = nextTermOffset - currentTermOffset
+            // Calculate term data start range
+            let termDataRangeStart = Int(currentTermOffset)
+            // Calculate term data end renage
+            let termDataRangeEnd = termDataRangeStart + Int(termLength)
+            // Retrieve term data
+            let termData: Data = vocabData.subdata(in: termDataRangeStart..<termDataRangeEnd)
+            // Append string to vocabulary
+            vocabulary.append(String(bytes: termData, encoding: .utf8)!)
+            // Set current term offset to next
+            currentTermOffset = nextTermOffset
+        }
+        // Return vocabulary
+        return vocabulary
+    }
+    
     public func getWeightForDocument(documentId id: Int) -> Double? {
         // Calculate how many bytes needed to represent desired weight value
         let chunkSize = MemoryLayout<Double>.size
@@ -83,7 +131,7 @@ class ReadingDiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger>: DiskEnv
             typesFileData = try Data(contentsOf: self.typesFile.url)
 
         } catch {
-            
+            return [:]
         }
         
         var gramCounter = 1

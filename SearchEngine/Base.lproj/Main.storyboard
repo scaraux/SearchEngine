@@ -158,7 +158,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Search Engine" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Search Engine v0.2.0" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
@@ -268,17 +268,20 @@
                             </button>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Z7y-zd-xY3" secondAttribute="trailing" constant="301" id="BbK-mU-Ibb"/>
+                            <constraint firstItem="1Kh-YK-jWW" firstAttribute="top" secondItem="KHd-2K-zLQ" secondAttribute="bottom" constant="8" symbolic="YES" id="IU8-3w-Oe1"/>
                             <constraint firstAttribute="trailing" secondItem="3af-oS-MJv" secondAttribute="trailing" constant="20" id="Jf0-1k-LVP"/>
-                            <constraint firstItem="1Kh-YK-jWW" firstAttribute="leading" secondItem="LJr-9E-3PG" secondAttribute="leading" constant="20" id="VhQ-kA-f0D"/>
-                            <constraint firstItem="1Kh-YK-jWW" firstAttribute="top" secondItem="KHd-2K-zLQ" secondAttribute="bottom" constant="8" id="XUi-ps-seR"/>
                             <constraint firstItem="KHd-2K-zLQ" firstAttribute="top" secondItem="LJr-9E-3PG" secondAttribute="top" constant="14" id="dy4-Ts-ZPa"/>
+                            <constraint firstItem="1Kh-YK-jWW" firstAttribute="leading" secondItem="KHd-2K-zLQ" secondAttribute="leading" id="gAy-xo-eqv"/>
                             <constraint firstAttribute="trailing" secondItem="Alf-1C-nMo" secondAttribute="trailing" constant="20" id="ji0-0I-Qnd"/>
-                            <constraint firstItem="Alf-1C-nMo" firstAttribute="top" secondItem="1Kh-YK-jWW" secondAttribute="bottom" constant="8" id="kDQ-Vf-dVe"/>
+                            <constraint firstItem="3af-oS-MJv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KHd-2K-zLQ" secondAttribute="trailing" constant="8" symbolic="YES" id="kGD-kM-0Df"/>
                             <constraint firstItem="3af-oS-MJv" firstAttribute="top" secondItem="LJr-9E-3PG" secondAttribute="top" constant="14" id="mBF-a4-d9N"/>
-                            <constraint firstItem="Z7y-zd-xY3" firstAttribute="leading" secondItem="LJr-9E-3PG" secondAttribute="leading" constant="20" id="qwN-Ul-SNP"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1Kh-YK-jWW" secondAttribute="trailing" constant="20" symbolic="YES" id="qOn-vU-xk3"/>
+                            <constraint firstItem="Z7y-zd-xY3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LJr-9E-3PG" secondAttribute="leading" symbolic="YES" id="qwN-Ul-SNP"/>
                             <constraint firstItem="Alf-1C-nMo" firstAttribute="leading" secondItem="LJr-9E-3PG" secondAttribute="leading" constant="20" id="sY4-6T-idy"/>
                             <constraint firstAttribute="bottom" secondItem="Z7y-zd-xY3" secondAttribute="bottom" constant="17" id="vUS-Hj-r8B"/>
                             <constraint firstItem="KHd-2K-zLQ" firstAttribute="leading" secondItem="LJr-9E-3PG" secondAttribute="leading" constant="20" id="x8P-ER-zJW"/>
+                            <constraint firstItem="Alf-1C-nMo" firstAttribute="top" secondItem="1Kh-YK-jWW" secondAttribute="bottom" constant="8" symbolic="YES" id="ynO-Xd-rQe"/>
                         </constraints>
                     </view>
                     <connections>

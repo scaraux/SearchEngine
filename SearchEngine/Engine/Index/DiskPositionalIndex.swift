@@ -43,8 +43,7 @@ class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProt
     ///
     /// - Returns: A list of terms, as strings
     func getVocabulary() -> [String] {
-        // TODO VOCABULARY
-        return []
+        return self.diskIndexUtility.getVocabulary()
     }
     
     /// Returns the K-Gram index

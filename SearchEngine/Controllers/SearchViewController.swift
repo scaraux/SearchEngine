@@ -308,9 +308,13 @@ extension SearchViewController: NSTableViewDelegate, NSTableViewDataSource {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
          if self.tableViewMode == .queryResultsMode {
-            guard let result = self.queryResults?[row] else {
+            guard let results = self.queryResults else {
                 return nil
             }
+            if results.count == 0 || row >= results.count {
+                return nil
+            }
+            let result = self.queryResults![row]
             if tableColumn == tableView.tableColumns[0] {
                 let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier),
                                               owner: self) as? NSTableCellView
@@ -375,9 +379,9 @@ extension SearchViewController {
             self.queryResults = results
             self.resultsLabel.stringValue = "\(results!.count) result(s)"
         }
+        setTableViewMode(to: .queryResultsMode)
         self.tableView.reloadData()
         self.tableView.sizeLastColumnToFit()
-        setTableViewMode(to: .queryResultsMode)
     }
     
     func onFoundSpellingCorrections(corrections: [SpellingSuggestion]) {
@@ -387,7 +391,8 @@ extension SearchViewController {
     
     func onRequestApplySuggestion(suggestion: SpellingSuggestion) {
         let currentQuery: String = self.queryInput.stringValue
-        let updatedQuery: String = currentQuery.replacingOccurrences(of: suggestion.mispelledTerm, with: suggestion.suggestedTerm)
+        let updatedQuery: String = currentQuery.replacingOccurrences(of: suggestion.mispelledTerm,
+                                                                     with: suggestion.suggestedTerm)
         self.queryInput.stringValue = updatedQuery
     }
 }
