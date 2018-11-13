@@ -9,7 +9,6 @@
 import Foundation
 
 class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProtocol {
-
     /// An Utility class that allows writing index on disk files permanenty
     private var diskIndexUtility: ReadingDiskEnvUtility<T, U>
     /// An Index that holds all K-gram values
@@ -25,9 +24,7 @@ class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProt
     /// - Parameter stem: Is the stemmed version of the term
     /// - Returns: A list of postings that contains the stem
     func getPostingsWithoutPositionsFor(stem: String) -> [Posting]? {
-        let start = DispatchTime.now()
-        let ret = self.diskIndexUtility.getPostings(forTerm: stem, withPositions: false)
-        return ret
+        return self.diskIndexUtility.getPostings(forTerm: stem, withPositions: false)
     }
     
     func getPostingsWithPositionsFor(stem: String) -> [Posting]? {
@@ -55,6 +52,10 @@ class DiskPositionalIndex<T: FixedWidthInteger, U: FixedWidthInteger>: IndexProt
     /// - Returns: A K-Gram index object
     func getKGramIndex() -> GramIndexProtocol {
         return self.kGramIndex
+    }
+
+    func getElements() -> Set<VocabularyElement> {
+        return Set<VocabularyElement>()
     }
     
     /// Release resources used by the index

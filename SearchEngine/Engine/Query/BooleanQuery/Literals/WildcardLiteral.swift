@@ -25,13 +25,13 @@ class WildcardLiteral: Queriable {
             return nil
         }
 
-        if let postings = index.getPostingsWithoutPositionsFor(stem: candidates[0]) {
-            mergedResults = convertToQueryResults(postings: postings, fromTerm: candidates[0])
+        if let postings = index.getPostingsWithoutPositionsFor(stem: candidates[0].stem) {
+            mergedResults = convertToQueryResults(postings: postings, fromTerm: candidates[0].type)
         }
 
         for i in 1 ..< candidates.count {
-            if let postings = index.getPostingsWithoutPositionsFor(stem: candidates[i]) {
-                let newResults = convertToQueryResults(postings: postings, fromTerm: candidates[i])
+            if let postings = index.getPostingsWithoutPositionsFor(stem: candidates[i].stem) {
+                let newResults = convertToQueryResults(postings: postings, fromTerm: candidates[i].type)
                 mergedResults = union(left: mergedResults, right: newResults)
             }
         }

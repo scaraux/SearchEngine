@@ -19,10 +19,11 @@ extension Data {
 
 class ReadingDiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger>: DiskEnvUtility<T, U> {
 
-    var map: [String: Set<String>] = [:]
+    var map: [String: Set<VocabularyElement>] = [:]
     weak var loadDelegate: LoadEnvironmentDelegate?
     
-    private func withTypes<R>(forGram gram: String, mutations: (inout Set<String>) throws -> R) rethrows -> R {
+    private func withTypes<R>(forGram gram: String,
+                              mutations: (inout Set<VocabularyElement>) throws -> R) rethrows -> R {
         return try mutations(&map[gram, default: []])
     }
     
@@ -67,17 +68,20 @@ class ReadingDiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger>: DiskEnv
         return weight
     }
     
-    public func getGramMap() -> [String: Set<String>] {
+    public func getGramMap() -> [String: Set<VocabularyElement>] {
         DispatchQueue.main.async {
             self.loadDelegate?.onLoadingPhaseChanged(phase: .phaseLoadingGrams, withTotalCount: 0)
         }
         
-        var data: Data = Data()
-        var vocabularyData: Data = Data()
-        
+        var gramFileData: Data = Data()
+        var stemsFileData: Data = Data()
+        var typesFileData: Data = Data()
+
         do {
-            data = try Data(contentsOf: self.gramFile.url)
-            vocabularyData = try Data(contentsOf: self.vocabularyFile.url)
+            gramFileData = try Data(contentsOf: self.gramFile.url)
+            stemsFileData = try Data(contentsOf: self.vocabularyFile.url)
+            typesFileData = try Data(contentsOf: self.typesFile.url)
+
         } catch {
             
         }
@@ -86,30 +90,40 @@ class ReadingDiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger>: DiskEnv
         var index = 0
         // Iterate until we reach end of file
         while true {
-            if data.count < index + 4 {
+            if gramFileData.count < index + 4 {
                 break
             }
-            let gramLength: UInt32 = data.subdata(in: index..<index + 4).withUnsafeBytes { $0.pointee }
+            let gramLength: UInt32 = gramFileData.subdata(in: index..<index + 4).withUnsafeBytes { $0.pointee }
             index += 4
-            let gramData: Data = data.subdata(in: index..<index + Int(gramLength))
+            let gramData: Data = gramFileData.subdata(in: index..<index + Int(gramLength))
             index += Int(gramLength)
             // Convert gram data to UTF-8 String
             let gram: String = String(bytes: gramData, encoding: .utf8)!
             // Retrieve the number of types for the current gram
-            let numberOfTypes: UInt32 = data.subdata(in: index..<index + 4).withUnsafeBytes { $0.pointee }
+            let numberOfTypes: UInt32 = gramFileData.subdata(in: index..<index + 4).withUnsafeBytes { $0.pointee }
             index += 4
             // Initialize a type counter
             var typeCounter: Int = 0
             // Repear for each type
             repeat {
-                let typeOffset: UInt64 = data.subdata(in: index..<index + 8).withUnsafeBytes { $0.pointee }
+                let stemOffset: UInt64 = gramFileData.subdata(in: index..<index + 8).withUnsafeBytes { $0.pointee }
                 index += 8
-                let typeLength: UInt32 = data.subdata(in: index..<index + 4).withUnsafeBytes { $0.pointee }
+                let stemLength: UInt32 = gramFileData.subdata(in: index..<index + 4).withUnsafeBytes { $0.pointee }
                 index += 4
-                let typeData: Data = vocabularyData.subdata(in: Int(typeOffset)..<Int(typeOffset) + Int(typeLength))
+                let typeOffset: UInt64 = gramFileData.subdata(in: index..<index + 8).withUnsafeBytes { $0.pointee }
+                index += 8
+                let typeLength: UInt32 = gramFileData.subdata(in: index..<index + 4).withUnsafeBytes { $0.pointee }
+                index += 4
+                
+                let stemData: Data = stemsFileData.subdata(in: Int(stemOffset)..<Int(stemOffset) + Int(stemLength))
+                let typeData: Data = typesFileData.subdata(in: Int(typeOffset)..<Int(typeOffset) + Int(typeLength))
+                
+                let stem: String = String(bytes: stemData, encoding: .utf8)!
                 let type: String = String(bytes: typeData, encoding: .utf8)!
+
+                let element = VocabularyElement(type: type, stem: stem)
                 _ = withTypes(forGram: gram) { types in
-                    types.insert(type)
+                    types.insert(element)
                 }
                 if gramCounter % 250 == 0 {
                     DispatchQueue.main.async {

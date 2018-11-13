@@ -239,8 +239,6 @@ class Engine {
         var documents = documents
         // Creates a PositionalInvertedIndex
         let index = PositionalInvertedIndex()
-        // Create a hashset that will hold terms as unique values
-        var types = Set<VocabularyElement>()
         // Iterate over all documents
         for i in 0..<documents.count {
             // Retrieve current document
@@ -252,25 +250,27 @@ class Engine {
                                                       totalDocuments: documents.count)
             }
             // Process document by adding its terms and types
-            processDocument(index: index, document: &document, types: &types)
+            processDocument(index: index, document: &document)
  
         } // End of iteration over all documents
+        // Retrieve vocabulary elements set
+        let elements: Set<VocabularyElement> = index.getElements()
         // Synchronously notify that K-Gram indexing started
         DispatchQueue.main.async {
-            self.initDelegate?.onInitializationPhaseChanged(phase: .phaseIndexingGrams, withTotalCount: types.count)
+            self.initDelegate?.onInitializationPhaseChanged(phase: .phaseIndexingGrams, withTotalCount: elements.count)
         }
         // Initialize a type counter to 1
         var typeCounter = 1
         // Iterate over all types
-        for vocabularyType in types {
+        for element: VocabularyElement in elements {
             // Synchronously notify that type has been indexed
             DispatchQueue.main.async {
-                self.initDelegate?.onIndexingGrams(forType: vocabularyType.type,
+                self.initDelegate?.onIndexingGrams(forType: element.type,
                                                    typeNb: typeCounter,
-                                                   totalTypes: types.count)
+                                                   totalTypes: elements.count)
             }
             // Register K-Grams for current type
-            index.kGramIndex.registerGramsFor(vocabularyType: vocabularyType)
+            index.kGramIndex.registerGramsFor(vocabularyElement: element)
             // Increment type counter
             typeCounter += 1
         }
@@ -285,9 +285,7 @@ class Engine {
     ///   - index: The index where stems and postings are addes
     ///   - document: The current document to treat
     ///   - types: A list of unique types that appear in documents
-    private func processDocument(index: PositionalInvertedIndex,
-                                 document: inout DocumentProtocol,
-                                 types: inout Set<VocabularyElement>) {
+    private func processDocument(index: PositionalInvertedIndex, document: inout DocumentProtocol) {
         // Open a Stream Reader on document, fail if can't open
         guard let stream = document.getContent() else {
             fatalError("Error: Cannot create stream for file \(document.documentId)")
@@ -311,8 +309,6 @@ class Engine {
             let stem = self.stemWord(word: sanitized)
             // Create Vocabulary Element
             let element = VocabularyElement(type: sanitized, stem: stem)
-            // Insert the element to hashset, uniquely identified by its type
-            types.insert(element)
             // Add the element to the index, at position
             index.addElement(element, withDocumentId: document.documentId, atPosition: position)
             // If its the first time the term appears in document, set to 1

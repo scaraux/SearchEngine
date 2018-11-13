@@ -18,6 +18,8 @@ class DiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
     // The Binary File that associate offsets of term - postings
     public var tableFile: BinaryFile
     // The Binary File that holds Gram Index values
+    public var typesFile: BinaryFile
+    // The Binary File that holds types
     public var gramFile: BinaryFile
     // The URL of the index directory
     public var url: URL
@@ -43,6 +45,9 @@ class DiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
         // Construct Gram file URL
         let gramFileURL = url.appendingPathComponent(DiskConstants.indexDirectoryName, isDirectory: true)
             .appendingPathComponent(DiskConstants.gramDiskFileName)
+        // Construct Types file URL
+        let typesFileURL = url.appendingPathComponent(DiskConstants.indexDirectoryName, isDirectory: true)
+            .appendingPathComponent(DiskConstants.typesDiskFileName)
         
         if mode == .writing {
             self.weightsFile = try BinaryFile.createBinaryFile(atPath: weightsFileURL, for: mode)
@@ -50,6 +55,7 @@ class DiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
             self.vocabularyFile = try BinaryFile.createBinaryFile(atPath: vocabularyFileURL, for: mode)
             self.tableFile = try BinaryFile.createBinaryFile(atPath: tableFileURL, for: mode)
             self.gramFile = try BinaryFile.createBinaryFile(atPath: gramFileURL, for: mode)
+            self.typesFile = try BinaryFile.createBinaryFile(atPath: typesFileURL, for: mode)
 
         } else {
             self.weightsFile = try BinaryFile(atPath: weightsFileURL, for: mode)
@@ -57,6 +63,7 @@ class DiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
             self.vocabularyFile = try BinaryFile(atPath: vocabularyFileURL, for: mode)
             self.tableFile = try BinaryFile(atPath: tableFileURL, for: mode)
             self.gramFile = try BinaryFile(atPath: gramFileURL, for: mode)
+            self.typesFile = try BinaryFile(atPath: typesFileURL, for: mode)
         }
     }
     
@@ -66,5 +73,6 @@ class DiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger> {
         self.vocabularyFile.dispose()
         self.tableFile.dispose()
         self.gramFile.dispose()
+        self.typesFile.dispose()
     }
 }

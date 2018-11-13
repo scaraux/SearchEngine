@@ -9,21 +9,24 @@
 import Foundation
 
 class PositionalInvertedIndex: IndexProtocol {
-    
+
     private(set) var map: [String: [Posting]]
     private(set) var types: [String: String]
     private(set) var kGramIndex: GramIndex
+    private var elements: Set<VocabularyElement>
 
     init() {
         self.map = [:]
         self.types = [:]
         self.kGramIndex = GramIndex()
+        self.elements = Set<VocabularyElement>()
     }
     
     init(withIndex index: [String: [Posting]]) {
         self.map = index
         self.types = [:]
         self.kGramIndex = GramIndex()
+        self.elements = Set<VocabularyElement>()
     }
 
     private func withPostings<R>(forStem stem: String, mutations: (inout [Posting]) throws -> R) rethrows -> R {
@@ -50,6 +53,10 @@ class PositionalInvertedIndex: IndexProtocol {
         return Array(self.map.keys).sorted(by: <)
     }
     
+    func getElements() -> Set<VocabularyElement> {
+        return self.elements
+    }
+
     public func addElement(_ element: VocabularyElement, withDocumentId docId: Int, atPosition position: Int) {
         withPostings(forStem: element.stem) { postings in
             if let posting = postings.last, posting.documentId == docId {
@@ -62,6 +69,7 @@ class PositionalInvertedIndex: IndexProtocol {
             }
         }
         self.types[element.type] = element.stem
+        self.elements.insert(element)
     }
     
     func dispose() {

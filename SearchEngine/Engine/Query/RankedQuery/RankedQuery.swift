@@ -25,7 +25,7 @@ class RankedQuery: Queriable {
         for term in terms {
             if term.range(of: "*") != nil {
                 if let candidates = kGramIndex.getMatchingCandidatesFor(term: term) {
-                    self.terms.append(contentsOf: candidates)
+                    self.terms.append(contentsOf: candidates.map({ $0.stem }))
                 }
             }
             else {

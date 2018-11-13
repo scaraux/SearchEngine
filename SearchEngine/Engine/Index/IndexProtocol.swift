@@ -12,6 +12,7 @@ protocol IndexProtocol {
     func getPostingsWithoutPositionsFor(stem: String) -> [Posting]?
     func getPostingsWithPositionsFor(stem: String) -> [Posting]?
     func getWeightForDocument(documentId: Int) -> Double?
+    func getElements() -> Set<VocabularyElement>
     func getVocabulary() -> [String]
     func getKGramIndex() -> GramIndexProtocol
     func dispose()
