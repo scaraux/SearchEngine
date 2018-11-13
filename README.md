@@ -32,11 +32,14 @@ The engine will access the data in the binary files, by doing offset jumps, seek
 A brief list of concepts that are implemented
 
  - Document Corpus
+ - Ranking (ld/tf-idf formulas)
  - Positional Inverted Index
  - DSP Index on Disk (Document Score Positions)
- - Stemming (Porter Stemmer 2)
- - Postings (tftd, tft, ld etc)
+ - Token Stemming (Porter Stemmer 2)
+ - Spelling Correction (Jaccard Index, Edit Distance)
+ - Postings Mechanism
  - Boolean Query Parser
+ - Wildcard Queries
  - Token Processor
  - K-Gram/N-Gram Index
  - Binary Files, offsets and seeks
@@ -45,6 +48,7 @@ A brief list of concepts that are implemented
  - Swift Dictionaries and COW behavior
  - Swift Dispatch Queues
  - Swift Generics, Unsafe Pointers
+ - More
 
 ## Instructions
 
