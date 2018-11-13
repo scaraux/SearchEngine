@@ -40,6 +40,7 @@
 		D04582DD219AB56800F3C6BE /* String+JaccardIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04582DC219AB56800F3C6BE /* String+JaccardIndex.swift */; };
 		D04582DF219ABB8400F3C6BE /* SpellingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04582DE219ABB8400F3C6BE /* SpellingManager.swift */; };
 		D04582E1219ABEE700F3C6BE /* SpellingSuggestionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04582E0219ABEE700F3C6BE /* SpellingSuggestionFactory.swift */; };
+		D04582E4219B490700F3C6BE /* SpellingCorrectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04582E2219B490700F3C6BE /* SpellingCorrectionViewController.swift */; };
 		D04CDA5C21546864007B8CB2 /* PositionalInvertedIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04CDA5B21546864007B8CB2 /* PositionalInvertedIndex.swift */; };
 		D04CDA5F21546C99007B8CB2 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04CDA5E21546C99007B8CB2 /* Engine.swift */; };
 		D04CDA6121546DA8007B8CB2 /* EngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04CDA6021546DA8007B8CB2 /* EngineDelegate.swift */; };
@@ -119,6 +120,7 @@
 		D04582DC219AB56800F3C6BE /* String+JaccardIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+JaccardIndex.swift"; sourceTree = "<group>"; };
 		D04582DE219ABB8400F3C6BE /* SpellingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellingManager.swift; sourceTree = "<group>"; };
 		D04582E0219ABEE700F3C6BE /* SpellingSuggestionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellingSuggestionFactory.swift; sourceTree = "<group>"; };
+		D04582E2219B490700F3C6BE /* SpellingCorrectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellingCorrectionViewController.swift; sourceTree = "<group>"; };
 		D04CDA5B21546864007B8CB2 /* PositionalInvertedIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionalInvertedIndex.swift; sourceTree = "<group>"; };
 		D04CDA5E21546C99007B8CB2 /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		D04CDA6021546DA8007B8CB2 /* EngineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineDelegate.swift; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 				D040E657214C99C900A487F5 /* SearchViewController.swift */,
 				D0D158E92161EFE700CE1376 /* FilePreviewController.swift */,
 				D014BF3B217414F0003099CD /* CorpusLoadViewController.swift */,
+				D04582E2219B490700F3C6BE /* SpellingCorrectionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -670,6 +673,7 @@
 			files = (
 				D0272E9D21883316001B43DA /* DiskConstants.swift in Sources */,
 				D0766BBA215AF0AD00F6A9B6 /* QueryResult.swift in Sources */,
+				D04582E4219B490700F3C6BE /* SpellingCorrectionViewController.swift in Sources */,
 				D0FEDE42214F35DE0064B3D5 /* Queriable.swift in Sources */,
 				D04CDA5F21546C99007B8CB2 /* Engine.swift in Sources */,
 				D0FEDE4E214F3ABB0064B3D5 /* BooleanQueryParser.swift in Sources */,

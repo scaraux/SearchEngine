@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegate {
+class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegate, SpellingCorrectionDelegate {
 
     enum TableViewDisplayMode {
         case queryResultsMode
@@ -36,6 +36,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     
     var engine = Engine()
     var queryResults: [QueryResult]?
+    var corrections: [SpellingSuggestion]?
     var vocabulary: [String]?
     var tableViewMode: TableViewDisplayMode = .queryResultsMode
     var searchMode: Engine.SearchMode = .ranked
@@ -230,6 +231,13 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
                 self.engine.loadDelegate = vc
             }
         }
+        
+        if segue.identifier == "ShowSpellingCorrectionView" {
+            if let vc = segue.destinationController as? SpellingCorrectionViewController {
+                vc.delegate = self
+                vc.corrections = self.corrections
+            }
+        }
     }
 }
 
@@ -370,5 +378,16 @@ extension SearchViewController {
         self.tableView.reloadData()
         self.tableView.sizeLastColumnToFit()
         setTableViewMode(to: .queryResultsMode)
+    }
+    
+    func onFoundSpellingCorrections(corrections: [SpellingSuggestion]) {
+        self.corrections = corrections
+        performSegue(withIdentifier: "ShowSpellingCorrectionView", sender: nil)
+    }
+    
+    func onRequestApplySuggestion(suggestion: SpellingSuggestion) {
+        let currentQuery: String = self.queryInput.stringValue
+        let updatedQuery: String = currentQuery.replacingOccurrences(of: suggestion.mispelledTerm, with: suggestion.suggestedTerm)
+        self.queryInput.stringValue = updatedQuery
     }
 }

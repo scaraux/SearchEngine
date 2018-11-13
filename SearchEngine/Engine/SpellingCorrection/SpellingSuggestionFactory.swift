@@ -24,13 +24,16 @@ class SpellingSuggestionFactory {
         for result in results {
             // Retrieve type
             let type: String = result.type
+            // Check if type is same as term
+            if type == term {
+                continue
+            }
             // Calculate jaccard coefficient from type to mispelled term
             let jaccardForType = term.jaccardCoefficient(other: type)
             // If jaccard coefficient exceeds threshold
             if jaccardForType > 0.6 {
                 // Calculate edit distance
                 let editDistance = type.minimumEditDistance(other: term)
-//                print("\(term) \(type) \(jaccardForType) \(editDistance)")
                 // If edit distance is lower than current minimum edit distance
                 if editDistance < minimumEditDistance {
                     // Set candidate to type

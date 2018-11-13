@@ -498,9 +498,8 @@
                                                                     <rect key="frame" x="277" y="1" width="251" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f2h-ug-5Mn">
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="f2h-ug-5Mn">
                                                                             <rect key="frame" x="0.0" y="0.0" width="251" height="17"/>
-                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="E4B-Ns-brq">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -508,6 +507,11 @@
                                                                             </textFieldCell>
                                                                         </textField>
                                                                     </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstItem="f2h-ug-5Mn" firstAttribute="centerY" secondItem="CbX-0T-Pq3" secondAttribute="centerY" id="1Ok-U3-7nI"/>
+                                                                        <constraint firstItem="f2h-ug-5Mn" firstAttribute="leading" secondItem="CbX-0T-Pq3" secondAttribute="leading" constant="2" id="RPR-r4-ob8"/>
+                                                                        <constraint firstItem="f2h-ug-5Mn" firstAttribute="centerX" secondItem="CbX-0T-Pq3" secondAttribute="centerX" id="ct9-lJ-Jra"/>
+                                                                    </constraints>
                                                                     <connections>
                                                                         <outlet property="textField" destination="f2h-ug-5Mn" id="NmE-nT-7jc"/>
                                                                     </connections>
@@ -608,11 +612,91 @@
                         <outlet property="searchModeSegmentedControl" destination="b1Z-mc-U8f" id="gfz-cP-AXd"/>
                         <outlet property="tableView" destination="TwL-BO-9Cu" id="xV3-sp-6Oe"/>
                         <segue destination="aKf-FJ-Rol" kind="popover" identifier="ShowCorpusInitView" popoverAnchorView="fbb-9Q-l1B" popoverBehavior="t" preferredEdge="maxY" id="8d5-oj-pRP"/>
+                        <segue destination="yfq-jF-lS6" kind="popover" identifier="ShowSpellingCorrectionView" popoverAnchorView="h9R-CD-7pT" popoverBehavior="t" preferredEdge="maxY" id="kVf-3R-UZB"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="74.5" y="839.5"/>
+        </scene>
+        <!--Spelling Correction View Controller-->
+        <scene sceneID="AZ1-mJ-xxg">
+            <objects>
+                <viewController id="yfq-jF-lS6" customClass="SpellingCorrectionViewController" customModule="SearchEngine" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="lKt-8Y-lAk">
+                        <rect key="frame" x="0.0" y="0.0" width="445" height="101"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CKt-KU-AfG">
+                                <rect key="frame" x="4" y="3" width="75" height="32"/>
+                                <buttonCell key="cell" type="push" title="Apply" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4Ke-Vi-Ww2">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="applyTUI:" target="yfq-jF-lS6" id="OCn-He-oeX"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gLZ-Ff-D3C">
+                                <rect key="frame" x="146" y="3" width="105" height="32"/>
+                                <buttonCell key="cell" type="push" title="Discard All" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uRZ-pw-bQM">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="discardTUI:" target="yfq-jF-lS6" id="XzY-Qf-6II"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8V8-Xn-mlT">
+                                <rect key="frame" x="73" y="3" width="79" height="32"/>
+                                <buttonCell key="cell" type="push" title="Reject" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SyP-cK-PTG">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="rejectTUI:" target="yfq-jF-lS6" id="1cz-Ut-pDI"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8uY-E3-onT">
+                                <rect key="frame" x="8" y="74" width="118" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Spelling correction" id="oV0-44-Fh1">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" red="0.65720212460000005" green="0.68458557129999997" blue="0.68458563090000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UBQ-tv-MVO">
+                                <rect key="frame" x="8" y="47" width="429" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Correction" id="bKc-pG-t83">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="gLZ-Ff-D3C" firstAttribute="centerY" secondItem="CKt-KU-AfG" secondAttribute="centerY" id="4kx-4o-RzF"/>
+                            <constraint firstItem="8V8-Xn-mlT" firstAttribute="centerY" secondItem="CKt-KU-AfG" secondAttribute="centerY" id="5Bm-aa-RQR"/>
+                            <constraint firstItem="8uY-E3-onT" firstAttribute="top" secondItem="lKt-8Y-lAk" secondAttribute="top" constant="10" id="7eN-KE-fUm"/>
+                            <constraint firstItem="UBQ-tv-MVO" firstAttribute="leading" secondItem="lKt-8Y-lAk" secondAttribute="leading" constant="10" id="A2O-l8-due"/>
+                            <constraint firstItem="gLZ-Ff-D3C" firstAttribute="leading" secondItem="8V8-Xn-mlT" secondAttribute="trailing" constant="6" id="A71-oM-FQj"/>
+                            <constraint firstItem="CKt-KU-AfG" firstAttribute="leading" secondItem="lKt-8Y-lAk" secondAttribute="leading" constant="10" id="EYs-Q5-afz"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8uY-E3-onT" secondAttribute="trailing" constant="20" symbolic="YES" id="YTc-4a-75i"/>
+                            <constraint firstItem="8V8-Xn-mlT" firstAttribute="leading" secondItem="CKt-KU-AfG" secondAttribute="trailing" constant="6" id="dA8-B1-ugB"/>
+                            <constraint firstItem="UBQ-tv-MVO" firstAttribute="top" secondItem="8uY-E3-onT" secondAttribute="bottom" constant="10" id="fw8-OI-YeX"/>
+                            <constraint firstAttribute="bottom" secondItem="CKt-KU-AfG" secondAttribute="bottom" constant="10" id="mgb-gA-Vbe"/>
+                            <constraint firstAttribute="trailing" secondItem="UBQ-tv-MVO" secondAttribute="trailing" constant="10" id="ms4-b7-whI"/>
+                            <constraint firstItem="8uY-E3-onT" firstAttribute="leading" secondItem="lKt-8Y-lAk" secondAttribute="leading" constant="10" id="sbe-xq-VHf"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gLZ-Ff-D3C" secondAttribute="trailing" constant="20" symbolic="YES" id="vW5-AH-6iD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="correctionText" destination="bKc-pG-t83" id="QHk-2I-OPM"/>
+                    </connections>
+                </viewController>
+                <customObject id="dQa-n3-L0i" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="74.5" y="1294.5"/>
         </scene>
     </scenes>
 </document>

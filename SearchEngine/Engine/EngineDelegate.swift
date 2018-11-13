@@ -12,6 +12,7 @@ protocol EngineDelegate: class {
     func onEnvironmentLoaded()
     func onEnvironmentLoadingFailed(withError: String)
     func onQueryResulted(results: [QueryResult]?)
+    func onFoundSpellingCorrections(corrections: [SpellingSuggestion])
 }
 
 protocol CreateEnvironmentDelegate: class {

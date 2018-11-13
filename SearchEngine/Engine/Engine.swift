@@ -85,6 +85,9 @@ class Engine {
             
             if SpellingManager.shared.hasSuggestions() {
                 let suggestions: [SpellingSuggestion] = SpellingManager.shared.getSuggestions()
+                DispatchQueue.main.async {
+                    self.delegate?.onFoundSpellingCorrections(corrections: suggestions)
+                }
             }
         }
     }
