@@ -43,6 +43,8 @@ A brief list of concepts that are implemented
  - Token Processor
  - K-Gram/N-Gram Index
  - Binary Files, offsets and seeks
+ - Binary Search in Binary Files
+ - Data Encoding
  - Swift StreamReaders, Data & Buffers
  - Swift Priority Queue/ Binary Heap
  - Swift Dictionaries and COW behavior
