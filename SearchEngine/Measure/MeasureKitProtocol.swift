@@ -10,5 +10,5 @@ import Foundation
 
 protocol MeasureKitProtocol: class {
     func onPrecisionCalculatedForQuery(queryNb: Int, totalQueries: Int)
-    func onMeasurementsReady(totalQueries: Int, meanAveragePrecision: Double)
+    func onMeasurementsReady(measure: Measure)
 }

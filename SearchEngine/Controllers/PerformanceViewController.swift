@@ -7,25 +7,32 @@
 //
 
 import Cocoa
-import Charts
 
 class PerformanceViewController: NSViewController, NSPopoverDelegate {
     
-    var engine: Engine?
-    var path: URL?
-    var averagePrecisions: [Double] = []
-    
     @IBOutlet weak var progressBar: NSProgressIndicator!
-    @IBOutlet weak var statisticChart: LineChartView!
     @IBOutlet weak var currentQueryLabel: NSTextField!
     @IBOutlet weak var queryExecutedLabel: NSTextField!
     @IBOutlet weak var MAPLabel: NSTextField!
+    @IBOutlet weak var MRPLabel: NSTextField!
+    @IBOutlet weak var timeElapsedLabel: NSTextField!
+    @IBOutlet weak var throughputLabel: NSTextField!
+    @IBOutlet weak var avgAccumulatorsLabel: NSTextField!
     @IBOutlet weak var doneButton: NSButtonCell!
+    @IBOutlet weak var startButton: NSButton!
+    
+    var engine: Engine?
+    var measureKit: EngineMeasureKit?
+    var path: URL?
+    var averagePrecisions: [Double] = []
+    var currentSearchMode: Engine.SearchMode = .ranked
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.doneButton.isEnabled = false
+        self.progressBar.doubleValue = 0.0
+        self.progressBar.minValue = 0
         
         guard let path = path else {
             return
@@ -39,40 +46,39 @@ class PerformanceViewController: NSViewController, NSPopoverDelegate {
             return
         }
         
-        self.progressBar.doubleValue = 0.0
-        self.progressBar.minValue = 0
-        self.progressBar.maxValue = 0.0
-        
         measureKit.delegate = self
-        measureKit.start()
+        self.measureKit = measureKit
+    }
+    
+    @IBAction func switchMode(_ sender: Any) {
+        let segmentedControl = sender as! NSSegmentedControl
+        if segmentedControl.selectedSegment == 0 {
+            self.currentSearchMode = .boolean
+        } else if segmentedControl.selectedSegment == 1 {
+            self.currentSearchMode = .ranked
+        }
     }
     
     @IBAction func onDoneTouchUp(_ sender: Any) {
         self.dismiss(nil)
     }
-    //    func updateChart() {
-//        
-//        var lineChartEntry  = [ChartDataEntry]()
-//        
-//        for i in 0..<self.averagePrecisions.count {
-//            let value = ChartDataEntry(x: Double(i), y: self.averagePrecisions[i])
-//            lineChartEntry.append(value)
-//        }
-//        
-//        let line1 = LineChartDataSet(values: lineChartEntry, label: "Number")
-//        line1.colors = [NSUIColor.blue]
-//        line1.mode = .linear
-//        
-//        let data = LineChartData()
-//        data.addDataSet(line1)
-//        
-//        statisticChart.data = data
-//        statisticChart.backgroundColor = NSColor.white
-//        statisticChart.chartDescription?.text = "Average precision / query"
-//    }
     
+    @IBAction func startTouchUp(_ sender: Any) {
+        self.startButton.isEnabled = false
+        self.doneButton.isEnabled = false
+        self.measureKit!.start(withMode: self.currentSearchMode)
+    }
+
     func popoverShouldClose(_ popover: NSPopover) -> Bool {
         return false
+    }
+    
+    private func stringFromTimeInterval(interval: TimeInterval) -> String {
+        let ti = NSInteger(interval)
+        let seconds = ti % 60
+        let minutes = (ti / 60) % 60
+        let hours = (ti / 3600)
+        return String(format: "%0.2d:%0.2d:%0.2d", hours, minutes, seconds)
     }
 }
 
@@ -84,9 +90,13 @@ extension PerformanceViewController: MeasureKitProtocol {
         self.progressBar.increment(by: 1.0)
     }
     
-    func onMeasurementsReady(totalQueries: Int, meanAveragePrecision: Double) {
-        self.queryExecutedLabel.stringValue = String(totalQueries)
-        self.MAPLabel.stringValue = String(meanAveragePrecision.rounded(.toNearestOrEven) / 1000)
+    func onMeasurementsReady(measure: Measure) {
+        self.queryExecutedLabel.stringValue = String(measure.totalQueries)
+        self.MAPLabel.stringValue = String((measure.meanAveragePrecision * 100).rounded() / 100)
+        self.MRPLabel.stringValue = String((measure.meanResponseTime * 100).rounded() / 100) + "ms"
+        self.timeElapsedLabel.stringValue = stringFromTimeInterval(interval: measure.totalTime)
+        self.throughputLabel.stringValue = String((measure.throughPut * 100).rounded() / 100) + " q/s"
+        self.startButton.isEnabled = true
         self.doneButton.isEnabled = true
     }
 }

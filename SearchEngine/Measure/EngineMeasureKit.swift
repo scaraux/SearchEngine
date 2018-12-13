@@ -15,6 +15,7 @@ class EngineMeasureKit {
     var queries: [String] = []
     var relevances: [[Int]] = []
     var precisions: [Double] = []
+    var responseTimes: [Double] = []
     
     weak var delegate: MeasureKitProtocol?
 
@@ -58,31 +59,45 @@ class EngineMeasureKit {
         }
     }
     
-    func start() {
+    func start(withMode mode: Engine.SearchMode) {
+        let startTime = DispatchTime.now()
+        let totalQueries = self.queries.count
+        
         DispatchQueue.global(qos: .userInitiated).async {
-            for i in 0..<self.queries.count {
+            for i in 0..<totalQueries {
                 let query = self.queries[i]
                 let relevantDocumentsForQuery = self.relevances[i]
-                
+                let queryStartTime = DispatchTime.now()
                 let results: [QueryResult] = self.engine.execQuerySync(queryString: query,
-                                                                       mode: .ranked,
+                                                                       mode: mode,
                                                                        maxResults: relevantDocumentsForQuery.count)
                 
-                let queryAveragePrecision = self.calculatePrecision(results: results,
-                                                                    relevantDocuments: relevantDocumentsForQuery)
+                let elapsedTime: Double = self.calculateElapsedTime(from: queryStartTime)
+                self.responseTimes.append(elapsedTime)
+                
+                if mode == .ranked {
+                    let queryAveragePrecision: Double = self.calculatePrecision(results: results,
+                                                                                relevantDocuments: relevantDocumentsForQuery)
+                    self.precisions.append(queryAveragePrecision)
+                }
                 
                 DispatchQueue.main.async {
                     self.delegate?.onPrecisionCalculatedForQuery(queryNb: i, totalQueries: self.queries.count)
                 }
-                
-                self.precisions.append(queryAveragePrecision)
             }
-            
-            let meanAveragePrecision = self.average(self.precisions)
+    
+            let totalTime = self.calculateElapsedTime(from: startTime)
+            let meanResponseTime = self.average(self.responseTimes)
+            let meanAvgPrecision = mode == .ranked ? self.average(self.precisions) : 0.0
+            let throughPut = Double(totalQueries) / totalTime
             
             DispatchQueue.main.async {
-                self.delegate?.onMeasurementsReady(totalQueries: self.queries.count,
-                                                   meanAveragePrecision: meanAveragePrecision)
+                let measure = Measure(totalQueries: totalQueries,
+                                      totalTime: totalTime,
+                                      meanResponseTime: meanResponseTime,
+                                      meanAvgPrecision: meanAvgPrecision,
+                                      throughPut: throughPut)
+                self.delegate?.onMeasurementsReady(measure: measure)
             }
         }
     }
@@ -107,6 +122,12 @@ class EngineMeasureKit {
             return cumulatedPrecisionAtK / relevantDocumentsCount
         }
         return 0.0
+    }
+    
+    private func calculateElapsedTime(from: DispatchTime) -> Double {
+        let end = DispatchTime.now()
+        let nanoTime = end.uptimeNanoseconds - from.uptimeNanoseconds
+        return Double(nanoTime) / 1_000_000_000
     }
     
     func average(_ nums: [Double]) -> Double {
