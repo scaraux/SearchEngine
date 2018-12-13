@@ -13,12 +13,14 @@ import PorterStemmer2
 class RankedQuery: Queriable {
     
     private let index: IndexProtocol
-    private var terms: [String]
     private let stemmer: PorterStemmer
+    private var maxResults: Int
+    private var terms: [String]
     
-    init(withIndex index: IndexProtocol, bagOfWords: String) {
+    init(withIndex index: IndexProtocol, bagOfWords: String, maxResults: Int) {
         self.index = index
         self.terms = []
+        self.maxResults = maxResults
         self.stemmer = PorterStemmer(withLanguage: .English)!
 
         let gramIndex = index.getKGramIndex()
@@ -92,7 +94,7 @@ class RankedQuery: Queriable {
         } // End of dictionary iteration
         // Return results ordered by score
         // Repeat N times
-        for _ in 0..<10 {
+        for _ in 0..<self.maxResults {
             // Pop highest score from priority queue
             if let score: DocumentScore = priorityQueue.pop() {
                 // Retrieve document that belongs to score

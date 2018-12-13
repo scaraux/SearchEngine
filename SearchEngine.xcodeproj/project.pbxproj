@@ -56,6 +56,9 @@
 		D0D158EA2161EFE700CE1376 /* FilePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D158E92161EFE700CE1376 /* FilePreviewController.swift */; };
 		D0D933F621882011006A59DE /* DiskPositionalIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D933F521882011006A59DE /* DiskPositionalIndex.swift */; };
 		D0D933FA21882243006A59DE /* BinaryFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D933F921882243006A59DE /* BinaryFile.swift */; };
+		D0FCB4BC21C21DFF001CCA26 /* PerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FCB4BB21C21DFF001CCA26 /* PerformanceViewController.swift */; };
+		D0FCB4BE21C21E95001CCA26 /* EngineMeasureKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FCB4BD21C21E95001CCA26 /* EngineMeasureKit.swift */; };
+		D0FCB4C121C23C52001CCA26 /* MeasureKitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FCB4C021C23C52001CCA26 /* MeasureKitProtocol.swift */; };
 		D0FEDE42214F35DE0064B3D5 /* Queriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEDE41214F35DE0064B3D5 /* Queriable.swift */; };
 		D0FEDE44214F36140064B3D5 /* TermLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEDE43214F36140064B3D5 /* TermLiteral.swift */; };
 		D0FEDE46214F373E0064B3D5 /* OrQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEDE45214F373E0064B3D5 /* OrQuery.swift */; };
@@ -136,6 +139,9 @@
 		D0D158E92161EFE700CE1376 /* FilePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePreviewController.swift; sourceTree = "<group>"; };
 		D0D933F521882011006A59DE /* DiskPositionalIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskPositionalIndex.swift; sourceTree = "<group>"; };
 		D0D933F921882243006A59DE /* BinaryFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryFile.swift; sourceTree = "<group>"; };
+		D0FCB4BB21C21DFF001CCA26 /* PerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceViewController.swift; sourceTree = "<group>"; };
+		D0FCB4BD21C21E95001CCA26 /* EngineMeasureKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineMeasureKit.swift; sourceTree = "<group>"; };
+		D0FCB4C021C23C52001CCA26 /* MeasureKitProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureKitProtocol.swift; sourceTree = "<group>"; };
 		D0FEDE41214F35DE0064B3D5 /* Queriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queriable.swift; sourceTree = "<group>"; };
 		D0FEDE43214F36140064B3D5 /* TermLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermLiteral.swift; sourceTree = "<group>"; };
 		D0FEDE45214F373E0064B3D5 /* OrQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrQuery.swift; sourceTree = "<group>"; };
@@ -219,6 +225,7 @@
 		D040E654214C99C900A487F5 /* SearchEngine */ = {
 			isa = PBXGroup;
 			children = (
+				D0FCB4BA21C21B48001CCA26 /* Measure */,
 				D0766BBC215C303F00F6A9B6 /* Controllers */,
 				D04CDA5D21546C90007B8CB2 /* Engine */,
 				D040E655214C99C900A487F5 /* AppDelegate.swift */,
@@ -374,6 +381,7 @@
 				D0D158E92161EFE700CE1376 /* FilePreviewController.swift */,
 				D014BF3B217414F0003099CD /* CorpusLoadViewController.swift */,
 				D04582E2219B490700F3C6BE /* SpellingCorrectionViewController.swift */,
+				D0FCB4BB21C21DFF001CCA26 /* PerformanceViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -448,6 +456,15 @@
 				D0D933F921882243006A59DE /* BinaryFile.swift */,
 			);
 			path = BinaryFile;
+			sourceTree = "<group>";
+		};
+		D0FCB4BA21C21B48001CCA26 /* Measure */ = {
+			isa = PBXGroup;
+			children = (
+				D0FCB4BD21C21E95001CCA26 /* EngineMeasureKit.swift */,
+				D0FCB4C021C23C52001CCA26 /* MeasureKitProtocol.swift */,
+			);
+			path = Measure;
 			sourceTree = "<group>";
 		};
 		D0FEDE40214F35B60064B3D5 /* Query */ = {
@@ -588,6 +605,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SearchEngine/Pods-SearchEngine-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/PorterStemmer2/PorterStemmer2.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftPriorityQueue/SwiftPriorityQueue.framework",
 			);
@@ -595,6 +613,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PorterStemmer2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftPriorityQueue.framework",
 			);
@@ -680,6 +699,7 @@
 				D014BF3C217414F0003099CD /* CorpusLoadViewController.swift in Sources */,
 				D04582DD219AB56800F3C6BE /* String+JaccardIndex.swift in Sources */,
 				D0D158EA2161EFE700CE1376 /* FilePreviewController.swift in Sources */,
+				D0FCB4C121C23C52001CCA26 /* MeasureKitProtocol.swift in Sources */,
 				D04CDA6121546DA8007B8CB2 /* EngineDelegate.swift in Sources */,
 				D07B5E2521927BD8007170CB /* Util.swift in Sources */,
 				D040E68F214CA6C300A487F5 /* DocumentCorpusProtocol.swift in Sources */,
@@ -704,12 +724,14 @@
 				D0109A9A219908B200411B19 /* WritingDiskEnvUtility.swift in Sources */,
 				D04582D9219A815000F3C6BE /* SpellingSuggestion.swift in Sources */,
 				D0FEDE48214F38740064B3D5 /* PhraseLiteral.swift in Sources */,
+				D0FCB4BE21C21E95001CCA26 /* EngineMeasureKit.swift in Sources */,
 				D0AD33692163EAE500139F76 /* GramIndexProtocol.swift in Sources */,
 				D0FEDE46214F373E0064B3D5 /* OrQuery.swift in Sources */,
 				D0412D97217D4DEF0051E95A /* Data+Array.swift in Sources */,
 				D0D158E82161932800CE1376 /* WildcardLiteral.swift in Sources */,
 				D040E656214C99C900A487F5 /* AppDelegate.swift in Sources */,
 				D0109A9D21990BB000411B19 /* ReadingDiskEnvUtility.swift in Sources */,
+				D0FCB4BC21C21DFF001CCA26 /* PerformanceViewController.swift in Sources */,
 				D040E691214CA72500A487F5 /* DirectoryCorpus.swift in Sources */,
 				D0D933F621882011006A59DE /* DiskPositionalIndex.swift in Sources */,
 				D040E678214C9B1000A487F5 /* TokenProcessorProtocol.swift in Sources */,

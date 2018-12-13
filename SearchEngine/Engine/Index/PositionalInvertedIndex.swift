@@ -11,20 +11,17 @@ import Foundation
 class PositionalInvertedIndex: IndexProtocol {
 
     private(set) var map: [String: [Posting]]
-    private(set) var types: [String: String]
     private(set) var kGramIndex: GramIndex
     private var elements: Set<VocabularyElement>
 
     init() {
         self.map = [:]
-        self.types = [:]
         self.kGramIndex = GramIndex()
         self.elements = Set<VocabularyElement>()
     }
     
     init(withIndex index: [String: [Posting]]) {
         self.map = index
-        self.types = [:]
         self.kGramIndex = GramIndex()
         self.elements = Set<VocabularyElement>()
     }
@@ -68,7 +65,6 @@ class PositionalInvertedIndex: IndexProtocol {
                 postings.append(posting)                
             }
         }
-        self.types[element.type] = element.stem
         self.elements.insert(element)
     }
     

@@ -24,7 +24,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         static let environmentNotLoadedMessage: String = "Environment not loaded"
         static let selectDirectoryMessage: String = "Select a directory"
     }
-
+    
     @IBOutlet weak var directoryPathLabel: NSTextField!
     @IBOutlet weak var queryInput: NSTextField!
     @IBOutlet weak var tableView: NSTableView!
@@ -43,6 +43,7 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     var timeStamp: DispatchTime?
     var isEnvironmentLoaded: Bool = false
     var isQueryExecuting: Bool = false
+    var performanceDirectoryPath: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,9 +111,9 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
     }
     
     private func triggerQuery() {
-        preQuery()
         let queryString = self.queryInput.stringValue
         if queryString.isEmpty == false {
+            preQuery()
             self.engine.execQuery(queryString: queryString, mode: self.searchMode)
         }
         else {
@@ -185,10 +186,10 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
         }
     }
     
-    private func pickBaseFolderWithModal() -> URL? {
+    private func selectDirectoryWithModal(withTitle title: String) -> URL? {
         let openPanel = NSOpenPanel()
-        openPanel.title = Constants.selectDirectoryMessage
-        openPanel.message = Constants.selectDirectoryMessage
+        openPanel.title = title
+        openPanel.message = title
         openPanel.directoryURL = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask)[0]
         openPanel.showsResizeIndicator = true
         openPanel.canChooseDirectories = true
@@ -232,6 +233,13 @@ class SearchViewController: NSViewController, NSTextFieldDelegate, EngineDelegat
             }
         }
         
+        if segue.identifier == "ShowPerformanceView" {
+            if let vc = segue.destinationController as? PerformanceViewController {
+                vc.engine = self.engine
+                vc.path = self.performanceDirectoryPath
+            }
+        }
+        
         if segue.identifier == "ShowSpellingCorrectionView" {
             if let vc = segue.destinationController as? SpellingCorrectionViewController {
                 vc.delegate = self
@@ -257,7 +265,7 @@ extension SearchViewController {
     }
     
     @IBAction func newEnvironment(_ sender: Any) {
-        if let path = pickBaseFolderWithModal() {
+        if let path = selectDirectoryWithModal(withTitle: Constants.selectDirectoryMessage) {
             self.directoryPathLabel.stringValue = "/" + path.lastPathComponent
             performSegue(withIdentifier: "ShowCorpusInitView", sender: self)
             self.engine.newEnvironment(withPath: path)
@@ -265,11 +273,18 @@ extension SearchViewController {
     }
     
     @IBAction func openEnvironment(_ sender: Any) {
-        if let path = pickBaseFolderWithModal() {
+        if let path = selectDirectoryWithModal(withTitle: Constants.selectDirectoryMessage) {
             self.directoryPathLabel.stringValue = "/" + path.lastPathComponent
             preLoadEnv()
             performSegue(withIdentifier: "ShowCorpusInitView", sender: self)
             self.engine.loadEnvironment(withPath: path)
+        }
+    }
+    
+    @IBAction func perfTestTouchUp(_ sender: Any) {
+        if let path = selectDirectoryWithModal(withTitle: Constants.selectDirectoryMessage) {
+            self.performanceDirectoryPath = path
+            performSegue(withIdentifier: "ShowPerformanceView", sender: self)
         }
     }
     

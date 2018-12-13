@@ -47,7 +47,8 @@ class Engine {
     /// - Parameters:
     ///   - queryString: Is the string describing the query
     ///   - mode: Is the mode used to search results, Boolean or Ranked
-    func execQuery(queryString: String, mode: SearchMode) {
+    ///   - maxResults: The maximum returned results in Ranked mode
+    func execQuery(queryString: String, mode: SearchMode, maxResults: Int = 10) {
         // Check if Index is defined, otherwise fail
         guard let index = self.index else {
             print("No environment selected !")
@@ -62,7 +63,7 @@ class Engine {
         // If Search Mode is Ranked Retrieval, we instantiate a Ranked
         // Query object
         else {
-            query = RankedQuery(withIndex: index, bagOfWords: queryString)
+            query = RankedQuery(withIndex: index, bagOfWords: queryString, maxResults: maxResults)
         }
         // Place in Thread
         DispatchQueue.global(qos: .userInteractive).async {
@@ -89,6 +90,37 @@ class Engine {
                     self.delegate?.onFoundSpellingCorrections(corrections: suggestions)
                 }
             }
+        }
+    }
+    
+    /// Executes a query from a given query string, synchronously
+    /// For regular purposes, use the regular execQuery method that
+    /// is asynchronous.
+    func execQuerySync(queryString: String, mode: SearchMode, maxResults: Int = 10) -> [QueryResult] {
+        // Check if Index is defined, otherwise fail
+        guard let index = self.index else {
+            print("No environment selected !")
+            return []
+        }
+        // Declare a Queriable object
+        let query: Queriable?
+        // If Search Mode is Boolean Retrieval, we parse the query
+        if mode == .boolean {
+            query = booleanQueryParser.parseQuery(query: queryString)
+        }
+        // If Search Mode is Ranked Retrieval, we instantiate a Ranked
+        // Query object
+        else {
+            query = RankedQuery(withIndex: index, bagOfWords: queryString, maxResults: maxResults)
+        }
+        // Retrieve results for Queriable object
+        if let results: [QueryResult] = query?.getResultsFrom(index: index) {
+            // Attach document to results and return
+            return self.attachDocumentsToResults(results: results)
+        }
+        else {
+            // If no results, return empty results
+            return []
         }
     }
     
@@ -224,12 +256,6 @@ class Engine {
         }
     }
 
-    private func calculateElapsedTime(from: DispatchTime) -> Double {
-        let end = DispatchTime.now()
-        let nanoTime = end.uptimeNanoseconds - from.uptimeNanoseconds
-        return Double(nanoTime) / 1_000_000_000
-    }
-    
     private func retrieveDocuments(completion: @escaping ([DocumentProtocol]) -> Void) {
         let docs: [DocumentProtocol] = DirectoryCorpus.shared.getDocuments()
         completion(docs)
@@ -329,7 +355,8 @@ class Engine {
         }
         // Iterate over all frequencies and calculate document weight
         for freq in frequencies {
-            documentWeigth += pow(1 + log(Double(freq.value)), 2.0)
+            let wdt: Double = 1 + log(Double(freq.value))
+            documentWeigth += pow(wdt, 2.0)
         }
         // Set the weight in document
         document.weight = sqrt(documentWeigth)
@@ -340,5 +367,11 @@ class Engine {
             queryResult.document = DirectoryCorpus.shared.getFileDocumentWith(id: queryResult.documentId)
         }
         return results
+    }
+    
+    private func calculateElapsedTime(from: DispatchTime) -> Double {
+        let end = DispatchTime.now()
+        let nanoTime = end.uptimeNanoseconds - from.uptimeNanoseconds
+        return Double(nanoTime) / 1_000_000_000
     }
 }
