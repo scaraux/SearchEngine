@@ -1,26 +1,20 @@
 PODS:
-  - Charts (3.2.1):
-    - Charts/Core (= 3.2.1)
-  - Charts/Core (3.2.1)
   - PorterStemmer2 (0.1.0)
   - SwiftPriorityQueue (1.2.1)
 
 DEPENDENCIES:
-  - Charts
   - PorterStemmer2
   - SwiftPriorityQueue
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Charts
     - PorterStemmer2
     - SwiftPriorityQueue
 
 SPEC CHECKSUMS:
-  Charts: f122fb70b19847fa5817d018b77d6c5a2296ab25
   PorterStemmer2: 6df20d36f522f863cff899190db0100ccc08205e
   SwiftPriorityQueue: 2ce5768829a9ef84d8b8fec5e73546d72ee3d8f6
 
-PODFILE CHECKSUM: 2d691eacdbe0cbf0ff7a1abe167da29232a9fead
+PODFILE CHECKSUM: 15f1bfd7d06de2f24d67b349e844de46f1c8dedb
 
 COCOAPODS: 1.6.0.beta.1

@@ -605,7 +605,6 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SearchEngine/Pods-SearchEngine-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/PorterStemmer2/PorterStemmer2.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftPriorityQueue/SwiftPriorityQueue.framework",
 			);
@@ -613,7 +612,6 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PorterStemmer2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftPriorityQueue.framework",
 			);

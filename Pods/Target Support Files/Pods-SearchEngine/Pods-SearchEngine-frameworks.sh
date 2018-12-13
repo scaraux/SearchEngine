@@ -148,12 +148,10 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/Charts/Charts.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PorterStemmer2/PorterStemmer2.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftPriorityQueue/SwiftPriorityQueue.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/Charts/Charts.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PorterStemmer2/PorterStemmer2.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftPriorityQueue/SwiftPriorityQueue.framework"
 fi

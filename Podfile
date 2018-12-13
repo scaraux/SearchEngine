@@ -7,7 +7,6 @@ target 'SearchEngine' do
 
   pod 'PorterStemmer2'
   pod 'SwiftPriorityQueue'
-  pod 'Charts'
  
   target 'SearchEngineTests' do
     inherit! :search_paths
