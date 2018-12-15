@@ -15,6 +15,7 @@
 		D0272E9D21883316001B43DA /* DiskConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0272E9C21883316001B43DA /* DiskConstants.swift */; };
 		D0333344219905170098D75E /* VocabularyElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0333343219905170098D75E /* VocabularyElement.swift */; };
 		D0333346219908730098D75E /* VocabularyMappingEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0333345219908730098D75E /* VocabularyMappingEntry.swift */; };
+		D03BEB1321C49870006A5E87 /* PreliminaryObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03BEB1221C49870006A5E87 /* PreliminaryObservation.swift */; };
 		D040E656214C99C900A487F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E655214C99C900A487F5 /* AppDelegate.swift */; };
 		D040E658214C99C900A487F5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040E657214C99C900A487F5 /* SearchViewController.swift */; };
 		D040E65A214C99CB00A487F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D040E659214C99CB00A487F5 /* Assets.xcassets */; };
@@ -94,6 +95,7 @@
 		D0272E9C21883316001B43DA /* DiskConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskConstants.swift; sourceTree = "<group>"; };
 		D0333343219905170098D75E /* VocabularyElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyElement.swift; sourceTree = "<group>"; };
 		D0333345219908730098D75E /* VocabularyMappingEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyMappingEntry.swift; sourceTree = "<group>"; };
+		D03BEB1221C49870006A5E87 /* PreliminaryObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreliminaryObservation.swift; sourceTree = "<group>"; };
 		D040E652214C99C900A487F5 /* SearchEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D040E655214C99C900A487F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D040E657214C99C900A487F5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -466,6 +468,7 @@
 				D0FCB4BD21C21E95001CCA26 /* EngineMeasureKit.swift */,
 				D0FCB4C021C23C52001CCA26 /* MeasureKitProtocol.swift */,
 				D0FCB4C221C24C12001CCA26 /* Measure.swift */,
+				D03BEB1221C49870006A5E87 /* PreliminaryObservation.swift */,
 			);
 			path = Measure;
 			sourceTree = "<group>";
@@ -714,6 +717,7 @@
 				D04582E1219ABEE700F3C6BE /* SpellingSuggestionFactory.swift in Sources */,
 				D079B5B7218FB6450034255D /* RankedQuery.swift in Sources */,
 				D040E685214CA1FB00A487F5 /* StreamReader.swift in Sources */,
+				D03BEB1321C49870006A5E87 /* PreliminaryObservation.swift in Sources */,
 				D040E67D214C9BAA00A487F5 /* IndexProtocol.swift in Sources */,
 				D0D158E6215F035100CE1376 /* GramIndex.swift in Sources */,
 				D04CDA5C21546864007B8CB2 /* PositionalInvertedIndex.swift in Sources */,

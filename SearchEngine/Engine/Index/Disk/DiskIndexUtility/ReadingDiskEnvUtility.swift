@@ -198,6 +198,8 @@ class ReadingDiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger>: DiskEnv
         let posting = Posting(withDocumentId: Int(id), forTerm: term)
         // Set wdt in posting
         posting.wdt = wdt
+        // Set tftd in posting
+        posting.frequency = Int(tftd)
         // If we need positions in the posting
         if withPositions == true {
             // The last gap for position

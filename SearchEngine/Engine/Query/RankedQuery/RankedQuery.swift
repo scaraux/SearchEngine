@@ -54,10 +54,20 @@ class RankedQuery: Queriable {
                 }
             }
             if postings != nil {
-                // Calculate wqt
+                // Calculate wqt ??
                 let wqt = log(1 + Double(DirectoryCorpus.shared.corpusSize / postings!.count))
+                // Pick hightest frequency (ordered by decreasing frequency)
+                let firstFrequency = Double(postings!.first!.frequency)
+                // Calculate threshold frequency
+                let thresholdFrequency: Double = firstFrequency * 0.0
+//                print("new posting list " + String(firstFrequency) + " " + String(thresholdFrequency))
                 // Iterate over all results that contains term
                 for posting: Posting in postings! {
+                    // Postings are ordered by decreasing tftd. If this value drops under threshold
+                    // we stop traversing postings
+//                    if Double(posting.frequency) < thresholdFrequency {
+//                        break
+//                    }
                     // Retrieve current document ID
                     let documentId = posting.documentId
                     // Calculate wdt for result based on the frequency of term in document
@@ -69,7 +79,7 @@ class RankedQuery: Queriable {
                     // Increase accumulator value if exsits
                     scores[documentId]!.accumulator += (wdt * wqt)
                     scores[documentId]!.addMatchingTerm(term: term)
-                } // End of results iteration
+                } // End of results iteration                
             }
         } // End of terms iteration
         // Return ranked documents from accumulator dictionary
@@ -99,10 +109,15 @@ class RankedQuery: Queriable {
             if let score: DocumentScore = priorityQueue.pop() {
                 // Retrieve document that belongs to score
                 let queryResult = QueryResult(Posting(withDocumentId: score.documentId), terms: score.matchingTerms)
+                // Set accumulators count (used measurement value)
+                queryResult.totalAccumulators = priorityQueue.count
                 // Set score
                 queryResult.score = score.score
                 // Append result
                 results.append(queryResult)
+            }
+            if priorityQueue.isEmpty {
+                break
             }
         }
         // Return the results

@@ -15,6 +15,7 @@ class QueryResult {
     var posting: Posting
     var matchingForTerms: [String]
     var score: Double
+    var totalAccumulators: Int
     
     init(_ posting: Posting, term: String) {
         self.posting = posting
@@ -22,6 +23,7 @@ class QueryResult {
         self.matchingForTerms = [String]()
         self.matchingForTerms.append(term)
         self.score = 0.0
+        self.totalAccumulators = 0
     }
     
     init(_ posting: Posting, terms: [String]) {
@@ -29,6 +31,7 @@ class QueryResult {
         self.documentId = self.posting.documentId
         self.matchingForTerms = terms
         self.score = 0.0
+        self.totalAccumulators = 0
     }
     
     func addMatchingTerm(_ term: String) {

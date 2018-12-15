@@ -30,6 +30,13 @@ class PositionalInvertedIndex: IndexProtocol {
         return try mutations(&map[stem, default: []])
     }
 
+    func getPostingsOrderedByDecreasingTftdFor(stem: String) -> [Posting]? {
+        if let postings: [Posting] = self.map[stem] {
+            return postings.sorted(by: { $0.frequency > $1.frequency })
+        }
+        return nil
+    }
+    
     func getPostingsWithoutPositionsFor(stem: String) -> [Posting]? {
         return self.map[stem]
     }

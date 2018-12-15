@@ -14,9 +14,7 @@ class Posting {
     private(set) var positions: [Int]
     private(set) var term: String
     var wdt: Double = 0.0
-    var frequency: Int {
-        return positions.count
-    }
+    var frequency: Int = 0
 
     init(withDocumentId id: Int, forTerm term: String = "") {
         self.documentId = id
@@ -26,6 +24,7 @@ class Posting {
     
     func addPosition(_ position: Int) {
         self.positions.append(position)
+        self.frequency += 1
     }
     
     func calculateWdt() -> Double {

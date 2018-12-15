@@ -158,7 +158,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Search Engine v0.2.0" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Search Engine v0.2.1 (Impacted)" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
@@ -474,7 +474,7 @@
                             <constraint firstItem="6B4-qN-9OU" firstAttribute="top" secondItem="2F2-n9-mOc" secondAttribute="bottom" constant="8" id="PGR-mJ-Hgk"/>
                             <constraint firstAttribute="trailing" secondItem="cZD-uu-41D" secondAttribute="trailing" constant="20" id="PmL-tJ-yx1"/>
                             <constraint firstAttribute="trailing" secondItem="6B4-qN-9OU" secondAttribute="trailing" constant="426" id="Qle-qJ-VFR"/>
-                            <constraint firstItem="6B4-qN-9OU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7Lh-aH-6zO" secondAttribute="leading" symbolic="YES" id="Sxa-d6-I6X"/>
+                            <constraint firstItem="6B4-qN-9OU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7Lh-aH-6zO" secondAttribute="leading" constant="20" symbolic="YES" id="Sxa-d6-I6X"/>
                             <constraint firstItem="Dpn-Vh-0a0" firstAttribute="top" secondItem="CsU-OD-gRe" secondAttribute="bottom" constant="8" id="Un0-W9-TL4"/>
                             <constraint firstItem="1kz-qF-iTP" firstAttribute="leading" secondItem="7Lh-aH-6zO" secondAttribute="leading" constant="20" id="VKy-ug-x08"/>
                             <constraint firstItem="CsU-OD-gRe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="S1N-8N-r8g" secondAttribute="trailing" constant="8" symbolic="YES" id="XAU-SU-Lhr"/>
@@ -500,7 +500,7 @@
                     <connections>
                         <outlet property="MAPLabel" destination="1kz-qF-iTP" id="xdF-l0-V6b"/>
                         <outlet property="MRPLabel" destination="N6m-qf-1Sy" id="f3h-Xx-jeT"/>
-                        <outlet property="avgAccumulatorsLabel" destination="2F2-n9-mOc" id="CO5-fX-lKQ"/>
+                        <outlet property="avgAccumulatorsLabel" destination="6B4-qN-9OU" id="eEY-f6-gUP"/>
                         <outlet property="currentQueryLabel" destination="SzN-1o-hmN" id="Il2-jG-7Y7"/>
                         <outlet property="doneButton" destination="OCJ-b9-PuE" id="M6O-O7-07B"/>
                         <outlet property="progressBar" destination="cZD-uu-41D" id="jXT-vR-aMf"/>
@@ -679,7 +679,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="UUg-ld-yKh">
-                                                                    <rect key="frame" x="89.5" y="1" width="184" height="17"/>
+                                                                    <rect key="frame" x="90" y="1" width="184" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="9xY-pB-ce7">

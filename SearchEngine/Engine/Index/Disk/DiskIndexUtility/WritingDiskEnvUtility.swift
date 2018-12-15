@@ -104,11 +104,13 @@ class WritingDiskEnvUtility<T: FixedWidthInteger, U: FixedWidthInteger>: DiskEnv
     }
     
     private func writePostings(_ vocabulary: [String], _ index: IndexProtocol) -> [UInt64] {
+        let index = index as! PositionalInvertedIndex
         // Iterate over all terms in vocabulary
         for i in 0..<vocabulary.count {
             // Retrieve the term
             let term = vocabulary[i]
             // Retrive the postings list for the term
+//            guard let postings: [Posting] = index.getPostingsOrderedByDecreasingTftdFor(stem: term) else {
             guard let postings: [Posting] = index.getPostingsWithPositionsFor(stem: term) else {
                 fatalError("Error while generating postings binary file.")
             }
