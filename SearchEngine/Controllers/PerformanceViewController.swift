@@ -68,7 +68,7 @@ class PerformanceViewController: NSViewController, NSPopoverDelegate {
         self.doneButton.isEnabled = false
         self.measureKit!.start(withMode: self.currentSearchMode)
     }
-
+    
     func popoverShouldClose(_ popover: NSPopover) -> Bool {
         return false
     }
@@ -92,8 +92,9 @@ extension PerformanceViewController: MeasureKitProtocol {
     
     func onMeasurementsReady(measure: Measure) {
         self.queryExecutedLabel.stringValue = String(measure.totalQueries)
-        self.MAPLabel.stringValue = String((measure.meanAveragePrecision * 100).rounded() / 100)
+        self.MAPLabel.stringValue = String((measure.meanAveragePrecision * 100).rounded()) + "%"
         self.MRPLabel.stringValue = String((measure.meanResponseTime * 100).rounded() / 100) + "ms"
+        self.avgAccumulatorsLabel.stringValue = String((measure.meanAverageAccumulators * 100).rounded() / 100)
         self.timeElapsedLabel.stringValue = stringFromTimeInterval(interval: measure.totalTime)
         self.throughputLabel.stringValue = String((measure.throughPut * 100).rounded() / 100) + " q/s"
         self.startButton.isEnabled = true
