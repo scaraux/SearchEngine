@@ -1,3 +1,5 @@
+## DISCLAIMER: This repository is not maintainted anymore. I don't have time for it anymore. Feel free check out the code and play with it.
+
 # Search Engine
 
   
